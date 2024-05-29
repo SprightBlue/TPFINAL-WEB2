@@ -1,0 +1,30 @@
+html, body {
+    margin: 0;
+    height: 100%;          
+}
+
+body {
+    direction: flex; 
+    flex-direction: column; 
+    min-height: 100vh;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "balooregular", sans-serif; 
+}
+
+nav {
+    background-color: #F9AD30;
+}
+
+footer {
+    background-color: #2C346B;
+    margin-top: auto
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

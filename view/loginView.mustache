@@ -1,0 +1,37 @@
+<div class="container my-5" style="min-height:60vh">
+    <div class="row d-flex flex-column justify-content-center align-items-center">
+        <div class="col-sm-5 border border-1 rounded" style="background-color: #F9AD30">
+            <form class="p-5" action="/login/get" method="POST">
+                <h2 class="text-center mb-3">Iniciar Sesión</h2>
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" name="username" id="username" placeholder="Ingresar nombre de usuario" required>
+                    <label for="email">Nombre de Usuario</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="password" name="pass" id="pass" placeholder="Ingresar contraseña" required>
+                    <label for="password">Contraseña</label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 d-flex flex-column justify-content-center align-items-center">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <input class="btn btn-dark" type="submit" name="enviar" id="enviar" value="Ingresar">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 d-flex flex-column justify-content-center align-items-center">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <a class="btn btn-dark" href="/registro/read">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+                {{#error}}
+                    <div class="d-flex flex-column justify-content-center m-3">
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong>Error: </strong><span>{{error}}</span>
+                        </div>
+                    </div>
+                {{/error}}
+            </form>
+        </div>
+    </div>
+</div>  
