@@ -9,6 +9,7 @@
     include_once("vendor/mustache/src/Mustache/Autoloader.php");
     include_once("vendor/PHPMailer/src/PHPMailer.php");
     include_once("vendor/PHPMailer/src/Exception.php");
+include_once("vendor/PHPMailer/src/SMTP.php");
 
     include_once("model/RegistroModel.php");
     include_once("controller/RegistroController.php");
@@ -66,7 +67,7 @@
         }
 
         public static function getRouter() {
-            return new Router("getHomeController", "read");
+            return new Router("getLoginController", "read");
         }
 
         public static function getPresenter() {

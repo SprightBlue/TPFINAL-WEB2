@@ -48,10 +48,20 @@
             ":email"=>$email, ":pass"=>$pass, ":username"=>$username, ":profilePicture"=>$profilePicture));
         }
 
+        public function emailExists($email) {
+            $stmt = $this->conn->prepare("SELECT * FROM usuario WHERE email=:email");
+            $stmt->execute(array(":email"=>$email));
+            return $stmt->rowCount() > 0;
+        }
+
+        public function usernameExists($username) {
+            $stmt = $this->conn->prepare("SELECT * FROM usuario WHERE username=:username");
+            $stmt->execute(array(":username"=>$username));
+            return $stmt->rowCount() > 0;
+        }
         public function __destruct() {
             $this->conn = null;
         }
 
     }
 
-?>

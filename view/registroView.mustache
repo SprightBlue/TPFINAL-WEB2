@@ -50,14 +50,9 @@
                 </div>       
                 <div class="mb-3">
                     <input type="submit" class="btn btn-dark" name="registrarse" id="registrarse" value="Registrarse">
-                </div> 
+                </div>
                 {{#error}}
-                    <div class="d-flex flex-column justify-content-center m-3">
-                        <div class="alert alert-danger alert-dismissible fade show">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            <strong>Error: </strong><span>{{error}}</span>
-                        </div>
-                    </div> 
+                    <div class="alert alert-danger mt-2">{{{error}}}</div>
                 {{/error}}
             </form>
         </div>
