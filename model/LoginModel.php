@@ -9,7 +9,18 @@
         }
 
         public function loginUser($username, $pass) {
-            return $this->database->getUser($username, $pass);
+            $errors = [];
+            $user = $this->database->getUser($username, $pass);
+            if($user == false) {
+                $errors[] = "El usuario y/o contraseña incorrectos.";
+            } else if ($user["active"] == 0) {
+                $errors[] = "Debes verificar tu correo electrónico antes de poder iniciar sesión.";
+            }
+            if(!empty($errors)) {
+                $_SESSION["errorLogin"] = $errors;
+                throw new Exception(implode(" ", $errors));
+            }
+            return $user;
         }
 
     }
