@@ -12,7 +12,12 @@
 
         public function read() {
             $usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : ""; 
-            $this->presenter->render("view/homeView.mustache", ["usuario"=>$usuario]);
+            if($usuario) {
+                $this->presenter->render("view/homeView.mustache", ["usuario"=>$usuario]);
+            }else {
+                Redirect::to("/login/read");
+            }
+            
         }
 
     }

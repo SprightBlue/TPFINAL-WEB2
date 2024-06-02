@@ -26,7 +26,7 @@
             $pass = $_POST["pass"];
             $repeatPass = $_POST["repeatPass"];
             $username = $_POST["username"];
-            $img = $_FILES["img"];
+            $img = isset($_FILES["img"]) ? $_FILES["img"] : "";
             try {
                 $this->model->createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img);
                 Redirect::to("/login/read");

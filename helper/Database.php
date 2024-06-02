@@ -47,19 +47,6 @@
             }
         }
 
-        //pa luego
-        public function deleteUser($id) {
-            $stmt = $this->conn->prepare("DELETE FROM usuario WHERE id=:id");
-            $stmt->execute(array(":id"=>$id));
-        }
-
-        public function updateUser($id, $fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $username, $profilePicture) {
-            $stmt = $this->conn->preapre("UPDATE FROM usuario SET fullname=:fullname, yearOfBirth=:yearOfBirth, gender=:gender, country=:country,
-            city=:city, email=:email, pass=:pass, username=:username, profilePicture=:profilePicture WHERE id=:id");
-            $stmt->execute(array(":fullname"=>$fullname, ":yearOfBirth"=>$yearOfBirth, ":gender"=>$gender, ":country"=>$country, ":city"=>$city,
-            ":email"=>$email, ":pass"=>$pass, ":username"=>$username, ":profilePicture"=>$profilePicture));
-        }
-
         public function __destruct() {
             $this->conn = null;
         }

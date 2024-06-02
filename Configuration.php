@@ -67,7 +67,7 @@
         }
 
         public static function getRouter() {
-            return new Router("getLoginController", "read");
+            return new Router("getHomeController", "read");
         }
 
         public static function getPresenter() {
