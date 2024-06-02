@@ -15,6 +15,7 @@
             $_SESSION["errorLogin"] = "";
             $this->presenter->render("view/loginView.mustache", ["error"=>$error]);
         }
+        
         public function get() {
             $user = $this->model->loginUser($_POST["username"], $_POST["pass"]);
             if($user == false) {
