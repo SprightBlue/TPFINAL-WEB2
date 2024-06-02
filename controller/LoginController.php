@@ -20,7 +20,7 @@
             try {
                 $user = $this->model->loginUser($_POST["username"], $_POST["pass"]);
                 $_SESSION["usuario"] = $user;
-                Redirect::to("/home/read");                
+                Redirect::to("/lobby/read");                
             } catch(Exception $e) {
                 $_SESSION["error"] = $e->getMessage();
                 Redirect::to("/login/read");

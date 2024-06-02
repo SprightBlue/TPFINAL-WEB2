@@ -17,8 +17,8 @@
     include_once("model/LoginModel.php");
     include_once("controller/LoginController.php");
 
-    include_once("model/HomeModel.php");
-    include_once("controller/HomeController.php");
+    include_once("model/LobbyModel.php");
+    include_once("controller/LobbyController.php");
 
     include_once("model/ProfileModel.php");
     include_once("controller/ProfileController.php");
@@ -50,12 +50,12 @@
             return new LoginModel(self::getDatabase());
         }
 
-        public static function getHomeController() {
-            return new HomeController(self::getHomeModel(), self::getPresenter());
+        public static function getLobbyController() {
+            return new LobbyController(self::getLobbyModel(), self::getPresenter());
         }
 
-        private static function getHomeModel() {
-            return new HomeModel(self::getDatabase());
+        private static function getLobbyModel() {
+            return new LobbyModel(self::getDatabase());
         }
 
         public static function getProfileController() {
@@ -67,7 +67,7 @@
         }
 
         public static function getRouter() {
-            return new Router("getHomeController", "read");
+            return new Router("getLobbyController", "read");
         }
 
         public static function getPresenter() {
