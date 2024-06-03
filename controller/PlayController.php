@@ -21,7 +21,7 @@
                     $data = $this->getData();
                     $_SESSION["partida"] = $data;
                 }
-                $this->presenter->render("play", $data);                 
+                $this->presenter->render("view/playView.mustache", $data);                 
             }else {
                 Redirect::to('/login/read');
             }
@@ -38,9 +38,9 @@
                 $data = $_SESSION["partida"];
                 unset($_SESSION["partida"]);
                 $this->model->saveGame($_SESSION["usuario"]["id"], $finalScore);
-                $data["modal"] = "$finalScore";
+                $data["modal"] = $finalScore . "";
             }
-            $this->presenter->render("play", $data);
+            $this->presenter->render("view/playView.mustache", $data);
         }    
 
         private function getData() {

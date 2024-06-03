@@ -8,7 +8,7 @@ body {
     flex-direction: column; 
     min-height: 100vh;
     font-family: "Nunito", sans-serif;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -19,6 +19,10 @@ nav {
     background-color: #F9AD30;
 }
 
+main {
+    min-height: 60vh;
+}
+
 footer {
     background-color: #2C346B;
     margin-top: auto
@@ -27,4 +31,29 @@ footer {
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.shadowE:hover {
+    transition:all 0.3s ease;
+    box-shadow:
+            1px 1px #53a7ea,
+            2px 2px #53a7ea,
+            3px 3px #53a7ea;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
+}
+
+.animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animate.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.modal.show {
+    display: block;
 }

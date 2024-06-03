@@ -23,6 +23,9 @@
     include_once("model/ProfileModel.php");
     include_once("controller/ProfileController.php");
 
+    include_once("model/PlayModel.php");
+    include_once("controller/PlayController.php");
+
     class Configuration {
 
         public static function getDatabase() {
@@ -64,6 +67,14 @@
 
         private static function getProfileModel() {
             return new ProfileModel(self::getDatabase());
+        }
+
+        public static function getPlayController() {
+            return new PlayController(self::getPlayModel(), self::getPresenter());
+        }
+
+        private static function getPlayModel() {
+            return new PlayModel(self::getDatabase());
         }
 
         public static function getRouter() {

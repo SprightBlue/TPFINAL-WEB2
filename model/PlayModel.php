@@ -15,14 +15,14 @@
             if($question) {
                 $usedQuestion[] = $question["idQuestion"];
                 $_SESSION['preguntasUtilizadas'] = $usedQuestion;
-                $answers = $this->database->getAnsers($question["idQuestion"]);
+                $answers = $this->database->getAnswers($question["idQuestion"]);
                 return ["pregunta"=>$question["question"], "categoria"=>$question["category"], "respuestas"=>$answers];
             }
             return null;
         }
         
         public function saveGame($idUser, $score){
-            $this->database->saveGame($idUser, $score);
+            $this->database->createGame($idUser, $score);
         } 
   
     }
