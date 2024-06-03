@@ -1,21 +1,20 @@
 <main>
 
     <!--Q&A-->
-    <div class="container mt-3 rounded col-sm-6 text-center bg-dark card border-{{estilo}}" >
-        <div class="bg-{{estilo}} card-header rounded d-flex align-items-center">
-            <!--<img src="/public/img/{{categoria}}.png" alt="{{categoria}}">-->
+    <div class="container my-5 col-sm-6 card rounded bg-dark text-center">
+        <div class="card-header my-4 p-3 rounded d-flex align-items-center bg-{{estilo}}">
             <h3 class="text-light mx-auto">{{categoria}}</h3>
         </div>
-        <div class="container mt-5">
-            <h2 class="border rounded p-4 bg-light animate">{{pregunta}}</h2>
-            <div class="mt-5">
+        <div class="container my-2">
+            <h2 class="border rounded p-5 bg-light animate">{{pregunta}}</h2>
+            <div class="my-4">
                 {{#respuestas}}
                     <form method="post" action="/play/verify">
                         <button name="esCorrecta" id="esCorrecta" value="{{correct}}" class="btn shadowE btn-light btn-block btn-lg mb-3 w-100">{{answer}}</button>
                     </form>
                 {{/respuestas}}
             </div>
-            <div class="mt-3 mb-3">
+            <div class="my-2">
                 <h5 class="text-left text-light">Puntaje: <span class="animate">{{puntaje}}</span></h5>
             </div>
         </div>
@@ -23,11 +22,10 @@
 
     <!--modal-->
     <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-bg-warning border border-3 border-dark">
                 <div class="modal-header">
                     <h4 class="modal-title">Fin de la partida</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 {{#modal}}
                     <div class="modal-body">
@@ -36,10 +34,10 @@
                 {{/modal}}
                 <div class="modal-footer">
                     <form method="post" action="/lobby/read">
-                        <button type="submit" class="btn btn-secondary">Volver al inicio</button>
+                        <button type="submit" class="btn btn-dark">Volver al inicio</button>
                     </form>
                     <form method="post" action="/play/read">
-                        <button type="submit" class="btn btn-primary">Volver a jugar</button>
+                        <button type="submit" class="btn btn-dark">Volver a jugar</button>
                     </form>
                 </div>                   
             </div>
