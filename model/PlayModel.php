@@ -12,7 +12,7 @@
             if(count($usedQuestions) >= $this->database->getCountQuestions()) {$usedQuestions = [];}
             $question = $this->database->getQuestionRandom($usedQuestions);
             if($question) {
-                $usedQuestion[] = $question["idQuestion"];
+                $usedQuestions[] = $question["idQuestion"];
                 $answers = $this->database->getAnswers($question["idQuestion"]);
                 $styles = ["Arte"=>"primary", "Ciencia"=>"success", "Deporte"=>"info", "Entretenimiento"=>"warning", "Geografía"=>"danger", "Historia"=>"secondary"];
                 $style = $styles[$question["category"]]??"light";
