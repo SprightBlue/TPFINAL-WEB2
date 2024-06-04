@@ -8,17 +8,18 @@
             $this->database = $database;
         }
   
-        public function getQuestion() {
-            $usedQuestions = $_SESSION["preguntasUtilizadas"] ?? [];
+        public function getData(&$usedQuestions, $score) {
             if(count($usedQuestions) >= $this->database->getCountQuestions()) {$usedQuestions = [];}
             $question = $this->database->getQuestionRandom($usedQuestions);
             if($question) {
                 $usedQuestion[] = $question["idQuestion"];
-                $_SESSION['preguntasUtilizadas'] = $usedQuestion;
                 $answers = $this->database->getAnswers($question["idQuestion"]);
-                return ["pregunta"=>$question["question"], "categoria"=>$question["category"], "respuestas"=>$answers];
+                $styles = ["Arte"=>"primary", "Ciencia"=>"success", "Deporte"=>"info", "Entretenimiento"=>"warning", "Geografía"=>"danger", "Historia"=>"secondary"];
+                $style = $styles[$question["category"]]??"light";
+                $data = ["question"=>$question, "style"=>$style, "answers"=>$answers, "score"=>$score];
+                return $data;
             }
-            return null;
+            return false;
         }
         
         public function saveGame($idUser, $score){
