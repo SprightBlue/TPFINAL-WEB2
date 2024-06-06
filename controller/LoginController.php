@@ -15,19 +15,17 @@
             $_SESSION["errorLogin"] = "";
             $this->presenter->render("view/loginView.mustache", ["error"=>$error]);
         }
+
         public function get() {
-            $user = $this->model->loginUser($_POST["username"], $_POST["pass"]);
-            if($user == false) {
-                $_SESSION["errorLogin"] = ["El usuario y/o contraseña incorrectos."];
+            try {
+                $user = $this->model->loginUser($_POST["username"], $_POST["pass"]);
+                $_SESSION["usuario"] = $user;
+                Redirect::to("/lobby/read");                
+            } catch(Exception $e) {
+                $_SESSION["error"] = $e->getMessage();
                 Redirect::to("/login/read");
-            } else if ($user["active"] == 0) {
-                $_SESSION["errorLogin"] = ["Debes verificar tu correo electrónico antes de poder iniciar sesión."];
-                Redirect::to("/login/read");
-            } else {
-                $_SESSION["errorLogin"] = [];
             }
-            $_SESSION["usuario"] = $user;
-            Redirect::to("/home/read");
         }
+
     }
 

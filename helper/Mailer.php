@@ -9,16 +9,15 @@ class Mailer {
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         try {
-            // Configura los parámetros del servidor de correo
-            $mail->SMTPDebug = 0; // Habilita la salida de depuración detallada
-            $mail->Host = 'smtp.gmail.com'; // Especifica el servidor SMTP principal
-            $mail->SMTPAuth = true; // Habilita la autenticación SMTP
-            $mail->Username = 'panchovilla2003x@gmail.com'; // Nombre de usuario SMTP
-            $mail->Password = 'ykpk vnrl mtpl kdxi'; // Contraseña SMTP
-            $mail->SMTPSecure = 'tls'; // Habilita el cifrado TLS; `PHPMailer::ENCRYPTION_SMTPS` también aceptado
-            $mail->Port = 587; // Puerto TCP para conectarse, usa 465 para `PHPMailer::ENCRYPTION_SMTPS` arriba
+            $mail->SMTPDebug = 0;
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'panchovilla2003x@gmail.com';
+            $mail->Password = 'ykpk vnrl mtpl kdxi';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
 
-            $mail->setFrom('panchovilla2003x@gmail.com', 'Mailer');
+            $mail->setFrom('panchovilla2003x@gmail.com', 'Q&A');
             $mail->addAddress($email, $fullname);
 
             $mail->isHTML(true);
@@ -29,8 +28,7 @@ class Mailer {
             $mail->send();
         } catch (Exception $e) {
             die("El mensaje no se pudo enviar. Error: {$mail->ErrorInfo}");
-        }
+        }    
     }
 
 }
-

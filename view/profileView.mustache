@@ -1,24 +1,26 @@
-{{#usuario}}
-    <div class="container my-5"> 
-        <div class="row d-flex align-items-center">
-            <div class="col-sm-3 d-flex flex-column justify-content-center my-3">
-                <h3 class="text-center text-dark">Mi Foto</h3>
-                <img class="img-fluid rounded" src="/public/img/{{profilePicture}}" alt="profilePicture">
-            </div>
-            <div class="col-sm-9">
-                <h2 class="text-center text-dark">Mi Perfil</h2>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title text-dark">{{username}}</h4>
-                        <h5 class="card-title text-dark">{{email}}</h5>
-                        <p class="card-text text-dark">Nombre completo: <span class="badge bg-dark">{{fullname}}</span></p>
-                        <p class="card-text text-dark">Año de nacimiento: <span class="badge bg-dark">{{yearOfBirth}}</span></p>
-                        <p class="card-text text-dark">Genero: <span class="badge bg-dark">{{gender}}</span></p>
-                        <p class="card-text text-dark">Pais: <span class="badge bg-dark">{{country}}</span></p>
-                        <p class="card-text text-dark">Ciudad: <span class="badge bg-dark">{{city}}</span></p>
-                    </div>
-                </div>  
-            </div>
-        </div>        
-    </div>
-{{/usuario}}
+<main>
+    {{#usuario}}
+        <div class="container my-5"> 
+            <div class="row d-flex align-items-center">
+                <div class="col-sm-3 d-flex flex-column justify-content-center my-3">
+                    <h3 class="text-center text-dark">Mi Foto</h3>
+                    <img class="img-fluid rounded" src="/{{profilePicture}}" alt="profilePicture">
+                </div>
+                <div class="col-sm-9">
+                    <h2 class="text-center text-dark">Mi Perfil</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title text-dark">{{username}}</h4>
+                            <h5 class="card-title text-dark">{{email}}</h5>
+                            <p class="card-text text-dark">Nombre completo: <span class="badge bg-dark">{{fullname}}</span></p>
+                            <p class="card-text text-dark">Año de nacimiento: <span class="badge bg-dark">{{yearOfBirth}}</span></p>
+                            <p class="card-text text-dark">Genero: <span class="badge bg-dark">{{gender}}</span></p>
+                            <p class="card-text text-dark">Pais: <span class="badge bg-dark">{{country}}</span></p>
+                            <p class="card-text text-dark">Ciudad: <span class="badge bg-dark">{{city}}</span></p>
+                        </div>
+                    </div>  
+                </div>
+            </div>        
+        </div>
+    {{/usuario}}
+</main>

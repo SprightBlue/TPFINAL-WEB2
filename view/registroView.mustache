@@ -1,60 +1,62 @@
-<div class="container my-5">
-    <div class="row d-flex flex-column justify-content-center align-items-center" >
-        <div class="col-sm-6 border border-1 rounded" style="background-color: #F9AD30;">
-            <form class="p-4" action="/registro/insert" method="POST" enctype="multipart/form-data">
-                <h2 class="text-center">Formulario Registro</h2>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" name="fullname" id="fullname" placeholder="Ingresar nombre completo" required>
-                    <label for="fullname">Nombre Completo</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="number" min="1900" max="2100" name="yearOfBirth" id="yearOfBirth" placeholder="Ingresar año de nacimiento" required>
-                    <label for="yearOfBirth">Año de Nacimiento</label>
-                </div>                   
-                <div class="form-floating mb-3">
-                    <select class="form-select" name="gender" id="gender" required>
-                        <option value="" hidden selected>Seleccione tipo</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Femenino">Femenino</option>
-                        <option value="Prefiero no cargarlo">Prefiero no cargarlo</option>
-                    </select>
-                    <label for="gender">Genero</label>
-                </div>   
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" name="country" id="country" placeholder="Ingresar pais" required>
-                    <label for="country">Pais</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" name="city" id="city" placeholder="Ingresar ciudad" required>
-                    <label for="city">Ciudad</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="email" name="email" id="email" placeholder="Ingresar email" required>
-                    <label for="email">Email</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="password" name="pass" id="pass" placeholder="Ingresar contraseña" required>
-                    <label for="pass">Contraseña</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="password" name="repeatPass" id="repeatPass" placeholder="Ingresar contraseña nuevamente" required>
-                    <label for="repeatPass">Repetir Contraseña</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" name="username" id="username" placeholder="Ingresar nombre de usuario" required>
-                    <label for="username">Nombre de Usuario</label>
-                </div>
-                <div class="mb-4">
-                    <label class="form-label" for="foto">Subir Foto de Perfil</label>
-                    <input class="form-control form-contrl-sm" type="file" name="img" id="img">
-                </div>       
-                <div class="mb-3">
-                    <input type="submit" class="btn btn-dark" name="registrarse" id="registrarse" value="Registrarse">
-                </div>
-                {{#error}}
-                    <div class="alert alert-danger mt-2">{{{error}}}</div>
-                {{/error}}
-            </form>
+<main>
+    <div class="container my-5">
+        <div class="row d-flex flex-column justify-content-center align-items-center" >
+            <div class="col-sm-6 border border-1 rounded" style="background-color: #F9AD30;">
+                <form class="p-4" action="/registro/insert" method="POST" enctype="multipart/form-data">
+                    <h2 class="text-center">Formulario Registro</h2>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" name="fullname" id="fullname" placeholder="Ingresar nombre completo" required>
+                        <label for="fullname">Nombre Completo</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="number" min="1900" max="2100" name="yearOfBirth" id="yearOfBirth" placeholder="Ingresar año de nacimiento" required>
+                        <label for="yearOfBirth">Año de Nacimiento</label>
+                    </div>                   
+                    <div class="form-floating mb-3">
+                        <select class="form-select" name="gender" id="gender" required>
+                            <option value="" hidden selected>Seleccione tipo</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Prefiero no cargarlo">Prefiero no cargarlo</option>
+                        </select>
+                        <label for="gender">Genero</label>
+                    </div>   
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" name="country" id="country" placeholder="Ingresar pais" required>
+                        <label for="country">Pais</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" name="city" id="city" placeholder="Ingresar ciudad" required>
+                        <label for="city">Ciudad</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Ingresar email" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="password" name="pass" id="pass" placeholder="Ingresar contraseña" required>
+                        <label for="pass">Contraseña</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="password" name="repeatPass" id="repeatPass" placeholder="Ingresar contraseña nuevamente" required>
+                        <label for="repeatPass">Repetir Contraseña</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" name="username" id="username" placeholder="Ingresar nombre de usuario" required>
+                        <label for="username">Nombre de Usuario</label>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="foto">Subir Foto de Perfil</label>
+                        <input class="form-control form-contrl-sm" type="file" name="img" id="img">
+                    </div>       
+                    <div class="mb-3">
+                        <input type="submit" class="btn btn-dark" name="registrarse" id="registrarse" value="Registrarse">
+                    </div>
+                    {{#error}}
+                        <div class="alert alert-danger mt-2">{{{error}}}</div>
+                    {{/error}}
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</main>
