@@ -24,7 +24,7 @@
 
         public function saveGame($idUser, $score){
             $this->database->createGame($idUser, $score);
-            $this->database->updateScore($idUser, $score); // Actualiza el puntaje del usuario
+            $this->database->updateScore($idUser, $score);
         }
     }
 

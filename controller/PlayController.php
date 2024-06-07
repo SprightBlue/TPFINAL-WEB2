@@ -29,19 +29,20 @@
 
         public function verify() {
             if(isset($_SESSION["usuario"])) {
-                $isCorrect = $_POST["isCorrect"];
+                $isCorrect = isset($_POST["isCorrect"]) ? $_POST["isCorrect"] : null; // Verifica si la clave "isCorrect" existe en $_POST
                 $elapsedTime = time() - $_SESSION["startTime"]; // Calcula el tiempo transcurrido
-                if ($isCorrect == 1 && $elapsedTime > 0) {
+                if ($isCorrect && $elapsedTime > 0) {
                     $_SESSION["puntaje"] += 1;
                     $data = $this->model->getData($_SESSION["preguntasUtilizadas"], $_SESSION["puntaje"]);
                     $_SESSION["partida"] = $data;
+                    $data["gameOver"] = false;
                 } else {
                     $finalScore = ($_SESSION["puntaje"] === 0) ? $_SESSION["puntaje"] . " " : $_SESSION["puntaje"];
                     $data = $_SESSION["partida"];
-                    unset($_SESSION["partida"]); // Elimina la partida actual de la sesión
-                    $this->model->saveGame($_SESSION["usuario"]["id"], $finalScore); // Guarda el puntaje del juego y actualiza el puntaje total del usuario
+                    unset($_SESSION["partida"]);
+                    $this->model->saveGame($_SESSION["usuario"]["id"], $finalScore);
                     $data["modal"] = $finalScore . "";
-
+                    $data["gameOver"] = true;
                 }
                 $this->presenter->render("view/playView.mustache", $data);
             } else {

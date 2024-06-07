@@ -77,6 +77,11 @@
         });
     });
 </script>
+{{#gameOver}}
+    <script>
+        clearTimeout(timerId); // Detiene el temporizador
+    </script>
+{{/gameOver}}
 
 {{#modal}}
     <script>
