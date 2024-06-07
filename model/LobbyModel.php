@@ -8,6 +8,9 @@
             $this->database = $database;
         }
 
+        public function getScore($idUser) {
+            return $this->database->getScore($idUser);
+        }
     }
 
 ?>

@@ -30,7 +30,8 @@
                 throw new Exception(implode(" ", $errors));
             }
             $token = bin2hex(random_bytes(16));  
-            $this->database->createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $username, $destination, $token);
+            $this->database->createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $username, $destination, $token, 0); // Añade un 0 al final para inicializar el puntaje en 0
+
             $verificationUrl = "http://localhost/registro/verify&token=$token";
             Mailer::send($email, $fullname, $verificationUrl);
         }

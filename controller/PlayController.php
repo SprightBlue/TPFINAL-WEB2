@@ -38,15 +38,14 @@
                     $finalScore = ($_SESSION["puntaje"] === 0) ? $_SESSION["puntaje"] . " " : $_SESSION["puntaje"];
                     $data = $_SESSION["partida"];
                     unset($_SESSION["partida"]);
-                    $this->model->saveGame($_SESSION["usuario"]["id"], $finalScore);
+                    $this->model->saveGame($_SESSION["usuario"]["id"], $finalScore); // Guarda el puntaje del juego y actualiza el puntaje total del usuario
                     $data["modal"] = $finalScore . "";
                 }
-                $this->presenter->render("view/playView.mustache", $data);                
+                $this->presenter->render("view/playView.mustache", $data);
             }else {
                 Redirect::to("/login/read");
             }
-        }    
-
+        }
     }
 
 ?>

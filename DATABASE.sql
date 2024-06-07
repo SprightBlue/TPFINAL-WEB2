@@ -18,6 +18,8 @@ CREATE TABLE usuario (
     token VARCHAR(255) NOT NULL,
     active BOOLEAN NOT NULL
 );
+ALTER TABLE usuario ADD score INT DEFAULT 0;
+
 
 CREATE TABLE pregunta (
     idQuestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,

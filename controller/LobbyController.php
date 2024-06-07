@@ -10,14 +10,16 @@
             $this->presenter = $presenter;
         }
 
+
+
         public function read() {
-            $usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : ""; 
+            $usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : "";
             if($usuario) {
+                $usuario["score"] = $this->model->getScore($usuario["id"]); // Obtén el puntaje del usuario
                 $this->presenter->render("view/lobbyView.mustache", ["usuario"=>$usuario]);
             }else {
                 Redirect::to("/login/read");
             }
-            
         }
 
         public function close() {

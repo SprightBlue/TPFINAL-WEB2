@@ -13,10 +13,11 @@
             }     
         }
 
-        public function createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $username, $profilePicture, $token) {
-            $stmt = $this->conn->prepare("INSERT INTO usuario(fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active)
-            VALUES(:fullname, :yearOfBirth, :gender, :country, :city, :email, :pass, :username, :profilePicture, :token, 0)");
-            $stmt->execute(array(":fullname"=>$fullname, ":yearOfBirth"=>$yearOfBirth, ":gender"=>$gender, ":country"=>$country, ":city"=>$city, ":email"=>$email, ":pass"=>$pass, ":username"=>$username, ":profilePicture"=>$profilePicture, ":token"=>$token));
+
+        public function createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $username, $profilePicture, $token, $score) {
+            $stmt = $this->conn->prepare("INSERT INTO usuario(fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, score)
+        VALUES(:fullname, :yearOfBirth, :gender, :country, :city, :email, :pass, :username, :profilePicture, :token, 0, :score)");
+            $stmt->execute(array(":fullname"=>$fullname, ":yearOfBirth"=>$yearOfBirth, ":gender"=>$gender, ":country"=>$country, ":city"=>$city, ":email"=>$email, ":pass"=>$pass, ":username"=>$username, ":profilePicture"=>$profilePicture, ":token"=>$token, ":score"=>$score));
         }
 
         public function emailExists($email) {
@@ -79,12 +80,25 @@
         public function createGame($idUser, $score) {
             $stmt = $this->conn->prepare("INSERT INTO partida(score, dateGame, idUser) VALUES (:score, NOW(), :idUser)");
             $stmt->execute(array(":score"=>$score, ":idUser"=>$idUser));
-        } 
-        
+        }
+
+        public function updateScore($idUser, $score) {
+            $stmt = $this->conn->prepare("UPDATE usuario SET score = score + :score WHERE id = :idUser");
+            $stmt->execute(array(":idUser"=>$idUser, ":score"=>$score));
+        }
+
+        public function getScore($idUser) {
+            $stmt = $this->conn->prepare("SELECT score FROM usuario WHERE id = :idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+            return $stmt->fetchColumn();
+        }
+
+
         public function __destruct() {
             $this->conn = null;
         }
 
     }
+
 
 ?>
