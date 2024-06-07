@@ -58,15 +58,14 @@
     function countdown() {
         if (timeLeft == 0) {
             clearTimeout(timerId);
-            // Aquí puedes redirigir al usuario a la página de fin de juego o mostrar un mensaje de que el tiempo se ha agotado
-            window.location.href = '/play/verify?timeOut=true'; // Asegúrate de cambiar esta URL a la URL de tu página de fin de juego
+            window.location.href = '/play/verify?timeOut=true';
         } else {
             timeLeft--;
             document.getElementById('timer').textContent = timeLeft;
         }
     }
 
-    // Inicia el temporizador cuando se carga la página
+
     startTimer();
 </script>
 
@@ -79,7 +78,7 @@
 </script>
 {{#gameOver}}
     <script>
-        clearTimeout(timerId); // Detiene el temporizador
+        clearTimeout(timerId);
     </script>
 {{/gameOver}}
 

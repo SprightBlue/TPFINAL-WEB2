@@ -20,6 +20,8 @@
                     unset($_SESSION["modal"]);
                     $data = $this->model->getData($_SESSION["preguntasUtilizadas"], $_SESSION["puntaje"]);
                     $_SESSION["partida"] = $data;
+                    $_SESSION["startTime"] = time();
+
                 }
                 $this->presenter->render("view/playView.mustache", $data);                 
             }else {
@@ -29,8 +31,8 @@
 
         public function verify() {
             if(isset($_SESSION["usuario"])) {
-                $isCorrect = isset($_POST["isCorrect"]) ? $_POST["isCorrect"] : null; // Verifica si la clave "isCorrect" existe en $_POST
-                $elapsedTime = time() - $_SESSION["startTime"]; // Calcula el tiempo transcurrido
+                $isCorrect = isset($_POST["isCorrect"]) ? $_POST["isCorrect"] : null;
+                $elapsedTime = isset($_SESSION["startTime"]) ? time() - $_SESSION["startTime"] : null;
                 if ($isCorrect && $elapsedTime > 0) {
                     $_SESSION["puntaje"] += 1;
                     $data = $this->model->getData($_SESSION["preguntasUtilizadas"], $_SESSION["puntaje"]);
