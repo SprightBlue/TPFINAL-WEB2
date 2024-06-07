@@ -41,6 +41,7 @@
                     unset($_SESSION["partida"]); // Elimina la partida actual de la sesión
                     $this->model->saveGame($_SESSION["usuario"]["id"], $finalScore); // Guarda el puntaje del juego y actualiza el puntaje total del usuario
                     $data["modal"] = $finalScore . "";
+
                 }
                 $this->presenter->render("view/playView.mustache", $data);
             } else {
