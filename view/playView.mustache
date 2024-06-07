@@ -6,6 +6,7 @@
         </div>
         <div class="container my-2">
             <h2 class="border rounded p-5 bg-light animate">{{#question}}{{question}}{{/question}}</h2>
+
             <div class="my-4">
                 {{#answers}}
                     <form method="post" action="/play/verify">
@@ -15,6 +16,7 @@
             </div>
             <div class="my-2">
                 <h5 class="text-left text-light">Puntaje: <span class="animate">{{score}}</span></h5>
+                <h3 class="text-left text-light" id="timer">Tiempo restante</h3>
             </div>
         </div>
     </div>
@@ -44,6 +46,31 @@
 </main>
 
 <script>
+    var timerId;
+    var timeLeft = 20;
+
+    function startTimer() {
+        timeLeft = 20;
+        document.getElementById('timer').textContent = timeLeft;
+        timerId = setInterval(countdown, 1000);
+    }
+
+    function countdown() {
+        if (timeLeft == 0) {
+            clearTimeout(timerId);
+            // Aquí puedes redirigir al usuario a la página de fin de juego o mostrar un mensaje de que el tiempo se ha agotado
+            window.location.href = '/play/verify?timeOut=true'; // Asegúrate de cambiar esta URL a la URL de tu página de fin de juego
+        } else {
+            timeLeft--;
+            document.getElementById('timer').textContent = timeLeft;
+        }
+    }
+
+    // Inicia el temporizador cuando se carga la página
+    startTimer();
+</script>
+
+<script>
     document.addEventListener("DOMContentLoaded", (event) => {
         document.querySelectorAll(".animate").forEach(element => {
             element.classList.add("active");
@@ -57,3 +84,4 @@
         });
     </script>
 {{/modal}}
+

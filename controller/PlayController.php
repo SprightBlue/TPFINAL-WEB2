@@ -29,20 +29,21 @@
 
         public function verify() {
             if(isset($_SESSION["usuario"])) {
-                $correct = $_POST["isCorrect"];
-                if ($correct == 1) {
+                $isCorrect = $_POST["isCorrect"];
+                $elapsedTime = time() - $_SESSION["startTime"]; // Calcula el tiempo transcurrido
+                if ($isCorrect == 1 && $elapsedTime > 0) {
                     $_SESSION["puntaje"] += 1;
                     $data = $this->model->getData($_SESSION["preguntasUtilizadas"], $_SESSION["puntaje"]);
                     $_SESSION["partida"] = $data;
-                }else {
+                } else {
                     $finalScore = ($_SESSION["puntaje"] === 0) ? $_SESSION["puntaje"] . " " : $_SESSION["puntaje"];
                     $data = $_SESSION["partida"];
-                    unset($_SESSION["partida"]);
+                    unset($_SESSION["partida"]); // Elimina la partida actual de la sesión
                     $this->model->saveGame($_SESSION["usuario"]["id"], $finalScore); // Guarda el puntaje del juego y actualiza el puntaje total del usuario
                     $data["modal"] = $finalScore . "";
                 }
                 $this->presenter->render("view/playView.mustache", $data);
-            }else {
+            } else {
                 Redirect::to("/login/read");
             }
         }
