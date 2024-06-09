@@ -53,19 +53,7 @@
             return $stmt;    
         }
 
-        public function getQuestionRandom($usedQuestions) {
-            $placeholders = '';
-            if(count($usedQuestions) > 0) {$placeholders = rtrim(str_repeat('?,', count($usedQuestions)), ',');}
-            $sql = "SELECT * FROM pregunta " . (count($usedQuestions) > 0 ? "WHERE idQuestion NOT IN ($placeholders)" : "") . "ORDER BY RAND() LIMIT 1;";
-            $stmt = $this->conn->prepare($sql); ;
-            if(count($usedQuestions) > 0) {$stmt->execute($usedQuestions);}
-            else{$stmt->execute();}
-            if($stmt->rowCount() > 0) {
-                $question = $stmt->fetch(PDO::FETCH_ASSOC);
-                return $question;
-            }
-            return false;   
-        }
+
 
         public function getAnswers($idQuestion) {
             $stmt = $this->conn->prepare("SELECT * FROM respuesta WHERE idQuestion=:idQuestion ORDER BY RAND()");
@@ -98,6 +86,90 @@
             $this->conn = null;
         }
 
+        public function getAnsweredQuestions($idUser) {
+            $stmt = $this->conn->prepare("SELECT answeredQuestions FROM usuario WHERE id = :idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+            return $stmt->fetchColumn();
+        }
+       //Preguntas
+        public function incrementCorrectAnswers($idQuestion) {
+            $stmt = $this->conn->prepare("UPDATE pregunta SET correctAnswers = correctAnswers + 1 WHERE idQuestion = :idQuestion");
+            $stmt->execute(array(":idQuestion"=>$idQuestion));
+        }
+        //Preguntas
+        public function incrementTotalAnswers($idQuestion) {
+            $stmt = $this->conn->prepare("UPDATE pregunta SET totalAnswers = totalAnswers + 1 WHERE idQuestion = :idQuestion");
+            $stmt->execute(array(":idQuestion"=>$idQuestion));
+        }
+        //Usuario
+        public function incrementUserAnsweredQuestions($idUser) {
+            $stmt = $this->conn->prepare("UPDATE usuario SET answeredQuestions = answeredQuestions + 1 WHERE id = :idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+        }
+
+        //Usuario
+         public function incrementUserCorrectAnswers($idUser) {
+            $stmt = $this->conn->prepare("UPDATE usuario SET correctAnswers = correctAnswers + 1 WHERE id = :idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+        }
+
+        public function getQuestionDifficulty($idQuestion) {
+            $stmt = $this->conn->prepare("SELECT correctAnswers, totalAnswers FROM pregunta WHERE idQuestion = :idQuestion");
+            $stmt->execute(array(":idQuestion"=>$idQuestion));
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result['totalAnswers'] == 0) {
+                return null; // or some default value
+            }
+            return $result['correctAnswers'] / $result['totalAnswers'];
+        }
+
+
+        public function getUserRatio($idUser) {
+            $stmt = $this->conn->prepare("SELECT correctAnswers, totalAnswers FROM usuario WHERE id = :idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result['totalAnswers'] == 0) {
+                return null; // or some default value
+            }
+            return $result['correctAnswers'] / $result['totalAnswers'];
+        }
+
+        public function getQuestionRandom($idUser, $difficulty) {
+            // Obtén las preguntas que el usuario ya ha respondido
+            $answeredQuestions = $this->getUserQuestions($idUser);
+
+            // Prepara los placeholders para la consulta SQL
+            $placeholders = implode(',', array_fill(0, count($answeredQuestions), '?'));
+
+            // Prepara la consulta SQL
+            $stmt = $this->conn->prepare("SELECT * FROM pregunta WHERE idQuestion NOT IN ($placeholders) AND difficulty = :difficulty ORDER BY RAND() LIMIT 1");
+
+            // Ejecuta la consulta SQL
+            $stmt->execute(array_merge($answeredQuestions, [':difficulty' => $difficulty]));
+
+            // Devuelve la pregunta obtenida o false si no se obtuvo ninguna pregunta
+            return $stmt->rowCount() > 0 ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
+        }
+
+        public function getUserQuestions($idUser) {
+            $stmt = $this->conn->prepare("SELECT idPregunta FROM usuario_pregunta WHERE idUsuario = :idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+            return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        }
+        public function resetUserQuestions($idUser) {
+            $stmt = $this->conn->prepare("DELETE FROM usuario_pregunta WHERE idUsuario = :idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+        }
+        public function addUserQuestion($idUser, $idQuestion) {
+            $stmt = $this->conn->prepare("INSERT INTO usuario_pregunta (idUsuario, idPregunta) VALUES (:idUser, :idQuestion)");
+            $stmt->execute(array(":idUser"=>$idUser, ":idQuestion"=>$idQuestion));
+        }
+        public function updateQuestionDifficulty($idQuestion) {
+            $ratio = $this->getQuestionDifficulty($idQuestion);
+            $difficulty = $ratio >= 0.7 ? 'easy' : 'hard';
+            $stmt = $this->conn->prepare("UPDATE pregunta SET difficulty = :difficulty WHERE idQuestion = :idQuestion");
+            $stmt->execute(array(":idQuestion"=>$idQuestion, ":difficulty"=>$difficulty));
+        }
     }
 
 

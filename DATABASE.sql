@@ -21,6 +21,15 @@ CREATE TABLE usuario (
 ALTER TABLE usuario ADD score INT DEFAULT 0;
 
 ALTER TABLE usuario ADD answeredQuestions INT DEFAULT 0;
+ALTER TABLE usuario ADD correctAnswers INT DEFAULT 0;
+
+CREATE TABLE usuario_pregunta (
+                                  idUsuario INT NOT NULL,
+                                  idPregunta INT NOT NULL,
+                                  PRIMARY KEY (idUsuario, idPregunta),
+                                  FOREIGN KEY (idUsuario) REFERENCES usuario(id),
+                                  FOREIGN KEY (idPregunta) REFERENCES pregunta(idQuestion)
+);
 
 CREATE TABLE pregunta (
     idQuestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -30,6 +39,7 @@ CREATE TABLE pregunta (
 
 ALTER TABLE pregunta ADD correctAnswers INT DEFAULT 0;
 ALTER TABLE pregunta ADD totalAnswers INT DEFAULT 0;
+ALTER TABLE pregunta ADD difficulty VARCHAR(255) DEFAULT 'easy';
 
 CREATE TABLE respuesta (
     idAnswer INT AUTO_INCREMENT PRIMARY KEY NOT NULL,

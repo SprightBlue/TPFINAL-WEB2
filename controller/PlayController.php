@@ -29,6 +29,7 @@
             $this->presenter->render("view/playView.mustache", $gameData);
         }
 
+
         public function verify() {
             if(!$this->isUserLoggedIn()) {
                 $this->redirectToLoginPage();
@@ -38,19 +39,43 @@
             $isCorrect = $this->isAnswerCorrect();
             $elapsedTime = $this->getElapsedTime();
 
+            $this->updateAnswerStats($isCorrect, $elapsedTime);
+
+            if ($isCorrect && $elapsedTime > 0) {
+                $this->respuestaCorrectaCase();
+            } else {
+                $this->respuestaIncorrectaCase();
+            }
+        }
+
+        private function updateAnswerStats($isCorrect, $elapsedTime) {
+            $this->model->incrementTotalAnswers($_SESSION["partida"]["question"]["idQuestion"]);
+            $this->model->incrementUserAnsweredQuestions($_SESSION["usuario"]["id"]);
+
             if ($isCorrect && $elapsedTime > 0) {
                 $this->incrementScore();
-                $gameData = $this->model->getData($_SESSION["preguntasUtilizadas"], $_SESSION["puntaje"]);
-                $_SESSION["partida"] = $gameData;
-                $gameData["gameOver"] = false;
-            } else {
-                $finalScore = $this->getFinalScore();
-                $gameData = $_SESSION["partida"];
-                unset($_SESSION["partida"]);
-                $this->model->saveGame($_SESSION["usuario"]["id"], $finalScore);
-                $gameData["modal"] = $finalScore . "";
-                $gameData["gameOver"] = true;
+                $this->model->incrementCorrectAnswers($_SESSION["partida"]["question"]["idQuestion"]);
+                $this->model->incrementUserCorrectAnswers($_SESSION["usuario"]["id"]);
             }
+
+            $this->model->updateQuestionDifficulty($_SESSION["partida"]["question"]["idQuestion"]);
+        }
+
+        private function respuestaCorrectaCase() {
+            $gameData = $this->model->getData($_SESSION["preguntasUtilizadas"], $_SESSION["puntaje"]);
+            $_SESSION["partida"] = $gameData;
+            $gameData["gameOver"] = false;
+
+            $this->presenter->render("view/playView.mustache", $gameData);
+        }
+
+        private function respuestaIncorrectaCase() {
+            $finalScore = $this->getFinalScore();
+            $gameData = $_SESSION["partida"];
+            unset($_SESSION["partida"]);
+            $this->model->saveGame($_SESSION["usuario"]["id"], $finalScore);
+            $gameData["modal"] = $finalScore . "";
+            $gameData["gameOver"] = true;
 
             $this->presenter->render("view/playView.mustache", $gameData);
         }
@@ -89,6 +114,7 @@ private function incrementScore() {
 private function getFinalScore() {
     return ($_SESSION["puntaje"] === 0) ? $_SESSION["puntaje"] . " " : $_SESSION["puntaje"];
 }
+
 }
 
 ?>
