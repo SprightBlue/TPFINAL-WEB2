@@ -20,12 +20,16 @@ CREATE TABLE usuario (
 );
 ALTER TABLE usuario ADD score INT DEFAULT 0;
 
+ALTER TABLE usuario ADD answeredQuestions INT DEFAULT 0;
 
 CREATE TABLE pregunta (
     idQuestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     question VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL
 );
+
+ALTER TABLE pregunta ADD correctAnswers INT DEFAULT 0;
+ALTER TABLE pregunta ADD totalAnswers INT DEFAULT 0;
 
 CREATE TABLE respuesta (
     idAnswer INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
