@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS qampa;
 
 CREATE DATABASE IF NOT EXISTS qampa;
 
-select * from usuario U where U.username="gonzalo";
+
 USE qampa;
 
 CREATE TABLE usuario (
@@ -23,7 +23,11 @@ ALTER TABLE usuario ADD score INT DEFAULT 0;
 
 ALTER TABLE usuario ADD answeredQuestions INT DEFAULT 0;
 ALTER TABLE usuario ADD correctAnswers INT DEFAULT 0;
-
+CREATE TABLE pregunta (
+    idQuestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    question VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL
+);
 CREATE TABLE usuario_pregunta (
                                   idUsuario INT NOT NULL,
                                   idPregunta INT NOT NULL,
@@ -32,11 +36,7 @@ CREATE TABLE usuario_pregunta (
                                   FOREIGN KEY (idPregunta) REFERENCES pregunta(idQuestion)
 );
 
-CREATE TABLE pregunta (
-    idQuestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    question VARCHAR(255) NOT NULL,
-    category VARCHAR(255) NOT NULL
-);
+
 
 ALTER TABLE pregunta ADD correctAnswers INT DEFAULT 0;
 ALTER TABLE pregunta ADD totalAnswers INT DEFAULT 0;

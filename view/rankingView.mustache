@@ -7,10 +7,12 @@
                     <h4>{{username}}</h4>
                 {{/user}}
                 {{#userScore}}
-                    <h5>Puntaje mas alto alcanzado: {{maxScore}}</h5>
-                {{/userScore}}
-                {{^userScore}}
-                    <caption>No hay datos disponibles de este ultimo mes.</caption>
+                    {{#maxScore}}
+                        <h5>Puntaje mas alto alcanzado: {{maxScore}}</h5>
+                    {{/maxScore}}
+                    {{^maxScore}}
+                        <caption>No hay datos disponibles de este ultimo mes.</caption>
+                    {{/maxScore}}                   
                 {{/userScore}}
                 <table class="table table-striped table-hover">
                     <thead>
@@ -46,7 +48,7 @@
                         {{#rankingScore}}
                             <tr>
                                 <th scope="row">{{rank}}</td>
-                                <td><a href="/profile/get?nombre={{username}}" class="text-decoration-none text-reset fw-bold">{{username}}</a></td>
+                                <td><a href="/profile/get?username={{username}}" class="text-decoration-none text-reset fw-bold">{{username}}</a></td>
                                 <td>{{maxScore}}</td>
                             </tr>  
                         {{/rankingScore}}        

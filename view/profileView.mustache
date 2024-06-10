@@ -2,12 +2,12 @@
     {{#user}}
         <div class="container my-5"> 
             <div class="row d-flex align-items-center">
-                <div class="col-sm-3 d-flex flex-column justify-content-center my-3">
-                    <h3 class="text-center text-dark">Mi Foto</h3>
+                <div class="col-md-3 d-flex flex-column justify-content-center my-3">
+                    <h3 class="text-center text-dark">Foto</h3>
                     <img class="img-fluid rounded" src="/{{profilePicture}}" alt="profilePicture">
                 </div>
-                <div class="col-sm-6">
-                    <h2 class="text-center text-dark">Mi Perfil</h2>
+                <div class="col-md-6">
+                    <h2 class="text-center text-dark">Perfil</h2>
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title text-dark">{{username}}</h4>
@@ -19,6 +19,10 @@
                             <p class="card-text text-dark fw-bold">Ciudad: {{city}}</p>
                         </div>
                     </div>  
+                </div>
+                <div class="col-md-3 d-flex flex-column justify-content-center my-3">
+                    <h3 class="text-center text-dark">QR code</h3>
+                    <img class="img-fluid rounded" src="/public/img/qr-{{username}}.png" alt="img-qr">
                 </div>
             </div>        
         </div>

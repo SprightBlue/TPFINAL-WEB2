@@ -11,21 +11,26 @@
         }
 
         public function read() {
-            $error = isset($_SESSION["errorLogin"]) && is_array($_SESSION["errorLogin"]) ? implode("<br>", $_SESSION["errorLogin"]) : "";
-            $_SESSION["errorLogin"] = "";
-            $this->presenter->render("view/loginView.mustache", ["error"=>$error]);
+            if(isset($_SESSION["usuario"])) {
+                Redirect::to("/lobby/read");
+            }else {
+                $this->presenter->render("view/loginView.mustache");
+            }
         }
 
         public function get() {
-            try {
-                $user = $this->model->loginUser($_POST["username"], $_POST["pass"]);
+            $errors = [];
+            $username = isset($_POST["username"]) ? $_POST["username"] : "";
+            $pass = isset($_POST["pass"]) ? $_POST["pass"] : "";
+            $user = $this->model->loginUser($username, $pass, $errors);
+            if(empty($errors)) {
                 $_SESSION["usuario"] = $user;
-                Redirect::to("/lobby/read");                
-            } catch(Exception $e) {
-                $_SESSION["error"] = $e->getMessage();
-                Redirect::to("/login/read");
+                Redirect::to("/lobby/read");                 
+            }else {   
+                $this->presenter->render("view/loginView.mustache", ["errors"=>$errors]);
             }
         }
 
     }
 
+?>

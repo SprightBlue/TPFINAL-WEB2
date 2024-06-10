@@ -1,7 +1,7 @@
 <main>
-    <div class="container my-5" style="min-height:60vh">
+    <div class="container my-5">
         <div class="row d-flex flex-column justify-content-center align-items-center">
-            <div class="col-sm-5 border border-1 rounded" style="background-color: #F9AD30">
+            <div class="col-sm-6 border border-1 rounded" style="background-color: #F9AD30">
                 <form class="p-5" action="/login/get" method="POST">
                     <h2 class="text-center mb-3">Iniciar Sesión</h2>
                     <div class="form-floating mb-3">
@@ -25,9 +25,14 @@
                             </div>
                         </div>
                     </div>
-                    {{#error}}
-                        <div class="alert alert-danger mt-2">{{error}}</div>
-                    {{/error}}
+                    {{#errors}}
+                        {{#validations}}
+                            <div class="alert alert-danger my-2">{{validations}}</div>
+                        {{/validations}}
+                        {{#active}}
+                            <div class="alert alert-danger my-2">{{active}}</div>
+                        {{/active}}
+                    {{/errors}}
                 </form>
             </div>
         </div>

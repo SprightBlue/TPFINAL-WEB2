@@ -3,13 +3,13 @@
     include_once("helper/Database.php");
     include_once("helper/Mailer.php");
     include_once("helper/MustachePresenter.php");
+    include_once("helper/PHPQRCode.php");
     include_once("helper/Redirect.php");
     include_once("helper/Router.php");
 
+    include_once("vendor/autoload.php");
     include_once("vendor/mustache/src/Mustache/Autoloader.php");
-    include_once("vendor/PHPMailer/src/PHPMailer.php");
-    include_once("vendor/PHPMailer/src/Exception.php");
-    include_once("vendor/PHPMailer/src/SMTP.php");
+    include_once("vendor/phpqrcode/qrlib.php");
 
     include_once("model/RegistroModel.php");
     include_once("controller/RegistroController.php");
@@ -20,14 +20,14 @@
     include_once("model/LobbyModel.php");
     include_once("controller/LobbyController.php");
 
-    include_once("model/ProfileModel.php");
-    include_once("controller/ProfileController.php");
-
     include_once("model/PlayModel.php");
     include_once("controller/PlayController.php");
 
     include_once("model/RankingModel.php");
     include_once("controller/RankingController.php");
+
+    include_once("model/ProfileModel.php");
+    include_once("controller/ProfileController.php");   
 
     class Configuration {
 

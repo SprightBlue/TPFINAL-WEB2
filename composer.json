@@ -1,0 +1,10 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "config": {
+        "allow-plugins": {
+            "endroid/installer": true
+        }
+    }
+}

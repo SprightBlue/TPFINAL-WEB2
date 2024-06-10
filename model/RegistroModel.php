@@ -28,10 +28,11 @@
             if(!empty($errors)) {
                 $_SESSION["errorRegistro"] = $errors;
                 throw new Exception(implode(" ", $errors));
-            }
-            $token = bin2hex(random_bytes(16));  
-            $this->database->createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $username, $destination, $token, 0); // Añade un 0 al final para inicializar el puntaje en 0
-
+            } 
+            $token = bin2hex(random_bytes(16));           
+            $profileUrl = "http:/localhost/profile/get?username=$username";
+            PHPQRCode::generate($profileUrl, $username);           
+            $this->database->createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $username, $destination, $token, 0); // Añade un 0 al final para inicializar el puntaje en 0 
             $verificationUrl = "http://localhost/registro/verify&token=$token";
             Mailer::send($email, $fullname, $verificationUrl);
         }

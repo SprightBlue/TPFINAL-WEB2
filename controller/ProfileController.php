@@ -21,7 +21,7 @@
 
         public function get() {
             if(isset($_SESSION["usuario"])) {
-                $username = isset($_GET["nombre"]) ? $_GET["nombre"] : false;
+                $username = isset($_GET["username"]) ? $_GET["username"] : "";
                 $data = $this->getData($username);
                 $this->presenter->render("view/profileView.mustache", $data);                
             }else {
