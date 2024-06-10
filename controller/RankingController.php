@@ -11,18 +11,13 @@
         }
 
         public function read() {
-            $user = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : false;
             if(isset($_SESSION["usuario"])) {
+                $user = $_SESSION["usuario"];
                 $data = $this->getData($user);
                 $this->presenter->render("view/rankingView.mustache", $data);
             }else {
                 Redirect::to("/login/read");
             }     
-        }
-
-        public function close() {
-            session_destroy();
-            Redirect::to("/login/read");
         }
 
         private function getData($user) {

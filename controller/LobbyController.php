@@ -11,8 +11,8 @@
         }
 
         public function read() {
-            $user = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : false;
             if(isset($_SESSION["usuario"])) {
+                $user = $_SESSION["usuario"];
                 $data = $this->getData($user);
                 $this->presenter->render("view/lobbyView.mustache", $data);
             }else {
