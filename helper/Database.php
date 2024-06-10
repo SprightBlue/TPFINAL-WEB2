@@ -13,6 +13,13 @@
             }     
         }
 
+        public function query($sql) {
+            return $this->conn->prepare($sql);
+        }
+
+        public function __destruct() {
+            $this->conn = null;
+        }
 
         public function createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $username, $profilePicture, $token, $score) {
             $stmt = $this->conn->prepare("INSERT INTO usuario(fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, score)
@@ -79,11 +86,6 @@
             $stmt = $this->conn->prepare("SELECT score FROM usuario WHERE id = :idUser");
             $stmt->execute(array(":idUser"=>$idUser));
             return $stmt->fetchColumn();
-        }
-
-
-        public function __destruct() {
-            $this->conn = null;
         }
 
         public function getAnsweredQuestions($idUser) {

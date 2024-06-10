@@ -26,6 +26,9 @@
     include_once("model/PlayModel.php");
     include_once("controller/PlayController.php");
 
+    include_once("model/RankingModel.php");
+    include_once("controller/RankingController.php");
+
     class Configuration {
 
         public static function getDatabase() {
@@ -75,6 +78,14 @@
 
         private static function getPlayModel() {
             return new PlayModel(self::getDatabase());
+        }
+
+        public static function getRankingController() {
+            return new RankingController(self::getRankingModel(), self::getPresenter());
+        }
+
+        private static function getRankingModel() {
+            return new RankingModel(self::getDatabase());
         }
 
         public static function getRouter() {

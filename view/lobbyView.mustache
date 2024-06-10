@@ -1,22 +1,25 @@
 <main>
-    {{#usuario}}
-        <div class="container my-5">
-            <h2 class="text-center text-dark">Bienvenido al Lobby!!!</h2>
-            <div class="row d-flex align-items-center">
-                <div class="col-sm-3 d-flex flex-column justify-content-center my-3">
-                    <img class="img-fluid rounded" src="/{{profilePicture}}" alt="profilePicture">
-                </div>
-                <div class="col-sm-9">
-                    <div class="card bg">
-                        <div class="card-body">
-                            <h4 class="card-title text-dark">{{username}}</h4>
-                            <p class="card-text text-dark">Puntaje: <span class="badge bg-dark">{{score}}</span></p>
-                            <a class="btn btn-dark" href="/play/read">Nueva Partida</a>
-                            <a class="btn btn-dark">Ranking</a>
-                        </div>
+    <div class="container my-5">
+        <h2 class="text-center text-dark">Bienvenido al Lobby!!!</h2>
+        <div class="row d-flex align-items-center">
+            <div class="col-sm-3 d-flex flex-column justify-content-center my-3">
+                <img class="img-fluid rounded" src="/{{#user}}{{profilePicture}}{{/user}}" alt="profilePicture">
+            </div>
+            <div class="col-sm-6">
+                <div class="card bg">
+                    <div class="card-body">
+                        <h4 class="card-title text-dark">{{#user}}{{username}}{{/user}}</h4>
+                        {{#userScore}}
+                            <h5 class="card-text text-dark">Puntaje mas alto alcanzado: {{maxScore}}</h5>
+                        {{/userScore}}
+                        {{^userScore}}
+                            <caption>No hay datos disponibles de este ultimo mes.</caption>
+                        {{/userScore}}
+                        <a class="btn btn-dark" href="/play/read">Nueva Partida</a>
+                        <a class="btn btn-dark" href="/ranking/read">Ranking</a>
                     </div>
                 </div>
             </div>
         </div>
-    {{/usuario}}
+    </div>
 </main>
