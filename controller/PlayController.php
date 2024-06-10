@@ -21,7 +21,9 @@
                 $gameData = $_SESSION["partida"];
             } else {
                 $this->startNewGame();
-                $gameData = $this->model->getData($_SESSION["preguntasUtilizadas"], $_SESSION["puntaje"]);
+                $idUser = $_SESSION["usuario"]["id"]; // Obtén el ID del usuario de la sesión
+                $score = $_SESSION["puntaje"]; // Obtén la puntuación actual de la sesión
+                $gameData = $this->model->getData($idUser, $score); // Pasa el ID del usuario y la puntuación a getData()
                 $_SESSION["partida"] = $gameData;
                 $_SESSION["startTime"] = time();
             }
@@ -62,7 +64,7 @@
         }
 
         private function respuestaCorrectaCase() {
-            $gameData = $this->model->getData($_SESSION["preguntasUtilizadas"], $_SESSION["puntaje"]);
+            $gameData = $this->model->getData($_SESSION["usuario"]["id"], $_SESSION["puntaje"]);
             $_SESSION["partida"] = $gameData;
             $gameData["gameOver"] = false;
 

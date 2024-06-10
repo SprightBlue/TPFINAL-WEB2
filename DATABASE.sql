@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS qampa;
 
 CREATE DATABASE IF NOT EXISTS qampa;
 
+select * from usuario U where U.username="gonzalo";
 USE qampa;
 
 CREATE TABLE usuario (

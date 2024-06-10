@@ -125,31 +125,41 @@
 
 
         public function getUserRatio($idUser) {
-            $stmt = $this->conn->prepare("SELECT correctAnswers, totalAnswers FROM usuario WHERE id = :idUser");
+            $stmt = $this->conn->prepare("SELECT correctAnswers, answeredQuestions FROM usuario WHERE id = :idUser");
             $stmt->execute(array(":idUser"=>$idUser));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($result['totalAnswers'] == 0) {
+            if ($result['answeredQuestions'] == 0) {
                 return null; // or some default value
             }
-            return $result['correctAnswers'] / $result['totalAnswers'];
+            return $result['correctAnswers'] / $result['answeredQuestions'];
         }
 
         public function getQuestionRandom($idUser, $difficulty) {
             // Obtén las preguntas que el usuario ya ha respondido
             $answeredQuestions = $this->getUserQuestions($idUser);
 
-            // Prepara los placeholders para la consulta SQL
-            $placeholders = implode(',', array_fill(0, count($answeredQuestions), '?'));
+            // Verifica si el array $answeredQuestions está vacío
+            if (empty($answeredQuestions)) {
+                // Prepara la consulta SQL sin la cláusula NOT IN
+                $stmt = $this->conn->prepare("SELECT * FROM pregunta WHERE difficulty = :difficulty ORDER BY RAND() LIMIT 1");
+                // Ejecuta la consulta SQL
+                $stmt->execute([':difficulty' => $difficulty]);
+            } else {
+                // Prepara los placeholders para la consulta SQL
+                $placeholders = implode(',', array_fill(0, count($answeredQuestions), '?'));
 
-            // Prepara la consulta SQL
-            $stmt = $this->conn->prepare("SELECT * FROM pregunta WHERE idQuestion NOT IN ($placeholders) AND difficulty = :difficulty ORDER BY RAND() LIMIT 1");
+                // Prepara la consulta SQL
+                $stmt = $this->conn->prepare("SELECT * FROM pregunta WHERE idQuestion NOT IN ($placeholders) AND difficulty = ? ORDER BY RAND() LIMIT 1");
 
-            // Ejecuta la consulta SQL
-            $stmt->execute(array_merge($answeredQuestions, [':difficulty' => $difficulty]));
+                // Ejecuta la consulta SQL
+                $stmt->execute(array_merge($answeredQuestions, [$difficulty]));
+            }
 
             // Devuelve la pregunta obtenida o false si no se obtuvo ninguna pregunta
             return $stmt->rowCount() > 0 ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
+
+
 
         public function getUserQuestions($idUser) {
             $stmt = $this->conn->prepare("SELECT idPregunta FROM usuario_pregunta WHERE idUsuario = :idUser");
