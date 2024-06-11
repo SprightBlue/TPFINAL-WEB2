@@ -1,8 +1,8 @@
 <main>
     <div class="container my-5">
         <div class="row d-flex flex-column justify-content-center align-items-center" >
-            <div class="col-sm-6 border border-1 rounded" style="background-color: #F9AD30;">
-                <form class="p-4" action="/registro/insert" method="POST" enctype="multipart/form-data">
+            <div class="col-md-6 border border-1 rounded" style="background-color: #F9AD30;">
+                <form class="p-4" action="/register/insert" method="POST" enctype="multipart/form-data">
                     <h2 class="text-center">Formulario Registro</h2>
                     <div class="form-floating mb-3">
                         <input class="form-control" type="text" name="fullname" id="fullname" placeholder="Ingresar nombre completo" required>
@@ -52,9 +52,20 @@
                     <div class="mb-3">
                         <input type="submit" class="btn btn-dark" name="registrarse" id="registrarse" value="Registrarse">
                     </div>
-                    {{#error}}
-                        <div class="alert alert-danger mt-2">{{{error}}}</div>
-                    {{/error}}
+                    {{#errors}}
+                        {{#errorEmail}}
+                            <div class="alert alert-danger my-2">{{{errorEmail}}}</div>
+                        {{/errorEmail}}
+                        {{#errorPass}}
+                            <div class="alert alert-danger my-2">{{errorPass}}</div>
+                        {{/errorPass}}
+                        {{#errorUsername}}
+                            <div class="alert alert-danger my-2">{{errorUsername}}</div>
+                        {{/errorUsername}}
+                        {{#errorImg}}
+                            <div class="alert alert-danger my-2">{{errorImg}}</div>
+                        {{/errorImg}}
+                    {{/errors}}
                 </form>
             </div>
         </div>

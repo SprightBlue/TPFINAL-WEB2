@@ -1,6 +1,6 @@
 <?php
 
-    class RegistroController{
+    class RegisterController{
 
         private $model;
         private $presenter;
@@ -11,12 +11,15 @@
         }
         
         public function read() {
-            $error = isset($_SESSION["errorRegistro"]) && is_array($_SESSION["errorRegistro"]) ? implode("<br>", $_SESSION["errorRegistro"]) : "";
-            $_SESSION["errorRegistro"] = "";
-            $this->presenter->render("view/registroView.mustache", ["error"=>$error]);
+            if(isset($_SESSION["usuario"])) {
+                Redirect::to("/lobby/read");
+            }else {
+                $this->presenter->render("view/registerView.mustache");
+            }  
         }
 
         public function insert(){
+            $erros = [];
             $fullname = $_POST["fullname"];
             $yearOfBirth = $_POST["yearOfBirth"];
             $gender = $_POST["gender"];
@@ -26,19 +29,18 @@
             $pass = $_POST["pass"];
             $repeatPass = $_POST["repeatPass"];
             $username = $_POST["username"];
-            $img = isset($_FILES["img"]) ? $_FILES["img"] : "";
-            try {
-                $this->model->createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img);
+            $img = $_FILES["img"];
+            $this->model->createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img, $errors);
+            if(empty($errors)) {     
                 Redirect::to("/login/read");
-            } catch (Exception $e) {
-                $_SESSION["error"] = $e->getMessage();
-                Redirect::to("/registro/read");
+            }else {
+                $this->presenter->render("view/registerView.mustache", ["errors"=>$errors]);
             }
         }
 
-        public function verify() {
-            $token = $_GET['token'];
-            $this->model->verifyUser($token);
+        public function active() {
+            $token = $_GET["token"];
+            $this->model->activeUser($token);
             Redirect::to("/login/read");
         }
 

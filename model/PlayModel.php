@@ -63,7 +63,7 @@
 
         public function saveGame($idUser, $score){
             $this->database->createGame($idUser, $score);
-            $this->database->updateScore($idUser, $score);
+            //antes estaba update score pero lo kite
         }
     }
 

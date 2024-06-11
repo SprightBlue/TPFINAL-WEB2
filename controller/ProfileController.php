@@ -20,8 +20,8 @@
         }
 
         public function get() {
-            if(isset($_SESSION["usuario"])) {
-                $username = isset($_GET["username"]) ? $_GET["username"] : "";
+            if(isset($_SESSION["usuario"]) && isset($_GET["username"])) {
+                $username = $_GET["username"];
                 $data = $this->getData($username);
                 $this->presenter->render("view/profileView.mustache", $data);                
             }else {

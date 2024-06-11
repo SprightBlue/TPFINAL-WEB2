@@ -19,7 +19,6 @@ CREATE TABLE usuario (
     token VARCHAR(255) NOT NULL,
     active BOOLEAN NOT NULL
 );
-ALTER TABLE usuario ADD score INT DEFAULT 0;
 
 ALTER TABLE usuario ADD answeredQuestions INT DEFAULT 0;
 ALTER TABLE usuario ADD correctAnswers INT DEFAULT 0;

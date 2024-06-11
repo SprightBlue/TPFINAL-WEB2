@@ -20,8 +20,8 @@
 
         public function get() {
             $errors = [];
-            $username = isset($_POST["username"]) ? $_POST["username"] : "";
-            $pass = isset($_POST["pass"]) ? $_POST["pass"] : "";
+            $username = $_POST["username"];
+            $pass = $_POST["pass"];
             $user = $this->model->loginUser($username, $pass, $errors);
             if(empty($errors)) {
                 $_SESSION["usuario"] = $user;

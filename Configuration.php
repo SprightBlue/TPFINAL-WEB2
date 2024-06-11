@@ -3,7 +3,6 @@
     include_once("helper/Database.php");
     include_once("helper/Mailer.php");
     include_once("helper/MustachePresenter.php");
-    include_once("helper/PHPQRCode.php");
     include_once("helper/Redirect.php");
     include_once("helper/Router.php");
 
@@ -11,8 +10,8 @@
     include_once("vendor/mustache/src/Mustache/Autoloader.php");
     include_once("vendor/phpqrcode/qrlib.php");
 
-    include_once("model/RegistroModel.php");
-    include_once("controller/RegistroController.php");
+    include_once("model/RegisterModel.php");
+    include_once("controller/RegisterController.php");
 
     include_once("model/LoginModel.php");
     include_once("controller/LoginController.php");
@@ -40,12 +39,12 @@
             return parse_ini_file("config/config.ini"); 
         }
 
-        public static function getRegistroController() {
-            return new RegistroController(self::getRegistroModel(), self::getPresenter());
+        public static function getRegisterController() {
+            return new RegisterController(self::getRegisterModel(), self::getPresenter());
         }
 
-        private static function getRegistroModel() {
-            return new RegistroModel(self::getDatabase());
+        private static function getRegisterModel() {
+            return new RegisterModel(self::getDatabase());
         }
 
         public static function getLoginController() {
