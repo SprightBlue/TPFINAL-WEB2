@@ -25,7 +25,7 @@
             $matchHistory = $this->model->getMatchHistory($user["id"]);
             $rankingScore = $this->model->getRankingScore(); 
             $data = ["user"=>$user, "userScore"=>$userScore, "matchHistory"=>$matchHistory, "rankingScore"=>[]];
-            if($rankingScore != false) {foreach($rankingScore as $index => $score) {$data["rankingScore"] = ["rank"=>$index+1, "username"=>$score["username"], "maxScore"=>$score["maxScore"]];}}
+            if($rankingScore != false) {foreach($rankingScore as $index => $score) {$data["rankingScore"][] = ["rank"=>$index+1, "username"=>$score["username"], "maxScore"=>$score["maxScore"]];}}
             return $data;
         }
 

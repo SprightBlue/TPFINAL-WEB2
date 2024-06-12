@@ -9,62 +9,147 @@
         }
 
         public function getData($idUser, $score) {
-            $answeredQuestions = $this->database->getAnsweredQuestions($idUser);
-            if ($answeredQuestions <= 10) {
-                $difficulty = 'easy';
-            } else {
-                $ratio = $this->database->getUserRatio($idUser);
+            $answeredQuestions = $this->getAnsweredQuestions($idUser);
+            if($answeredQuestions <= 10) {
+                $difficulty = "easy";
+            }else {
+                $ratio = $this->getUserRatio($idUser);
                 $difficulty = $this->getDifficulty($ratio);
             }
-            $question = $this->database->getQuestionRandom($idUser, $difficulty);
-            if(!$question) {
-                // Si no se obtuvo ninguna pregunta, reinicia las preguntas del usuario
-                $this->database->resetUserQuestions($idUser);
-                // Intenta obtener una pregunta aleatoria nuevamente
-                $question = $this->database->getQuestionRandom($idUser, $difficulty);
+            $question = $this->getQuestionRandom($idUser, $difficulty);
+            if($question == false) {
+                $this->resetUserQuestions($idUser);
+                $question = $this->getQuestionRandom($idUser, $difficulty);
             }
-            if($question) {
-                $this->database->addUserQuestion($idUser, $question["idQuestion"]);
-                $answers = $this->database->getAnswers($question["idQuestion"]);
-                $styles = ["Arte"=>"primary", "Ciencia"=>"success", "Deporte"=>"info", "Entretenimiento"=>"warning", "Geografía"=>"danger", "Historia"=>"secondary"];
-                $style = $styles[$question["category"]]??"light";
-                $data = ["question"=>$question, "style"=>$style, "answers"=>$answers, "score"=>$score];
-                return $data;
-            }
-            return false;
+            $this->addUserQuestion($idUser, $question["idQuestion"]);
+            $answers = $this->getAnswers($question["idQuestion"]);
+            $styles = ["Arte"=>"primary", "Ciencia"=>"success", "Deporte"=>"info", "Entretenimiento"=>"warning", "Geografía"=>"danger", "Historia"=>"secondary"];
+            $data = ["question"=>$question, "style"=>$styles[$question["category"]], "answers"=>$answers, "score"=>$score];
+            return $data;
         }
+
         public function updateQuestionDifficulty($idQuestion) {
-            $this->database->updateQuestionDifficulty($idQuestion);
+            $ratio = $this->getQuestionDifficulty($idQuestion);
+            $difficulty = $this->getDifficulty($ratio);
+            $stmt = $this->database->query("UPDATE pregunta 
+                                            SET difficulty=:difficulty 
+                                            WHERE idQuestion=:idQuestion");
+            $stmt->execute(array(":idQuestion"=>$idQuestion, ":difficulty"=>$difficulty));
         }
+
         public function incrementTotalAnswers($idQuestion) {
-            $this->database->incrementTotalAnswers($idQuestion);
+            $stmt = $this->database->query("UPDATE pregunta 
+                                            SET totalAnswers=totalAnswers+1 
+                                            WHERE idQuestion=:idQuestion");
+            $stmt->execute(array(":idQuestion"=>$idQuestion));
         }
 
         public function incrementUserAnsweredQuestions($idUser) {
-            $this->database->incrementUserAnsweredQuestions($idUser);
+            $stmt = $this->database->query("UPDATE usuario 
+                                            SET answeredQuestions=answeredQuestions+1 
+                                            WHERE id=:idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
         }
+
         public function incrementCorrectAnswers($idQuestion) {
-            $this->database->incrementCorrectAnswers($idQuestion);
+            $stmt = $this->database->query("UPDATE pregunta 
+                                            SET correctAnswers=correctAnswers+1 
+                                            WHERE idQuestion=:idQuestion");
+            $stmt->execute(array(":idQuestion"=>$idQuestion));
         }
 
         public function incrementUserCorrectAnswers($idUser) {
-            $this->database->incrementUserCorrectAnswers($idUser);
+            $stmt = $this->database->query("UPDATE usuario 
+                                            SET correctAnswers=correctAnswers+1 
+                                            WHERE id=:idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+        }
+
+        public function saveGame($idUser, $score){
+            $stmt = $this->database->query("INSERT INTO partida(score, dateGame, idUser) 
+                                            VALUES (:score, NOW(), :idUser)");
+            $stmt->execute(array(":score"=>$score, ":idUser"=>$idUser));
+        }
+
+        private function getAnsweredQuestions($idUser) {
+            $stmt = $this->database->query("SELECT answeredQuestions 
+                                            FROM usuario 
+                                            WHERE id=:idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+            return $stmt->fetchColumn();
+        }
+
+        private function getUserRatio($idUser) {
+            $stmt = $this->database->query("SELECT correctAnswers, answeredQuestions 
+                                            FROM usuario WHERE id=:idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return ($result["answeredQuestions"] == 0) ? null : $result["correctAnswers"] / $result["answeredQuestions"];
         }
 
         private function getDifficulty($ratio) {
-            if ($ratio < 0.3) {
-                return 'hard';
-            } else {
-                return 'easy';
+            return ($ratio < 0.3) ? "hard" : "easy";
+        }
+
+        private function getUserQuestions($idUser) {
+            $stmt = $this->database->query("SELECT idPregunta 
+                                            FROM usuario_pregunta 
+                                            WHERE idUsuario=:idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
+            return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        }
+
+        private function getQuestionRandom($idUser, $difficulty) {
+            $answeredQuestions = $this->getUserQuestions($idUser);
+            if(empty($answeredQuestions)) {
+                $stmt = $this->database->query("SELECT * 
+                                                FROM pregunta 
+                                                WHERE difficulty=:difficulty 
+                                                ORDER BY RAND() 
+                                                LIMIT 1");
+                $stmt->execute(array(":difficulty"=>$difficulty));
+            }else {
+                $placeholders = implode(",", array_fill(0, count($answeredQuestions), "?"));
+                $stmt = $this->database->query("SELECT * 
+                                                FROM pregunta 
+                                                WHERE idQuestion NOT IN ($placeholders) AND difficulty=? 
+                                                ORDER BY RAND() 
+                                                LIMIT 1");
+                $stmt->execute(array_merge($answeredQuestions, [$difficulty]));
             }
+            return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
 
-
-
-        public function saveGame($idUser, $score){
-            $this->database->createGame($idUser, $score);
-            //antes estaba update score pero lo kite
+        private function resetUserQuestions($idUser) {
+            $stmt = $this->database->query("DELETE FROM usuario_pregunta 
+                                            WHERE idUsuario=:idUser");
+            $stmt->execute(array(":idUser"=>$idUser));
         }
+
+        private function addUserQuestion($idUser, $idQuestion) {
+            $stmt = $this->database->query("INSERT INTO usuario_pregunta (idUsuario, idPregunta) 
+                                            VALUES (:idUser, :idQuestion)");
+            $stmt->execute(array(":idUser"=>$idUser, ":idQuestion"=>$idQuestion));
+        }
+
+        private function getAnswers($idQuestion) {
+            $stmt = $this->database->query("SELECT * 
+                                            FROM respuesta 
+                                            WHERE idQuestion=:idQuestion 
+                                            ORDER BY RAND()");
+            $stmt->execute(array(":idQuestion"=>$idQuestion));
+            return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_ASSOC) : false;
+        }
+
+        private function getQuestionDifficulty($idQuestion) {
+            $stmt = $this->database->query("SELECT correctAnswers, totalAnswers 
+                                            FROM pregunta 
+                                            WHERE idQuestion=:idQuestion");
+            $stmt->execute(array(":idQuestion"=>$idQuestion));
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return ($result["totalAnswers"] == 0) ? null : $result["correctAnswers"] / $result["totalAnswers"];
+        }
+
     }
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-    class RegisterController{
+    class RegisterController {
 
         private $model;
         private $presenter;

@@ -16,10 +16,11 @@
             </div>
             <div class="my-2">
                 <h5 class="text-left text-light">Puntaje: <span class="animate">{{score}}</span></h5>
-                <h3 class="text-left text-light" id="timer">Tiempo restante</h3>
+                <h4 class="text-left text-light" id="timer">Tiempo restante</h4>
             </div>
         </div>
     </div>
+    
     <!--modal-->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog modal-dialog-centered">
@@ -56,18 +57,23 @@
     }
 
     function countdown() {
-        if (timeLeft == 0) {
+        if(timeLeft == 0) {
             clearTimeout(timerId);
-            window.location.href = '/play/verify?timeOut=true';
-        } else {
+            window.location.href = "/play/verify?timeOut=true";
+        }else {
             timeLeft--;
             document.getElementById('timer').textContent = timeLeft;
         }
     }
 
-
     startTimer();
 </script>
+
+{{#gameOver}}
+    <script>
+        clearTimeout(timerId);
+    </script>
+{{/gameOver}}
 
 <script>
     document.addEventListener("DOMContentLoaded", (event) => {
@@ -76,11 +82,6 @@
         });
     });
 </script>
-{{#gameOver}}
-    <script>
-        clearTimeout(timerId);
-    </script>
-{{/gameOver}}
 
 {{#modal}}
     <script>
