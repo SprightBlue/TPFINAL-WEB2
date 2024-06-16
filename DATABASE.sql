@@ -19,14 +19,18 @@ CREATE TABLE usuario (
     token VARCHAR(255) NOT NULL,
     active BOOLEAN NOT NULL
 );
-
 ALTER TABLE usuario ADD answeredQuestions INT DEFAULT 0;
 ALTER TABLE usuario ADD correctAnswers INT DEFAULT 0;
+ALTER TABLE usuario ADD userRole VARCHAR(255) DEFAULT 'player';
+ALTER TABLE usuario ADD dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
 CREATE TABLE pregunta (
     idQuestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     question VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL
 );
+ALTER TABLE pregunta ADD dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
 CREATE TABLE usuario_pregunta (
                                   idUsuario INT NOT NULL,
                                   idPregunta INT NOT NULL,
