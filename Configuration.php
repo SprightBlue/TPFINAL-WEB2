@@ -5,10 +5,15 @@
     include_once("helper/MustachePresenter.php");
     include_once("helper/Redirect.php");
     include_once("helper/Router.php");
+    include_once("helper/GeneratorPDF.php");
+    include_once("helper/GeneratorGraph.php");
 
     include_once("vendor/autoload.php");
     include_once("vendor/mustache/src/Mustache/Autoloader.php");
     include_once("vendor/phpqrcode/qrlib.php");
+    include_once("vendor/dompdf/autoload.inc.php");
+    include_once('vendor/jpgraph/src/jpgraph.php');
+    include_once('vendor/jpgraph/src/jpgraph_line.php');
 
     include_once("model/RegisterModel.php");
     include_once("controller/RegisterController.php");
@@ -27,6 +32,9 @@
 
     include_once("model/ProfileModel.php");
     include_once("controller/ProfileController.php");   
+
+    include_once("model/AdminModel.php");
+    include_once("controller/AdminController.php");
 
     class Configuration {
 
@@ -85,6 +93,14 @@
 
         private static function getRankingModel() {
             return new RankingModel(self::getDatabase());
+        }
+
+        public static function getAdminController() {
+            return new AdminController(self::getAdminModel(), self::getPresenter());
+        }
+
+        private static function getAdminModel() {
+            return new AdminModel(self::getDatabase());
         }
 
         public static function getRouter() {

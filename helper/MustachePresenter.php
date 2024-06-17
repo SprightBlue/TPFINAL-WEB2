@@ -23,4 +23,5 @@ class MustachePresenter{
         $contentAsString .= file_get_contents($this->partialsPathLoader . '/footer.mustache');
         return $this->mustache->render($contentAsString, $data);
     }
+
 }
