@@ -1,0 +1,19 @@
+<main>
+    <div class="container my-5">
+        <h2 class="text-center text-dark">Preguntas</h2>
+        <div class="row d-flex align-items-center">
+            {{#questions}}
+                <div class="col-sm-6">
+                    <div class="card bg">
+                        <div class="card-body">
+                            <h4 class="card-title text-dark">{{question}}</h4>
+                            <a class="btn btn-dark" href="/editor/updateQuestionView/{{idQuestion}}">Modificar</a>
+                            <a class="btn btn-dark" href="/editor/deleteQuestion/{{idQuestion}}">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            {{/questions}}
+            <a class="btn btn-dark" href="/editor/createQuestionView">Agregar pregunta</a>
+        </div>
+    </div>
+</main>

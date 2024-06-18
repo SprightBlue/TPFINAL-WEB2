@@ -1,0 +1,12 @@
+<main>
+    <div class="container my-5">
+        <h2 class="text-center text-dark">Preguntas Sugeridas</h2>
+        <ul class="list-group">
+            {{#suggestedQuestions}}
+                <li class="list-group-item">
+                    <a href="/editor/suggestedQuestionView/{{idSuggestion}}">{{question}}</a>
+                </li>
+            {{/suggestedQuestions}}
+        </ul>
+    </div>
+</main>

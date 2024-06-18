@@ -5,11 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87edfaae-a29d-4a37-b5a3-1302ae29fa96" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/controller/EditorController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/EditorModel.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/createUpdateQuestionView.mustache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/editorView.mustache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/questionsView.mustache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/suggestedQuestionsView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DATABASE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DATABASE.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/PlayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PlayController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper/Database.php" beforeDir="false" afterPath="$PROJECT_DIR$/helper/Database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/LobbyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/LobbyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LoginModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/LoginModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/PlayModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PlayModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/lobbyView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/lobbyView.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,35 +39,51 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/controller/LobbyController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/mustache/test" />
+      <path value="$PROJECT_DIR$/vendor/phpqrcode/bindings" />
+      <path value="$PROJECT_DIR$/vendor/phpqrcode/cache" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/phpqrcode/tools" />
+      <path value="$PROJECT_DIR$/vendor/mustache/bin" />
+      <path value="$PROJECT_DIR$/vendor/mustache/src" />
+    </include_path>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2esng6PHLYNzNt59q51YEMPq91z" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Gonza/Desktop/preguntados&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "gonza2",
+    "last_opened_file_path": "C:/Users/Gonza/Desktop/preguntados",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\public\img" />
@@ -66,11 +92,11 @@
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\Ejercicios" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Gonza\Desktop\samp\htdocs\view" />
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\public\image" />
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\tp" />
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\Ejercicio9" />
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\Ejercicio11" />
-      <recent name="C:\Users\Gonza\Desktop\samp\htdocs\Ejercicio10" />
     </key>
   </component>
   <component name="SharedIndexes">

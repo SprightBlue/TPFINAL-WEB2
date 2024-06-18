@@ -1064,7 +1064,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="311" parent="1" name="qampa">
-      <LastIntrospectionLocalTimestamp>2024-06-09.20:38:34</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-06-14.00:58:43</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="312" parent="1" name="mysql.infoschema">
@@ -1107,7 +1107,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <column id="321" parent="316" name="id">
-      <AutoIncrement>251</AutoIncrement>
+      <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1228,7 +1228,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="345" parent="319" name="id">
-      <AutoIncrement>3</AutoIncrement>
+      <AutoIncrement>2</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1288,62 +1288,57 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>12</Position>
     </column>
-    <column id="357" parent="319" name="score">
+    <column id="357" parent="319" name="answeredQuestions">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>13</Position>
     </column>
-    <column id="358" parent="319" name="answeredQuestions">
+    <column id="358" parent="319" name="correctAnswers">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>14</Position>
     </column>
-    <column id="359" parent="319" name="correctAnswers">
-      <DasType>int|0s</DasType>
-      <DefaultExpression>0</DefaultExpression>
-      <Position>15</Position>
-    </column>
-    <index id="360" parent="319" name="PRIMARY">
+    <index id="359" parent="319" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="361" parent="319" name="PRIMARY">
+    <key id="360" parent="319" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="362" parent="320" name="idUsuario">
+    <column id="361" parent="320" name="idUsuario">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="363" parent="320" name="idPregunta">
+    <column id="362" parent="320" name="idPregunta">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="364" parent="320" name="usuario_pregunta_ibfk_1">
+    <foreign-key id="363" parent="320" name="usuario_pregunta_ibfk_1">
       <ColNames>idUsuario</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>usuario</RefTableName>
     </foreign-key>
-    <foreign-key id="365" parent="320" name="usuario_pregunta_ibfk_2">
+    <foreign-key id="364" parent="320" name="usuario_pregunta_ibfk_2">
       <ColNames>idPregunta</ColNames>
       <RefColNames>idQuestion</RefColNames>
       <RefTableName>pregunta</RefTableName>
     </foreign-key>
-    <index id="366" parent="320" name="PRIMARY">
+    <index id="365" parent="320" name="PRIMARY">
       <ColNames>idUsuario
 idPregunta</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="367" parent="320" name="idPregunta">
+    <index id="366" parent="320" name="idPregunta">
       <ColNames>idPregunta</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="368" parent="320" name="PRIMARY">
+    <key id="367" parent="320" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
