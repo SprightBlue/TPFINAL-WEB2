@@ -1,0 +1,69 @@
+<main>
+    <div class="container my-5">
+        <form method="post" action="{{action}}">
+            <div class="form-floating mb-3">
+                <input type="hidden" name="idSuggestion" value="{{suggestedQuestion.idSuggestion}}">
+                <input class="form-control" type="text" name="question" id="question" placeholder="Ingresar nueva pregunta" required>
+                <label for="question">Nueva pregunta</label>
+            </div>
+            <div class="form-floating mb-3">
+                <select class="form-select" name="category" id="category" required>
+                    <option selected disabled value="">Seleccionar categoría</option>
+                    <option value="Geografía">Geografía</option>
+                    <option value="Arte">Arte</option>
+                    <option value="Ciencia">Ciencia</option>
+                    <option value="Deporte">Deporte</option>
+                    <option value="Entretenimiento">Entretenimiento</option>
+                    <option value="Historia">Historia</option>
+                </select>
+                <label for="category">Categoría</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="answer1" id="answer1" placeholder="Ingresar respuesta 1" required>
+                <label for="answer1">Respuesta 1</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="answer2" id="answer2" placeholder="Ingresar respuesta 2" required>
+                <label for="answer2">Respuesta 2</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="answer3" id="answer3" placeholder="Ingresar respuesta 3" required>
+                <label for="answer3">Respuesta 3</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="answer4" id="answer4" placeholder="Ingresar respuesta 4" required>
+                <label for="answer4">Respuesta 4</label>
+            </div>
+            <div class="mb-3">
+                <label>Seleccionar respuesta correcta</label><br>
+                <input type="radio" id="correct1" name="correct" value="1" required>
+                <label for="correct1">Respuesta 1</label><br>
+                <input type="radio" id="correct2" name="correct" value="2">
+                <label for="correct2">Respuesta 2</label><br>
+                <input type="radio" id="correct3" name="correct" value="3">
+                <label for="correct3">Respuesta 3</label><br>
+                <input type="radio" id="correct4" name="correct" value="4">
+                <label for="correct4">Respuesta 4</label>
+            </div>
+            <div class="mb-3">
+                <input type="submit" class="btn btn-dark" name="submit" id="submit" value="Enviar">
+            </div>
+
+    {{#isEditor}}
+        <div class="mb-3">
+            <input type="submit" class="btn btn-dark" name="accept" value="Aceptar">
+            <input type="submit" class="btn btn-dark" name="deny" value="Denegar">
+            <a class="btn btn-dark" href="/editor/suggestedQuestionsView">Cancelar</a>
+        </div>
+    {{/isEditor}}
+    {{^isEditor}}
+
+        <div class="mb-3">
+            <input type="submit" class="btn btn-dark" name="submit" value="Enviar">
+            <a class="btn btn-dark" href="/lobby/read">Cancelar</a>
+        </div>
+
+    {{/isEditor}}
+        </form>
+    </div>
+</main>

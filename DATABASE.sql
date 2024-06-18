@@ -61,6 +61,19 @@ CREATE TABLE partida (
     FOREIGN KEY (idUser) REFERENCES usuario(id)
 );
 
+CREATE TABLE pregunta_sugerida (
+                                   idSuggestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                                   idUser INT NOT NULL,
+                                   question VARCHAR(255) NOT NULL,
+                                   category VARCHAR(255) NOT NULL,
+                                   answer1 VARCHAR(255) NOT NULL,
+                                   answer2 VARCHAR(255) NOT NULL,
+                                   answer3 VARCHAR(255) NOT NULL,
+                                   answer4 VARCHAR(255) NOT NULL,
+                                   correct INT NOT NULL,
+                                   FOREIGN KEY (idUser) REFERENCES usuario(id)
+);
+
 INSERT INTO pregunta (question, category) VALUES
 ('¿Cuál es el río más largo del mundo?', 'Geografía'),
 ('¿En qué continente se encuentra Mongolia?', 'Geografía'),

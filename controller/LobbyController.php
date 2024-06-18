@@ -31,6 +31,28 @@
             return $data;
         }
 
+        public function suggestQuestionView() {
+            if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]["userRole"] == "player") {
+                $this->presenter->render("view/suggestQuestionView.mustache",["action" => "/lobby/suggestQuestion"]);
+            } else {
+                Redirect::to("/login/read");
+            }
+        }
+        public function suggestQuestion() {
+            if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]["userRole"] == "player") {
+                $idUser = $_SESSION["usuario"]["id"];
+                $question = $_POST["question"];
+                $category = $_POST["category"];
+                $answer1 = $_POST["answer1"];
+                $answer2 = $_POST["answer2"];
+                $answer3 = $_POST["answer3"];
+                $answer4 = $_POST["answer4"];
+                $correct = $_POST["correct"];
+
+                $this->model->addSuggestQuestion($idUser, $question, $category, $answer1, $answer2, $answer3, $answer4, $correct);
+            }
+            Redirect::to("/lobby/read");
+        }
     }
 
-?>
+

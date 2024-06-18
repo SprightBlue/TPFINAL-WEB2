@@ -19,6 +19,17 @@
       <path value="$PROJECT_DIR$/vendor/phpqrcode/tools" />
       <path value="$PROJECT_DIR$/vendor/mustache/bin" />
       <path value="$PROJECT_DIR$/vendor/mustache/src" />
+    </include_path>
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/mustache/test" />
+      <path value="$PROJECT_DIR$/vendor/phpqrcode/bindings" />
+      <path value="$PROJECT_DIR$/vendor/phpqrcode/cache" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/phpqrcode/tools" />
+      <path value="$PROJECT_DIR$/vendor/mustache/bin" />
+      <path value="$PROJECT_DIR$/vendor/mustache/src" />
       <path value="$PROJECT_DIR$/vendor/jpgraph/docs" />
       <path value="$PROJECT_DIR$/vendor/dompdf/lib" />
       <path value="$PROJECT_DIR$/vendor/jpgraph/src" />
