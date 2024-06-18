@@ -1,6 +1,16 @@
 <main>
     <div class="container my-5">
-        <h2 class="text-center text-dark">Bienvenido al Lobby!!!</h2>
+        <div class="row d-flex align-items-center">
+            <div class="col-sm-6">
+                <h2 class="text-center text-dark">Bienvenido al Lobby!!!</h2>
+            </div>
+            {{#admin}}
+                <div class="col-sm-6 me-auto">
+                    <h4>{{admin}}</h4>
+                    <a class="btn btn-dark" href="/admin/read?filter=day">ver Stats</a>
+                </div>            
+            {{/admin}}
+        </div>
         <div class="row d-flex align-items-center">
             <div class="col-sm-3 d-flex flex-column justify-content-center my-3">
                 <img class="img-fluid rounded" src="/{{#user}}{{profilePicture}}{{/user}}" alt="profilePicture">

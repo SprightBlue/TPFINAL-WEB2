@@ -5,7 +5,7 @@
         public static function generateCorrectPercentage($username, $correct, $incorrect) {
 
             $data = [$correct, $incorrect];
-            $labels = ["Correctas ($correct%)", "Incorrectas ($incorrect%)"];
+            $labels = ["Correctas $correct", "Incorrectas $incorrect"];
         
             $graph = new PieGraph(400, 300, "auto");
             $graph->SetScale("textlin");
@@ -27,17 +27,18 @@
             
             $data = [];
             $labels = [];
-            foreach ($countryData as $country) {
-                $data[] = $country["usersCount"];
-                $labels[] = $country["country"];
+            foreach ($countryData as $row) {
+                $country = $row["country"];
+                $usersCount = $row["usersCount"];
+                $data[] = $usersCount;
+                $labels[] = $country;
             }
         
             $graph = new Graph(800, 600);
             $graph->SetScale("textlin");
         
             $graph->title->Set("Distribución de Usuarios por País");
-            $graph->SetMargin(50, 30, 50, 100);
-        
+            $graph->SetMargin(50, 30, 50, 100);      
             
             $barplot = new BarPlot($data);
             $barplot->SetFillColor("blue");
@@ -58,9 +59,11 @@
             
             $data = [];
             $labels = [];
-            foreach ($genderData as $gender) {
-                $data[] = $gender["usersCount"];
-                $labels[] = "" . $gender["gender"] . " (" . $gender["usersCount"] . ")";
+            foreach ($genderData as $row) {
+                $gender = $row["gender"];
+                $userCounts = $row["usersCount"];
+                $data[] = $userCounts;
+                $labels[] = "$gender $userCounts";
             }
         
             $graph = new PieGraph(400, 300, "auto");
@@ -72,7 +75,7 @@
         
             $graph->Add($p1);
         
-            $fileName = "/public/graph/usersByGenderGraph.png";
+            $fileName = "public/graph/usersByGenderGraph.png";
             $graph->Stroke($fileName);
         
             return $fileName;
@@ -83,9 +86,11 @@
             
             $data = [];
             $labels = [];
-            foreach ($ageGroupData as $ageGroup) {
-                $data[] = $ageGroup["usersCount"];
-                $labels[] = "" . $ageGroup["ageGroup"] . " (" . $ageGroup["usersCount"] . ")";
+            foreach ($ageGroupData as $row) {
+                $ageGroup = $row["ageGroup"];
+                $usersCount = $row["usersCount"];
+                $data[] = $usersCount;
+                $labels[] = "$ageGroup $usersCount";
             }
         
             $graph = new PieGraph(400, 300, "auto");

@@ -28,6 +28,9 @@
         private function getData($user) {
             $userScore = $this->model->getUserScore($user["id"]);
             $data = ["user"=>$user, "userScore"=>$userScore];
+            if($user["userRole"] == "admin") {
+                $data["admin"] = "only admin mode";
+            }
             return $data;
         }
 

@@ -61,6 +61,9 @@ CREATE TABLE partida (
     FOREIGN KEY (idUser) REFERENCES usuario(id)
 );
 
+INSERT INTO usuario (id, fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole) VALUES
+(1, "El admin", 1990, 'masculino', 'argentina', 'buenos aires', 'admin@gmail.com', '1234', 'admin', 'public/img/1.jpg', '1234567890qwerty1', '1', 'admin');
+
 INSERT INTO pregunta (question, category) VALUES
 ('¿Cuál es el río más largo del mundo?', 'Geografía'),
 ('¿En qué continente se encuentra Mongolia?', 'Geografía'),
