@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87edfaae-a29d-4a37-b5a3-1302ae29fa96" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/controller/EditorController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/EditorModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/createUpdateQuestionView.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/editorView.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/questionsView.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/suggestedQuestionsView.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DATABASE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DATABASE.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/LobbyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/LobbyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LoginModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/LoginModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/PlayModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PlayModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/lobbyView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/lobbyView.mustache" afterDir="false" />
-    </list>
+    <list default="true" id="87edfaae-a29d-4a37-b5a3-1302ae29fa96" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
