@@ -12,9 +12,9 @@
 
         public function read() {
             if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]["userRole"]=="admin") {
-                $filter = $_GET["filtro"] ?? "day";
+                $filter = $_GET["filter"] ?? "day";
                 $data = $this->getData($filter);
-                $this->presenter->render("/view/adminView.mustache", $data);
+                $this->presenter->render("view/adminView.mustache", $data);
             }else {
                 Redirect::to("/login/read");
             }
@@ -22,7 +22,7 @@
 
         public function create() {
             if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]["userRole"]=="admin") {
-                $filter = $_GET["filtro"] ?? "day";
+                $filter = $_GET["filter"] ?? "day";
                 $data = $this->getData($filter);
                 $html = $this->presenter->generateHtml("view/adminView.mustache", $data);
                 GeneratorPDF::generate($html);
@@ -56,26 +56,30 @@
             $playersCount = $this->model->getPlayersCount($currentDate, $lastDate);
             $gamesCount = $this->model->getGamesCount($currentDate, $lastDate);
             $questionsCount = $this->model->getQuestionsCount($currentDate, $lastDate);
+            /*
+            
+            
             $questionsCreated = $this->model->getQuestionsCreated($currentDate, $lastDate);
             $newUsers = $this->model->getNewUsers($currentDate, $lastDate);
             $correctPercentage = $this->model->getCorrectPercentage($currentDate, $lastDate);
             $usersByCountry = $this->model->getUsersByCountry($currentDate, $lastDate);
             $usersByGender = $this->model->getUsersByGender($currentDate, $lastDate);
             $usersByAgeGroup = $this->model->getUsersByAgeGroup($currentDate, $lastDate);
-            $data = $this->createData($playersCount, $gamesCount, $questionsCount, $questionsCreated, $newUsers, $correctPercentage, $usersByCountry, $usersByGender, $usersByAgeGroup, $filter);
+            */
+            $data = $this->createData($playersCount, $gamesCount, $questionsCount, $filter);
             return $data;
         }
 
-        private function createData($playersCount, $gamesCount, $questionsCount, $questionsCreated, $newUsers, $correctPercentage, $usersByCountry, $usersByGender, $usersByAgeGroup, $filter) {
+        private function createData($playersCount, $gamesCount, $questionsCount, $filter) {
+            /*
             foreach($correctPercentage as $row) {
                 $incorrectPercentage = 100 - $row["correctPercentage"];
                 $correctPercentageGraph[] = GeneratorGraph::generateCorrectPercentage($row["username"], $row["correctPercentage"], $incorrectPercentage);
             }
             $usersByCountryGraph = GeneratorGraph::generateUsersByCountry($usersByCountry);
             $usersByGenderGraph = GeneratorGraph::generateUsersByGender($usersByGender);
-            $usersByAgeGroupGraph = GeneratorGraph::generateUsersByAgeGroup($usersByAgeGroup);
-            $data = ["playersCount"=>$playersCount, "gamesCount"=>$gamesCount, "questionsCount"=>$questionsCount, "questionsCreated"=>$questionsCreated, "newUsers"=>$newUsers,
-            "correctPercentageGraph"=>$correctPercentageGraph, "usersByCountryGraph"=>$usersByCountryGraph, "usersByGenderGraph"=>$usersByGenderGraph, "usersByAgeGroupGraph"=>$usersByAgeGroupGraph];
+            $usersByAgeGroupGraph = GeneratorGraph::generateUsersByAgeGroup($usersByAgeGroup);*/
+            $data = ["playersCount"=>$playersCount, "gamesCount"=>$gamesCount, "questionsCount"=>$questionsCount];
             switch($filter) {
                 case "year":
                     $data["year"] = $filter;

@@ -9,6 +9,11 @@
 
             $options = new Options();
             $options->set("isRemoteEnabled", true);
+            $options->set("isHtml5ParserEnabled", true);
+
+            $options->set('debugKeepTemp', true);
+            $options->set('debugCss', true);
+
             $dompdf = new Dompdf($options);
 
             $dompdf->loadHtml($html);
