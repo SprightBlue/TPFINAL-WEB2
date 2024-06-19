@@ -23,7 +23,11 @@
             if(isset($_SESSION["usuario"]) && isset($_GET["username"])) {
                 $username = $_GET["username"];
                 $data = $this->getData($username);
-                $this->presenter->render("view/profileView.mustache", $data);                
+                if($data["user"]["userRole"] == "player") {
+                    $this->presenter->render("view/profileView.mustache", $data); 
+                }else {
+                    Redirect::to("/login/read");
+                }
             }else {
                 Redirect::to("/login/read");
             }
