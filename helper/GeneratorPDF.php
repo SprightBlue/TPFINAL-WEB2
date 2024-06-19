@@ -17,7 +17,7 @@
             $dompdf->setPaper("A4", "portrait");
             $dompdf->render();
 
-            $dompdf->stream("documento_generado.pdf", ["Attachment" => 1]);
+            $dompdf->stream("REPORTE.pdf", ["Attachment" => 0]);
 
         }
 

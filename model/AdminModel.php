@@ -47,7 +47,8 @@
             $stmt = $this->database->query("SELECT COUNT(*) AS newUsers
                                             FROM usuario
                                             WHERE dateCreated <= :currentDate 
-                                            AND dateCreated >= :lastDate");
+                                            AND dateCreated >= :lastDate
+                                            AND userRole = 'player'");
             $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["newUsers"];
@@ -57,6 +58,7 @@
             $stmt = $this->database->query("SELECT username, (correctAnswers / answeredQuestions) * 100 AS correctPercentage
                                             FROM usuario
                                             WHERE answeredQuestions > 0
+                                            AND userRole = 'player'
                                             GROUP BY username, correctAnswers, answeredQuestions");
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -66,6 +68,7 @@
         public function getUsersByCountry($currentDate, $lastDate) {
             $stmt = $this->database->query("SELECT country, COUNT(*) AS usersCount
                                             FROM usuario
+                                            WHERE userRole = 'player'
                                             GROUP BY country");
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -75,6 +78,7 @@
         public function getUsersByGender($currentDate, $lastDate) {
             $stmt = $this->database->query("SELECT gender, COUNT(*) AS usersCount
                                             FROM usuario
+                                            WHERE userRole = 'player'
                                             GROUP BY gender");
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -88,6 +92,7 @@
                                                 ELSE 'medio'
                                             END AS ageGroup, COUNT(*) AS usersCount
                                             FROM usuario
+                                            WHERE userRole = 'player'
                                             GROUP BY ageGroup");            
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

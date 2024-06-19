@@ -1,22 +1,83 @@
 <main>
-    <div>Cantidad de jugadores que tiene la aplicacion: {{playersCount}}</div>
-    <div>Cantidad de partidas jugadas: {{gamesCount}}</div>
-    <div>Cantidad de preguntas en el juego: {{questionsCount}}</div>
-    <div>Cantidad de preguntas creadas: {{questionsCreated}}</div>
-    <div>Cantidad de usuarios nuevos: {{newUsers}}</div>
-    <div>Porcentaje de preguntas respondidas correctamente por usuario </div>
-    <div>{{#correctPercentageGraph}}<img src="/{{graph}}">{{/correctPercentageGraph}}</div>
-    {{#usersByCountryGraph}}<div><img src="/{{usersByCountryGraph}}"></div>{{/usersByCountryGraph}}
-    {{#usersByGenderGraph}}<div><img src="/{{usersByGenderGraph}}"></div>{{/usersByGenderGraph}}
-    {{#usersByAgeGroupGraph}}<div><img src="/{{usersByAgeGroupGraph}}"></div>{{/usersByAgeGroupGraph}}
-    <ul>
-        <li><a href="/admin/read?filter=day">Dia</a></li>
-        <li><a href="/admin/read?filter=week">Semana</a></li>
-        <li><a href="/admin/read?filter=month">Mes</a></li>
-        <li><a href="/admin/read?filter=year">Año</a></li>
-        {{#year}}<li><a href="/admin/create?filter={{year}}">Generar PDF</a></li>{{/year}}
-        {{#month}}<li><a href="/admin/create?filter={{month}}">Generar PDF</a></li>{{/month}}
-        {{#week}}<li><a href="/admin/create?filter={{week}}">Generar PDF</a></li>{{/week}}
-        {{#day}}<li><a href="/admin/create?filter={{day}}">Generar PDF</a></li>{{/day}}
-    </ul>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="text-center">Estadisticas de Q&A</h2>
+            </div>
+            <div class="col-sm-6">
+                <div class="dropdown d-flex justify-content-end">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        filtrar por
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="/admin/get?filter=day">Dia</a></li>
+                        <li><a class="dropdown-item" href="/admin/get?filter=week">Semana</a></li>
+                        <li><a class="dropdown-item" href="/admin/get?filter=month">Mes</a></li>
+                        <li><a class="dropdown-item" href="/admin/get?filter=year">Año</a></li>
+                    </ul>
+                </div>                
+            </div>
+        </div>
+        <hr class="border border-warning border-1 opacity-50">
+        <h5>Cantidad de jugadores que tiene la aplicacion: {{playersCount}}</h5>
+        <h5>Cantidad de partidas jugadas: {{gamesCount}}</h5>
+        <h5>Cantidad de preguntas en el juego: {{questionsCount}}</h5>
+        <h5>Cantidad de preguntas creadas: {{questionsCreated}}</h5>
+        <h5>Cantidad de usuarios nuevos: {{newUsers}}</h5>
+        <hr class="border border-warning border-1 opacity-50">
+        <h5>Porcentaje de preguntas respondidas correctamente por usuario </h5>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {{#correctPercentageGraph}}
+                <div class="col justify-content-center">
+                    <div class="card text-center">
+                        <img class="card-img-top mx-auto d-block" src="/{{graph}}" alt="user-winratio">
+                    </div>
+                </div>
+            {{/correctPercentageGraph}}
+            {{^correctPercentageGraph}}
+                <div><caption>No hay datos disponibles.</caption></div>
+            {{/correctPercentageGraph}} 
+        </div> 
+        <hr class="border border-warning border-1 opacity-50">
+        <h5>Distribucion de Usuarios por pais, genero y grupo de edad</h5>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {{#usersByCountryGraph}}
+                <div class="col justify-content-center">
+                    <div class="card text-center">
+                        <img class="card-img-top mx-auto d-block" src="/{{usersByCountryGraph}}" alt="country-ratio">
+                    </div>
+                </div>
+            {{/usersByCountryGraph}}
+            {{^usersByCountryGraph}}
+                <div><caption>No hay datos disponibles.</caption></div>
+            {{/usersByCountryGraph}} 
+            {{#usersByGenderGraph}}
+                <div class="col justify-content-center">
+                    <div class="card text-center">
+                        <img class="card-img-top mx-auto d-block" src="/{{usersByGenderGraph}}" alt="gender-ratio">
+                    </div>
+                </div>
+            {{/usersByGenderGraph}}
+            {{^usersByGenderGraph}}
+            <div><caption>No hay datos disponibles.</caption></div>
+            {{/usersByGenderGraph}} 
+            {{#usersByAgeGroupGraph}}
+                <div class="col justify-content-center">
+                    <div class="card text-center">
+                        <img class="card-img-top mx-auto d-block" src="/{{usersByAgeGroupGraph}}" alt="ageGroup-graph">
+                    </div>
+                </div>
+            {{/usersByAgeGroupGraph}}
+            {{^usersByAgeGroupGraph}}
+            <div><caption>No hay datos disponibles.</caption></div>
+            {{/usersByAgeGroupGraph}} 
+        </div> 
+        <hr class="border border-warning border-1 opacity-50">
+        <div class="d-flex justify-content-end">
+            {{#year}}<a class="btn btn-dark" href="/admin/create?filter={{year}}">Generar PDF</a>{{/year}}
+            {{#month}}<a class="btn btn-dark" href="/admin/create?filter={{month}}">Generar PDF</a>{{/month}}
+            {{#week}}<a class="btn btn-dark" href="/admin/create?filter={{week}}">Generar PDF</a>{{/week}}
+            {{#day}}<a class="btn btn-dark" href="/admin/create?filter={{day}}">Generar PDF</a>{{/day}}
+        </div>    
+    </div>
 </main>
