@@ -34,33 +34,33 @@
             $currentDate = date('Y-m-d H:i:s');
             switch($filter) {
                 case "year":
-                    $lastDate = date('Y-m-d H:i:s', strtotime('-1 year'));
+                    $startDate = date('Y-m-d H:i:s', strtotime('-1 year'));
                     break;
                 case "month":
-                    $lastDate = date('Y-m-d H:i:s', strtotime('-1 month'));
+                    $startDate = date('Y-m-d H:i:s', strtotime('-1 month'));
                     break;
                 case "week":
-                    $lastDate = date('Y-m-d H:i:s', strtotime('-1 week'));
+                    $startDate = date('Y-m-d H:i:s', strtotime('-1 week'));
                     break;
                 case "day":
                 default:
-                    $lastDate = date('Y-m-d H:i:s', strtotime('-1 day'));     
+                    $startDate = date('Y-m-d H:i:s', strtotime('-1 day'));     
                     break;    
             }  
-            $data = $this->setData($currentDate, $lastDate, $filter);       
+            $data = $this->setData($currentDate, $startDate, $filter);       
             return $data;
         }
 
-        private function setData($currentDate, $lastDate, $filter) {
-            $playersCount = $this->model->getPlayersCount($currentDate, $lastDate);
-            $gamesCount = $this->model->getGamesCount($currentDate, $lastDate);
-            $questionsCount = $this->model->getQuestionsCount($currentDate, $lastDate);
-            $questionsCreated = $this->model->getQuestionsCreated($currentDate, $lastDate);
-            $newUsers = $this->model->getNewUsers($currentDate, $lastDate);            
-            $correctPercentage = $this->model->getCorrectPercentage($currentDate, $lastDate);
-            $usersByCountry = $this->model->getUsersByCountry($currentDate, $lastDate);
-            $usersByGender = $this->model->getUsersByGender($currentDate, $lastDate);
-            $usersByAgeGroup = $this->model->getUsersByAgeGroup($currentDate, $lastDate);
+        private function setData($currentDate, $startDate, $filter) {
+            $playersCount = $this->model->getPlayersCount();
+            $gamesCount = $this->model->getGamesCount();
+            $questionsCount = $this->model->getQuestionsCount();
+            $questionsCreated = $this->model->getQuestionsCreated($currentDate, $startDate);
+            $newUsers = $this->model->getNewUsers($currentDate, $startDate);            
+            $correctPercentage = $this->model->getCorrectPercentage($currentDate, $startDate);
+            $usersByCountry = $this->model->getUsersByCountry($currentDate, $startDate);
+            $usersByGender = $this->model->getUsersByGender($currentDate, $startDate);
+            $usersByAgeGroup = $this->model->getUsersByAgeGroup($currentDate, $startDate);
             $data = $this->createData($playersCount, $gamesCount, $questionsCount, $questionsCreated, $newUsers, $correctPercentage, $usersByCountry, $usersByGender, $usersByAgeGroup, $filter);
             return $data;
         }

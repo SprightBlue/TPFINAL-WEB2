@@ -31,7 +31,7 @@
 
         private function getData($username) {
             $user = $this->model->getUser($username);
-            $data = ["user"=>$user];
+            $data = ["user"=>$user, "qr"=>"/public/qr/qr-". $username . ".png"];
             return $data;
         }
 

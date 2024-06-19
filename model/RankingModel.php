@@ -46,6 +46,7 @@
             $stmt = $this->database->query("SELECT u.id AS id, u.username AS username, MAX(p.score) AS maxScore 
                                                 FROM usuario u JOIN partida p ON u.id=p.idUser
                                                 WHERE p.dateGame BETWEEN :oneMonthAgo AND :currentDate
+                                                AND u.userRole = 'player'
                                                 GROUP BY u.id, u.username
                                                 ORDER BY maxScore DESC
                                                 LIMIT 10");
