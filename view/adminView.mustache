@@ -5,21 +5,18 @@
     <div>Cantidad de preguntas creadas: {{questionsCreated}}</div>
     <div>Cantidad de usuarios nuevos: {{newUsers}}</div>
     <div>Porcentaje de preguntas respondidas correctamente por usuario </div>
-    {{#correctPercentageGraph}}<div><img src="{{correctPercentageGraph}}"></div>{{/correctPercentageGraph}}
-    <div>Cantidad de usuarios por pais</div>
-    <div><img src="{{usersByCountryGraph}}"></div>
-    <div>Cantidad de usuarios por genero</div>
-    <div><img src="{{usersByGenderGraph}}"></div>
-    <div>Cantidad de usuarios por grupo de edad</div>
-    <div><img src="{{usersByAgeGroupGraph}}"></div>
+    <div>{{#correctPercentageGraph}}<img src="/{{graph}}">{{/correctPercentageGraph}}</div>
+    {{#usersByCountryGraph}}<div><img src="/{{usersByCountryGraph}}"></div>{{/usersByCountryGraph}}
+    {{#usersByGenderGraph}}<div><img src="/{{usersByGenderGraph}}"></div>{{/usersByGenderGraph}}
+    {{#usersByAgeGroupGraph}}<div><img src="/{{usersByAgeGroupGraph}}"></div>{{/usersByAgeGroupGraph}}
     <ul>
         <li><a href="/admin/read?filter=day">Dia</a></li>
         <li><a href="/admin/read?filter=week">Semana</a></li>
         <li><a href="/admin/read?filter=month">Mes</a></li>
         <li><a href="/admin/read?filter=year">Año</a></li>
-        {{#year}}<li><a href="/admin/create?filtro={{year}}">Generar PDF</a></li>{{/year}}
-        {{#month}}<li><a href="/admin/create?filtro={{month}}">Generar PDF</a></li>{{/month}}
-        {{#week}}<li><a href="/admin/create?filtro={{week}}">Generar PDF</a></li>{{/week}}
-        {{#day}}<li><a href="/admin/create?filtro={{day}}">Generar PDF</a></li>{{/day}}
+        {{#year}}<li><a href="/admin/create?filter={{year}}">Generar PDF</a></li>{{/year}}
+        {{#month}}<li><a href="/admin/create?filter={{month}}">Generar PDF</a></li>{{/month}}
+        {{#week}}<li><a href="/admin/create?filter={{week}}">Generar PDF</a></li>{{/week}}
+        {{#day}}<li><a href="/admin/create?filter={{day}}">Generar PDF</a></li>{{/day}}
     </ul>
 </main>

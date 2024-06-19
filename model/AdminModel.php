@@ -11,27 +11,24 @@
         public function getPlayersCount($currentDate, $lastDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS playersCount
                                             FROM usuario
-                                            WHERE userRole = 'player'
-                                            AND dateCreated NOT BETWEEN :currentDate AND :lastDate");
-            $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
+                                            WHERE userRole = 'player'");
+            $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["playersCount"];
         }
 
         public function getGamesCount($currentDate, $lastDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS gamesCount
-                                            FROM partida
-                                            WHERE dateGame NOT BETWEEN :currentDate AND :lastDate");
-            $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
+                                            FROM partida");
+            $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["gamesCount"];            
         }
 
         public function getQuestionsCount($currentDate, $lastDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS questionsCount
-                                            FROM pregunta
-                                            WHERE dateCreated NOT BETWEEN :currentDate AND :lastDate");
-            $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
+                                            FROM pregunta");
+            $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["questionsCount"];
         }
@@ -39,7 +36,8 @@
         public function getQuestionsCreated($currentDate, $lastDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS questionsCreated
                                             FROM pregunta
-                                            WHERE dateCreated BETWEEN :currentDate AND :lastDate");
+                                            WHERE dateCreated <= :currentDate 
+                                            AND dateCreated >= :lastDate");
             $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["questionsCreated"];
@@ -48,7 +46,8 @@
         public function getNewUsers($currentDate, $lastDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS newUsers
                                             FROM usuario
-                                            WHERE dateCreated BETWEEN :currentDate AND :lastDate");
+                                            WHERE dateCreated <= :currentDate 
+                                            AND dateCreated >= :lastDate");
             $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["newUsers"];
@@ -58,9 +57,8 @@
             $stmt = $this->database->query("SELECT username, (correctAnswers / answeredQuestions) * 100 AS correctPercentage
                                             FROM usuario
                                             WHERE answeredQuestions > 0
-                                            AND dateCreated NOT BETWEEN :currentDate AND :lastDate
                                             GROUP BY username, correctAnswers, answeredQuestions");
-            $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
+            $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
@@ -68,9 +66,8 @@
         public function getUsersByCountry($currentDate, $lastDate) {
             $stmt = $this->database->query("SELECT country, COUNT(*) AS usersCount
                                             FROM usuario
-                                            WHERE dateCreated NOT BETWEEN :currentDate AND :lastDate
                                             GROUP BY country");
-            $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
+            $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
@@ -78,9 +75,8 @@
         public function getUsersByGender($currentDate, $lastDate) {
             $stmt = $this->database->query("SELECT gender, COUNT(*) AS usersCount
                                             FROM usuario
-                                            WHERE dateCreated NOT BETWEEN :currentDate AND :lastDate
                                             GROUP BY gender");
-            $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
+            $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
@@ -92,9 +88,8 @@
                                                 ELSE 'medio'
                                             END AS ageGroup, COUNT(*) AS usersCount
                                             FROM usuario
-                                            WHERE dateCreated NOT BETWEEN :currentDate AND :lastDate
                                             GROUP BY ageGroup");            
-            $stmt->execute(array(":currentDate"=>$currentDate, ":lastDate"=>$lastDate));
+            $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
