@@ -4,13 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87edfaae-a29d-4a37-b5a3-1302ae29fa96" name="Changes" comment="" />
+    <list default="true" id="87edfaae-a29d-4a37-b5a3-1302ae29fa96" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/public/img/pancho.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration.php" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DATABASE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DATABASE.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/EditorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/EditorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/LobbyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/LobbyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/Database.php" beforeDir="false" afterPath="$PROJECT_DIR$/helper/Database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/helper/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/EditorModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/EditorModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/LobbyModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/LobbyModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/createUpdateQuestionView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/createUpdateQuestionView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/lobbyView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/lobbyView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/questionsView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/questionsView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/suggestQuestionView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/suggestQuestionView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/suggestedQuestionsView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/suggestedQuestionsView.mustache" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -35,6 +57,10 @@
       <path value="$PROJECT_DIR$/vendor/phpqrcode/tools" />
       <path value="$PROJECT_DIR$/vendor/mustache/bin" />
       <path value="$PROJECT_DIR$/vendor/mustache/src" />
+      <path value="$PROJECT_DIR$/vendor/jpgraph/docs" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/lib" />
+      <path value="$PROJECT_DIR$/vendor/jpgraph/src" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/src" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -48,26 +74,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "gonza2",
-    "last_opened_file_path": "C:/Users/Gonza/Desktop/preguntados",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gonza2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Gonza/Desktop/preguntados&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\public\img" />
@@ -76,11 +102,11 @@
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\Ejercicios" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Gonza\Desktop\samp\htdocs\public\img" />
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\view" />
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\public\image" />
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\tp" />
       <recent name="C:\Users\Gonza\Desktop\samp\htdocs\Ejercicio9" />
-      <recent name="C:\Users\Gonza\Desktop\samp\htdocs\Ejercicio11" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -124,6 +150,8 @@
       <workItem from="1717200520980" duration="8133000" />
       <workItem from="1717639051349" duration="1934000" />
       <workItem from="1717699228655" duration="48954000" />
+      <workItem from="1718745351312" duration="9282000" />
+      <workItem from="1718806413138" duration="6101000" />
     </task>
     <servers />
   </component>

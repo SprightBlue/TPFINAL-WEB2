@@ -36,6 +36,9 @@
     include_once("model/AdminModel.php");
     include_once("controller/AdminController.php");
 
+    include_once("model/EditorModel.php");
+    include_once("controller/EditorController.php");
+
     class Configuration {
 
         public static function getDatabase() {
@@ -103,6 +106,13 @@
             return new AdminModel(self::getDatabase());
         }
 
+        public static function getEditorController() {
+            return new EditorController(self::getEditorModel(), self::getPresenter());
+        }
+
+        private static function getEditorModel() {
+            return new EditorModel(self::getDatabase());
+        }
         public static function getRouter() {
             return new Router("getLobbyController", "read");
         }

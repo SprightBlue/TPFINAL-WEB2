@@ -23,7 +23,16 @@
                 </div>
             </div>
 
-            <a class="btn btn-dark" href="/lobby/suggestQuestionView">Sugerir pregunta</a>
+
+            {{#user}}
+                {{#isPlayer}}
+                    <a class="btn btn-dark" href="/lobby/suggestQuestionView">Sugerir pregunta</a>
+                {{/isPlayer}}
+                {{#isEditor}}
+                    <a class="btn btn-dark" href="/editor/editorView">Ir a vista de editor</a>
+                {{/isEditor}}
+            {{/user}}
+
         </div>
     </div>
 </main>

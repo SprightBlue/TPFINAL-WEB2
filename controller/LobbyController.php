@@ -13,6 +13,8 @@
         public function read() {
             if(isset($_SESSION["usuario"])) {
                 $user = $_SESSION["usuario"];
+                $user["isPlayer"] = $user["userRole"] == "player";
+                $user["isEditor"] = $user["userRole"] == "editor";
                 $data = $this->getData($user);
                 $this->presenter->render("view/lobbyView.mustache", $data);
             }else {

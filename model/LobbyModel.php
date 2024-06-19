@@ -20,8 +20,12 @@
                 return $scoreUser;
             }
             return false;
-        }  
-
+        }
+        public function addSuggestQuestion($idUser, $question, $category, $answer1, $answer2, $answer3, $answer4, $correct) {
+            $stmt = $this->database->query("INSERT INTO pregunta_sugerida (idUser, question, category, answer1, answer2, answer3, answer4, correct) 
+                                    VALUES (:idUser, :question, :category, :answer1, :answer2, :answer3, :answer4, :correct)");
+            $stmt->execute(array(":idUser"=>$idUser, ":question"=>$question, ":category"=>$category, ":answer1"=>$answer1, ":answer2"=>$answer2, ":answer3"=>$answer3, ":answer4"=>$answer4, ":correct"=>$correct));
+        }
     }
 
-?>
+

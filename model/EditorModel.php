@@ -18,7 +18,7 @@ class EditorModel
 
     public function getSuggestedQuestion($idSuggestion)
     {
-        $stmt = $this->database->prepare("SELECT * FROM pregunta_sugerida WHERE idSuggestion = :idSuggestion");
+        $stmt = $this->database->query("SELECT * FROM pregunta_sugerida WHERE idSuggestion = :idSuggestion");
         $stmt->execute(array(":idSuggestion" => $idSuggestion));
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -30,15 +30,15 @@ class EditorModel
     {
         $this->database->beginTransaction();
         try {
-            $stmt = $this->database->prepare("INSERT INTO pregunta (question, category) VALUES (:question, :category)");
+            $stmt = $this->database->query("INSERT INTO pregunta (question, category) VALUES (:question, :category)");
             $stmt->execute(array(":question" => $suggestedQuestion["question"], ":category" => $suggestedQuestion["category"]));
             $idQuestion = $this->database->lastInsertId();
 
             for ($i = 1; $i <= 4; $i++) {
-                $stmt = $this->database->prepare("INSERT INTO respuesta (idQuestion, answer, correct) VALUES (:idQuestion, :answer, :correct)");
-                $stmt->execute(array(":idQuestion" => $idQuestion, ":answer" => $suggestedQuestion["answer" . $i], ":correct" => ($i == $suggestedQuestion["correct"])));
+                $stmt = $this->database->query("INSERT INTO respuesta (idQuestion, answer, correct) VALUES (:idQuestion, :answer, :correct)");
+                $correct = ($i == intval($suggestedQuestion["correct"])) ? 1 : 0; // Ensure 'correct' is an integer
+                $stmt->execute(array(":idQuestion" => $idQuestion, ":answer" => $suggestedQuestion["answer" . $i], ":correct" => $correct));
             }
-
 
             $this->denySuggestion($suggestedQuestion["idSuggestion"]);
 
@@ -52,7 +52,7 @@ class EditorModel
 
     public function denySuggestion($idSuggestion)
     {
-        $stmt = $this->database->prepare("DELETE FROM pregunta_sugerida WHERE idSuggestion = :idSuggestion");
+        $stmt = $this->database->query("DELETE FROM pregunta_sugerida WHERE idSuggestion = :idSuggestion");
         $stmt->execute(array(":idSuggestion" => $idSuggestion));
     }
 
@@ -65,7 +65,7 @@ class EditorModel
 
     public function createQuestion($question, $category, $answer1, $answer2, $answer3, $answer4, $correct)
     {
-        $stmt = $this->database->prepare("INSERT INTO pregunta (question, category) VALUES (:question, :category)");
+        $stmt = $this->database->query("INSERT INTO pregunta (question, category) VALUES (:question, :category)");
         $stmt->execute(array(":question" => $question, ":category" => $category));
         $idQuestion = $this->database->lastInsertId();
         $this->addAnswers($idQuestion, $answer1, $answer2, $answer3, $answer4, $correct);
@@ -76,26 +76,41 @@ class EditorModel
         for ($i = 1; $i <= 4; $i++) {
             $answer = ${"answer" . $i};
             $isCorrect = ($i == $correct) ? 1 : 0;
-            $stmt = $this->database->prepare("INSERT INTO respuesta (idQuestion, answer, correct) VALUES (:idQuestion, :answer, :correct)");
+            $stmt = $this->database->query("INSERT INTO respuesta (idQuestion, answer, correct) VALUES (:idQuestion, :answer, :correct)");
             $stmt->execute(array(":idQuestion" => $idQuestion, ":answer" => $answer, ":correct" => $isCorrect));
         }
     }
     public function deleteQuestion($idQuestion) {
-        $stmt = $this->database->prepare("DELETE FROM pregunta WHERE idQuestion = :idQuestion");
+        $stmt = $this->database->query("DELETE FROM pregunta WHERE idQuestion = :idQuestion");
+        $stmt->execute(array(":idQuestion"=>$idQuestion));
+    }
+    public function deleteAnswers($idQuestion) {
+        $stmt = $this->database->query("DELETE FROM respuesta WHERE idQuestion = :idQuestion");
         $stmt->execute(array(":idQuestion"=>$idQuestion));
     }
     public function updateQuestion($idQuestion, $question, $category, $answer1, $answer2, $answer3, $answer4, $correct) {
-        $stmt = $this->database->prepare("UPDATE pregunta SET question = :question, category = :category WHERE idQuestion = :idQuestion");
-        $stmt->execute(array(":idQuestion"=>$idQuestion, ":question"=>$question, ":category"=>$category));
+        $stmt = $this->database->query("UPDATE pregunta SET question = :question, category = :category WHERE idQuestion = :idQuestion");
+        $stmt->execute(array(":question" => $question, ":category" => $category, ":idQuestion" => $idQuestion));
+
         $this->updateAnswers($idQuestion, $answer1, $answer2, $answer3, $answer4, $correct);
     }
 
     private function updateAnswers($idQuestion, $answer1, $answer2, $answer3, $answer4, $correct) {
-        for ($i = 1; $i <= 4; $i++) {
-            $answer = ${"answer" . $i};
-            $isCorrect = ($i == $correct) ? 1 : 0;
-            $stmt = $this->database->prepare("UPDATE respuesta SET answer = :answer, correct = :correct WHERE idQuestion = :idQuestion AND idAnswer = :idAnswer");
-            $stmt->execute(array(":idQuestion"=>$idQuestion, ":idAnswer"=>$i, ":answer"=>$answer, ":correct"=>$isCorrect));
+        $answers = [$answer1, $answer2, $answer3, $answer4];
+        for ($i = 0; $i < 4; $i++) {
+            $isCorrect = ($i + 1 == $correct) ? 1 : 0;
+            $stmt = $this->database->query("UPDATE respuesta SET answer = :answer, correct = :correct WHERE idQuestion = :idQuestion AND idAnswer = :idAnswer");
+            $stmt->execute(array(":answer" => $answers[$i], ":correct" => $isCorrect, ":idQuestion" => $idQuestion, ":idAnswer" => $i + 1));
         }
+    }
+    public function getQuestion($idQuestion) {
+        $stmt = $this->database->query("SELECT * FROM pregunta WHERE idQuestion = :idQuestion");
+        $stmt->execute(array(":idQuestion" => $idQuestion));
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getAnswers($idQuestion) {
+        $stmt = $this->database->query("SELECT * FROM respuesta WHERE idQuestion = :idQuestion ORDER BY idAnswer");
+        $stmt->execute(array(":idQuestion" => $idQuestion));
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

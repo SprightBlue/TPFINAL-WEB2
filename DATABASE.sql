@@ -2,34 +2,37 @@ DROP DATABASE IF EXISTS qampa;
 
 CREATE DATABASE IF NOT EXISTS qampa;
 
-
 USE qampa;
 
+select * from pregunta;
 CREATE TABLE usuario (
-	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    fullname VARCHAR(255) NOT NULL,
-    yearOfBirth INT NOT NULL,
-    gender VARCHAR(255) NOT NULL,
-    country VARCHAR(255) NOT NULL,
-    city VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    pass VARCHAR(255) NOT NULL,
-    username VARCHAR(255) NOT NULL,
-    profilePicture VARCHAR(255) NOT NULL,
-    token VARCHAR(255) NOT NULL,
-    active BOOLEAN NOT NULL
+                         id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                         fullname VARCHAR(255) NOT NULL,
+                         yearOfBirth INT NOT NULL,
+                         gender VARCHAR(255) NOT NULL,
+                         country VARCHAR(255) NOT NULL,
+                         city VARCHAR(255) NOT NULL,
+                         email VARCHAR(255) NOT NULL,
+                         pass VARCHAR(255) NOT NULL,
+                         username VARCHAR(255) NOT NULL,
+                         profilePicture VARCHAR(255) NOT NULL,
+                         token VARCHAR(255) NOT NULL,
+                         active BOOLEAN NOT NULL,
+                         answeredQuestions INT DEFAULT 0,
+                         correctAnswers INT DEFAULT 0,
+                         userRole VARCHAR(255) DEFAULT 'player',
+                         dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-ALTER TABLE usuario ADD answeredQuestions INT DEFAULT 0;
-ALTER TABLE usuario ADD correctAnswers INT DEFAULT 0;
-ALTER TABLE usuario ADD userRole VARCHAR(255) DEFAULT 'player';
-ALTER TABLE usuario ADD dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
 CREATE TABLE pregunta (
-    idQuestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    question VARCHAR(255) NOT NULL,
-    category VARCHAR(255) NOT NULL
+                          idQuestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                          question VARCHAR(255) NOT NULL,
+                          category VARCHAR(255) NOT NULL,
+                          dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                          correctAnswers INT DEFAULT 0,
+                          totalAnswers INT DEFAULT 0,
+                          difficulty VARCHAR(255) DEFAULT 'easy'
 );
-ALTER TABLE pregunta ADD dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
 CREATE TABLE usuario_pregunta (
                                   idUsuario INT NOT NULL,
@@ -39,40 +42,42 @@ CREATE TABLE usuario_pregunta (
                                   FOREIGN KEY (idPregunta) REFERENCES pregunta(idQuestion)
 );
 
-
-
-ALTER TABLE pregunta ADD correctAnswers INT DEFAULT 0;
-ALTER TABLE pregunta ADD totalAnswers INT DEFAULT 0;
-ALTER TABLE pregunta ADD difficulty VARCHAR(255) DEFAULT 'easy';
-
 CREATE TABLE respuesta (
-    idAnswer INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    idQuestion INT NOT NULL,
-    answer VARCHAR(255) NOT NULL,
-    correct BOOLEAN NOT NULL,
-    FOREIGN KEY (idQuestion) REFERENCES pregunta(idQuestion)
+                           idAnswer INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                           idQuestion INT NOT NULL,
+                           answer VARCHAR(255) NOT NULL,
+                           correct BOOLEAN NOT NULL,
+                           FOREIGN KEY (idQuestion) REFERENCES pregunta(idQuestion)
 );
 
 CREATE TABLE partida (
-    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    score INT NOT NULL,
-    dateGame TIMESTAMP NOT NULL,
-    idUser INT NOT NULL,
-    FOREIGN KEY (idUser) REFERENCES usuario(id)
+                         id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                         score INT NOT NULL,
+                         dateGame TIMESTAMP NOT NULL,
+                         idUser INT NOT NULL,
+                         FOREIGN KEY (idUser) REFERENCES usuario(id)
 );
 
-CREATE TABLE pregunta_sugerida (
-                                   idSuggestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                                   idUser INT NOT NULL,
-                                   question VARCHAR(255) NOT NULL,
-                                   category VARCHAR(255) NOT NULL,
-                                   answer1 VARCHAR(255) NOT NULL,
-                                   answer2 VARCHAR(255) NOT NULL,
-                                   answer3 VARCHAR(255) NOT NULL,
-                                   answer4 VARCHAR(255) NOT NULL,
-                                   correct INT NOT NULL,
-                                   FOREIGN KEY (idUser) REFERENCES usuario(id)
+CREATE TABLE pregunta_sugerida
+(
+    idSuggestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    idUser       INT                            NOT NULL,
+    question     VARCHAR(255)                   NOT NULL,
+    category     VARCHAR(255)                   NOT NULL,
+    answer1      VARCHAR(255)                   NOT NULL,
+    answer2      VARCHAR(255)                   NOT NULL,
+    answer3      VARCHAR(255)                   NOT NULL,
+    answer4      VARCHAR(255)                   NOT NULL,
+    correct      INT                            NOT NULL,
+    FOREIGN KEY (idUser) REFERENCES usuario (id)
 );
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
+VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com', '1234', 'Leo', '/public/img/9163b1ee956ebfc8d3e37edba53d7d0b.png', 'tokenUsuario', 1, 'player');
+
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
+VALUES ('Pancho', 1985, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@email.com', '1234', 'Pancho', '/public/img/pancho.png', 'tokenEditor', 1, 'editor');
+
 
 INSERT INTO pregunta (question, category) VALUES
 ('¿Cuál es el río más largo del mundo?', 'Geografía'),
