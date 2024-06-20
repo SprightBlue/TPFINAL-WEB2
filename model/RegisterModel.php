@@ -8,22 +8,16 @@
             $this->database = $database;
         }
 
-        public function createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img, &$errors) {
+        public function createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img, $token, &$errors) {
             if($this->emailExists($email)) {$errors["errorEmail"] = "El correo electrónico ya está en uso.";}
             if($pass != $repeatPass) {$errors["errorPass"] = "Las contraseñas ingresadas no coinciden.";}
             if($this->usernameExists($username)) {$errors["errorUsername"] = "El nombre de usuario ya está en uso.";}
             if(empty($img['name'])) {$errors["errorImg"] = "No se ha subido ningún archivo.";} 
             else {$destination = $this->addImg($img, $errors);}
             if(empty($errors)) {
-                $token = bin2hex(random_bytes(16));           
-                $profileUrl = "http:/localhost/profile/get?username=$username";
-                $path = "public/img/qr-". $username . ".png";
-                QRcode::png($profileUrl, $path, QR_ECLEVEL_L, 8);      
                 $stmt = $this->database->query("INSERT INTO usuario(fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active)
                                                 VALUES(:fullname, :yearOfBirth, :gender, :country, :city, :email, :pass, :username, :profilePicture, :token, 0)");
                 $stmt->execute(array(":fullname"=>$fullname, ":yearOfBirth"=>$yearOfBirth, ":gender"=>$gender, ":country"=>$country, ":city"=>$city, ":email"=>$email, ":pass"=>$pass, ":username"=>$username, ":profilePicture"=>$destination, ":token"=>$token));
-                $verificationUrl = "http://localhost/register/active?token=$token";
-                Mailer::send($email, $fullname, $verificationUrl);
             }
         }
 

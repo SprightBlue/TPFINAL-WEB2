@@ -1,6 +1,18 @@
 <main>
     <div class="container my-5">
-        <div class="row d-flex flex-column justify-content-center align-items-center">
+        {{#mail}}
+            <div class="alert alert-warning alert-dismissible fade show my-5 mx-5">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Verificar: </strong>{{mail}}
+            </div>
+        {{/mail}}
+        {{#verify}}
+            <div class="alert alert-warning alert-dismissible fade show my-5 mx-5">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Activo: </strong>{{verify}}
+            </div>
+        {{/verify}}           
+        <div class="row d-flex flex-column justify-content-center align-items-center">  
             <div class="col-sm-6 border border-1 rounded" style="background-color: #F9AD30">
                 <form class="p-5" action="/login/get" method="POST">
                     <h2 class="text-center mb-3">Iniciar Sesión</h2>

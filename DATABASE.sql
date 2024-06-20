@@ -1,10 +1,10 @@
 DROP DATABASE IF EXISTS qampa;
 
 CREATE DATABASE IF NOT EXISTS qampa;
- select * from report;
+
+
 USE qampa;
 
-select * from pregunta;
 CREATE TABLE usuario (
                          id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
                          fullname VARCHAR(255) NOT NULL,
@@ -88,6 +88,9 @@ VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com',
 INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
 VALUES ('Pancho', 1985, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@email.com', '123', 'Pancho', 'pancho.png', 'tokenEditor', 1, 'editor');
 
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole) VALUES
+('El admin', 1990, 'masculino', 'argentina', 'buenos aires', 'admin@gmail.com', '1234', 'admin', 'public/img/1.jpg', '1234567890qwerty1', '1', 'admin');
 
 INSERT INTO pregunta (question, category) VALUES
 ('¿Cuál es el río más largo del mundo?', 'Geografía'),

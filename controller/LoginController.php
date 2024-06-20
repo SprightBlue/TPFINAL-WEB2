@@ -25,7 +25,7 @@
             $user = $this->model->loginUser($username, $pass, $errors);
             if(empty($errors)) {
                 $_SESSION["usuario"] = $user;
-                Redirect::to("/lobby/read");                 
+                Redirect::to("/lobby/read");       
             }else {   
                 $this->presenter->render("view/loginView.mustache", ["errors"=>$errors]);
             }
