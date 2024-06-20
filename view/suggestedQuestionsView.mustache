@@ -1,12 +1,15 @@
 <main>
     <div class="container my-5">
         <h2 class="text-center text-dark">Preguntas Sugeridas</h2>
-        <ul class="list-group">
-            {{#suggestedQuestions}}
+        {{#suggestedQuestions}}
+            <ul class="list-group">
                 <li class="list-group-item">
                     <a href="/editor/suggestedQuestionView?idSuggestion={{idSuggestion}}">{{question}}</a>
                 </li>
-            {{/suggestedQuestions}}
-        </ul>
+            </ul>
+        {{/suggestedQuestions}}
+        {{^suggestedQuestions}}
+            <p>No hay preguntas sugeridas aún. :D</p>
+            <a href="/editor/editorView" class="btn btn-primary">Ir atrás</a>        {{/suggestedQuestions}}
     </div>
 </main>

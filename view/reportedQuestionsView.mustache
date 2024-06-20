@@ -1,0 +1,24 @@
+<main>
+    <div class="container my-5">
+        <h2 class="text-center text-dark">Preguntas Reportadas</h2>
+        <div class="row d-flex align-items-center">
+            {{#reportedQuestions}}
+                <div class="col-sm-6">
+                    <div class="card bg">
+                        <div class="card-body">
+                            <h4 class="card-title text-dark">{{question}}</h4>
+                            <p class="card-text">Reportado por: {{username}}</p>
+                            <p class="card-text">Razón: {{reason}}</p>
+                            <a class="btn btn-dark" href="/editor/updateQuestionView?idQuestion={{idQuestion}}">Modificar</a>
+                            <a class="btn btn-dark" href="/editor/ignoreReport?idReport={{idReport}}">Ignorar</a>                        </div>
+                    </div>
+                </div>
+            {{/reportedQuestions}}
+
+            {{^reportedQuestions}}
+                <p>No hay preguntas reportadas aún. :D</p>
+                <a href="/editor/editorView" class="btn btn-primary" style="max-width: 100px">Ir atrás</a>
+            {{/reportedQuestions}}
+        </div>
+    </div>
+</main>

@@ -1,9 +1,14 @@
 <main>
     <div class="container my-5">
-        <h2 class="text-center text-dark">Panel del Editor</h2>
+        <h2 class="text-center text-dark">¡Bienvenido de vuelta, {{editorName}}!</h2>
+        <h3 class="text-center text-dark">Panel del Editor</h3>
+        <div class="d-flex justify-content-center mb-4">
+            <a class="btn btn-dark mx-2" href="/editor/suggestedQuestionsView">Ver preguntas sugeridas</a>
+            <a class="btn btn-dark mx-2" href="/editor/questionsView">Ver preguntas</a>
+            <a class="btn btn-dark mx-2" href="/editor/reportedQuestionsView">Ver preguntas reportadas</a>
+        </div>
         <div class="d-flex justify-content-center">
-            <a class="btn btn-dark" href="/editor/suggestedQuestionsView">Ver preguntas sugeridas</a>
-            <a class="btn btn-dark" href="/editor/questionsView">Ver preguntas</a>
+            <a class="btn btn-dark" href="/lobby/read">Ir al lobby</a>
         </div>
     </div>
 </main>

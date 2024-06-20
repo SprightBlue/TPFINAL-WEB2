@@ -1,6 +1,10 @@
 <main>
     <div class="container my-5">
         <h2 class="text-center text-dark">Preguntas</h2>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-dark" href="/editor/createQuestionView">Agregar pregunta</a>
+        </div>
+
         <div class="row d-flex align-items-center">
             {{#questions}}
                 <div class="col-sm-6">
@@ -13,7 +17,7 @@
                     </div>
                 </div>
             {{/questions}}
-            <a class="btn btn-dark" href="/editor/createQuestionView">Agregar pregunta</a>
+
         </div>
     </div>
 </main>

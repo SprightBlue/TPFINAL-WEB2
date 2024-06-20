@@ -19,7 +19,7 @@
                     $_SESSION["partida"] = $data;
                     $_SESSION["startTime"] = time();
                 }
-                $this->presenter->render("view/playView.mustache", $data);                
+                $this->presenter->render("view/playView.mustache", $data);
             }else {
                 Redirect::to("/login/read");
             }
@@ -30,12 +30,13 @@
                 $isCorrect = isset($_POST["isCorrect"]) ? $_POST["isCorrect"] : null;
                 $elapsedTime = isset($_SESSION["startTime"]) ? time() - $_SESSION["startTime"] : null;
                 $this->updateAnswerStats($isCorrect, $elapsedTime);
-                if($isCorrect && $elapsedTime > 0) {$this->correctCase();} 
-                else {$this->incorrectCase();}                
+                if($isCorrect && $elapsedTime > 0) {$this->correctCase();}
+                else {$this->incorrectCase();}
             }else {
                 Redirect::to("/login/read");
             }
         }
+
 
         private function updateAnswerStats($isCorrect, $elapsedTime) {
             $this->model->incrementTotalAnswers($_SESSION["partida"]["question"]["idQuestion"]);
@@ -63,7 +64,17 @@
             $data["gameOver"] = true;
             $this->presenter->render("view/playView.mustache", $data);
         }
+        public function reportQuestion() {
+            $this->incorrectCase();
+            if(isset($_SESSION["usuario"])) {
 
+                $idUser = $_SESSION["usuario"]["id"];
+                $idQuestion = $_POST["idQuestion"];
+                $reason = $_POST["reason"];
+                $this->model->insertReport($idUser, $idQuestion, $reason);
+            } else {
+
+            }
+        }
     }
 
-?>

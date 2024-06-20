@@ -16,7 +16,7 @@ class EditorController
     public function editorView()
     {
         if (isset($_SESSION["usuario"]) && $_SESSION["usuario"]["userRole"] == "editor") {
-            $this->presenter->render("view/editorView.mustache");
+            $this->presenter->render("view/editorView.mustache", ['editorName' => $_SESSION["usuario"]["fullname"]]);
         } else {
             Redirect::to("/login/read");
         }
@@ -190,8 +190,7 @@ class EditorController
                 $this->model->updateQuestion($idQuestion, $question, $category, $answer1, $answer2, $answer3, $answer4, $correct);
                 Redirect::to("/editor/questionsView");
             } else {
-                // Agregar mensaje de error en la sesión
-                $_SESSION["errorMessage"] = "Todos los campos son requeridos.";
+
                 Redirect::to("/editor/updateQuestionView?idQuestion=" . $_POST["idQuestion"]);
             }
         } else {
@@ -209,6 +208,21 @@ class EditorController
         } else {
             Redirect::to("/login/read");
         }
+    }
+    public function reportedQuestionsView() {
+        if (isset($_SESSION["usuario"]) && $_SESSION["usuario"]["userRole"] == "editor") {
+            $reportedQuestions = $this->model->getReportedQuestions();
+            $this->presenter->render("view/reportedQuestionsView.mustache", ["reportedQuestions" => $reportedQuestions]);
+        } else {
+            Redirect::to("/login/read");
+        }
+    }
+    public function ignoreReport() {
+        if(isset($_GET["idReport"])) {
+            $idReport = $_GET["idReport"];
+            $this->model->ignoreReport($idReport);
+        }
+        Redirect::to("/editor/reportedQuestionsView");
     }
 
 }

@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS qampa;
 
 CREATE DATABASE IF NOT EXISTS qampa;
-
+ select * from report;
 USE qampa;
 
 select * from pregunta;
@@ -58,6 +58,16 @@ CREATE TABLE partida (
                          FOREIGN KEY (idUser) REFERENCES usuario(id)
 );
 
+CREATE TABLE report (
+                        idReport INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                        idQuestion INT NOT NULL,
+                        idUser INT NOT NULL,
+                        reason TEXT NOT NULL,
+                        dateReported TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (idQuestion) REFERENCES pregunta(idQuestion),
+                        FOREIGN KEY (idUser) REFERENCES usuario(id)
+);
+
 CREATE TABLE pregunta_sugerida
 (
     idSuggestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -72,11 +82,11 @@ CREATE TABLE pregunta_sugerida
     FOREIGN KEY (idUser) REFERENCES usuario (id)
 );
 INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
-VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com', '1234', 'Leo', '/public/img/9163b1ee956ebfc8d3e37edba53d7d0b.png', 'tokenUsuario', 1, 'player');
+VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com', '123', 'Leo', '9163b1ee956ebfc8d3e37edba53d7d0b.png', 'tokenUsuario', 1, 'player');
 
 
 INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
-VALUES ('Pancho', 1985, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@email.com', '1234', 'Pancho', '/public/img/pancho.png', 'tokenEditor', 1, 'editor');
+VALUES ('Pancho', 1985, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@email.com', '123', 'Pancho', 'pancho.png', 'tokenEditor', 1, 'editor');
 
 
 INSERT INTO pregunta (question, category) VALUES

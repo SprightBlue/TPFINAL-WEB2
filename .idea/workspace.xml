@@ -5,25 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87edfaae-a29d-4a37-b5a3-1302ae29fa96" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/img/pancho.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/view/reportedQuestionsView.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Configuration.php" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DATABASE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DATABASE.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/EditorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/EditorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/LobbyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/LobbyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper/Database.php" beforeDir="false" afterPath="$PROJECT_DIR$/helper/Database.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/helper/Router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/PlayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PlayController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/EditorModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/EditorModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/LobbyModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/LobbyModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/PlayModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PlayModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/createUpdateQuestionView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/createUpdateQuestionView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/editorView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/editorView.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/lobbyView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/lobbyView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/playView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/playView.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/questionsView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/questionsView.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/suggestQuestionView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/suggestQuestionView.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/suggestedQuestionsView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/suggestedQuestionsView.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -151,7 +146,7 @@
       <workItem from="1717639051349" duration="1934000" />
       <workItem from="1717699228655" duration="48954000" />
       <workItem from="1718745351312" duration="9282000" />
-      <workItem from="1718806413138" duration="6101000" />
+      <workItem from="1718806413138" duration="23449000" />
     </task>
     <servers />
   </component>

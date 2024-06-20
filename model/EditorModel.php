@@ -113,4 +113,16 @@ class EditorModel
         $stmt->execute(array(":idQuestion" => $idQuestion));
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getReportedQuestions() {
+        $stmt = $this->database->query("SELECT report.*, pregunta.question, usuario.username 
+                                    FROM report 
+                                    JOIN pregunta ON report.idQuestion = pregunta.idQuestion 
+                                    JOIN usuario ON report.idUser = usuario.id");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function ignoreReport($idReport) {
+        $stmt = $this->database->query("DELETE FROM report WHERE idReport = :idReport");
+        $stmt->execute(array(":idReport" => $idReport));
+    }
 }
