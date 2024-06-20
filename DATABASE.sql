@@ -82,11 +82,11 @@ CREATE TABLE pregunta_sugerida
     FOREIGN KEY (idUser) REFERENCES usuario (id)
 );
 INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
-VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com', '123', 'Leo', '9163b1ee956ebfc8d3e37edba53d7d0b.png', 'tokenUsuario', 1, 'player');
+VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com', '123', 'Leo', 'public/img/9163b1ee956ebfc8d3e37edba53d7d0b.png', 'tokenUsuario', 1, 'player');
 
 
 INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
-VALUES ('Pancho', 1985, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@email.com', '123', 'Pancho', 'pancho.png', 'tokenEditor', 1, 'editor');
+VALUES ('Pancho', 1985, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@email.com', '123', 'Pancho', 'public/img/pancho.png', 'tokenEditor', 1, 'editor');
 
 
 INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole) VALUES
