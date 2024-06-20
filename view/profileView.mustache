@@ -4,7 +4,7 @@
             <div class="row d-flex align-items-center">
                 <div class="col-md-3 d-flex flex-column justify-content-center my-3">
                     <h3 class="text-center text-dark">Foto</h3>
-                    <img class="img-fluid rounded" src="/{{profilePicture}}" alt="profilePicture">
+                    <img class="img-fluid rounded" src="/public/img/{{profilePicture}}" alt="profilePicture">
                 </div>
                 <div class="col-md-6">
                     <h2 class="text-center text-dark">Perfil</h2>
@@ -17,6 +17,7 @@
                             <p class="card-text text-dark fw-bold">Genero: {{gender}}</p>
                             <p class="card-text text-dark fw-bold">Pais: {{country}}</p>
                             <p class="card-text text-dark fw-bold">Ciudad: {{city}}</p>
+                            <a class="btn btn-dark" href="/register/update?id={{id}}">Actualizar</a>
                         </div>
                     </div>  
                 </div>

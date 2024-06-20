@@ -30,7 +30,6 @@
                                 body { font-family: Arial, sans-serif; }
                                 .container { width: 100%; margin: 0 auto; }
                                 .section { margin-bottom: 20px; }
-                                .header h1 { font-size: 24px; }
                                 .section h2 { font-size: 20px; margin-bottom: 10px; }
                                 .graph { margin-bottom: 10px; }
                             </style>

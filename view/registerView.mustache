@@ -2,55 +2,68 @@
     <div class="container my-5">
         <div class="row d-flex flex-column justify-content-center align-items-center" >
             <div class="col-md-6 border border-1 rounded" style="background-color: #F9AD30;">
-                <form class="p-4" action="/register/insert" method="POST" enctype="multipart/form-data">
+                <form class="p-4" action="/register/{{#user}}set{{/user}}{{^user}}insert{{/user}}" method="POST" enctype="multipart/form-data">
                     <h2 class="text-center">Formulario Registro</h2>
+                    <input type="hidden" name="id" value="{{#user}}{{id}}{{/user}}">
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="text" name="fullname" id="fullname" placeholder="Ingresar nombre completo" required>
+                        <input class="form-control" type="text" name="fullname" id="fullname" placeholder="Ingresar nombre completo" value="{{#user}}{{fullname}}{{/user}}" required>
                         <label for="fullname">Nombre Completo</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="number" min="1900" max="2100" name="yearOfBirth" id="yearOfBirth" placeholder="Ingresar año de nacimiento" required>
+                        <input class="form-control" type="number" min="1900" max="2100" name="yearOfBirth" id="yearOfBirth" placeholder="Ingresar año de nacimiento" value="{{#user}}{{yearOfBirth}}{{/user}}" required>
                         <label for="yearOfBirth">Año de Nacimiento</label>
                     </div>                   
                     <div class="form-floating mb-3">
                         <select class="form-select" name="gender" id="gender" required>
-                            <option value="" hidden selected>Seleccione tipo</option>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
-                            <option value="Prefiero no cargarlo">Prefiero no cargarlo</option>
+                            {{#user}}
+                            <option value="Masculino" {{#genderMasculino}}selected{{/genderMasculino}}>Masculino</option>
+                            <option value="Femenino" {{#genderFemenino}}selected{{/genderFemenino}}>Femenino</option>
+                            <option value="Prefiero no cargarlo" {{#genderPrefieroNoCargarlo}}selected{{/genderPrefieroNoCargarlo}}>Prefiero no cargarlo</option>
+                            {{/user}}
+                            {{^user}}
+                                <option value="" hidden selected>Seleccione tipo</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Prefiero no cargarlo">Prefiero no cargarlo</option>
+                            {{/user}}
                         </select>
                         <label for="gender">Genero</label>
                     </div>   
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="text" name="country" id="country" placeholder="Ingresar pais" required>
+                        <input class="form-control" type="text" name="country" id="country" placeholder="Ingresar pais" value="{{#user}}{{country}}{{/user}}" required>
                         <label for="country">Pais</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="text" name="city" id="city" placeholder="Ingresar ciudad" required>
+                        <input class="form-control" type="text" name="city" id="city" placeholder="Ingresar ciudad" value="{{#user}}{{city}}{{/user}}" required>
                         <label for="city">Ciudad</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="email" name="email" id="email" placeholder="Ingresar email" required>
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Ingresar email" value="{{#user}}{{email}}{{/user}}" required>
                         <label for="email">Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="password" name="pass" id="pass" placeholder="Ingresar contraseña" required>
+                        <input class="form-control" type="password" name="pass" id="pass" placeholder="Ingresar contraseña" value="{{#user}}{{pass}}{{/user}}" required>
                         <label for="pass">Contraseña</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="password" name="repeatPass" id="repeatPass" placeholder="Ingresar contraseña nuevamente" required>
+                        <input class="form-control" type="password" name="repeatPass" id="repeatPass" placeholder="Ingresar contraseña nuevamente" value="{{#user}}{{pass}}{{/user}}" required>
                         <label for="repeatPass">Repetir Contraseña</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="text" name="username" id="username" placeholder="Ingresar nombre de usuario" required>
+                        <input class="form-control" type="text" name="username" id="username" placeholder="Ingresar nombre de usuario" value="{{#user}}{{username}}{{/user}}" required>
                         <label for="username">Nombre de Usuario</label>
                     </div>
                     <div class="mb-4">
                         <label class="form-label" for="foto">Subir Foto de Perfil</label>
                         <input class="form-control form-contrl-sm" type="file" name="img" id="img">
-                    </div>       
+                    </div>    
                     <div class="mb-3">
-                        <input type="submit" class="btn btn-dark" name="registrarse" id="registrarse" value="Registrarse">
+                        {{#user}}
+                            <input type="submit" class="btn btn-dark" name="actualizar" id="actualizar" value="Actualizar">
+                        {{/user}}
+                        {{^user}}
+                            <input type="submit" class="btn btn-dark" name="registrarse" id="registrarse" value="Registrarse">
+                        {{/user}}
                     </div>
                     {{#errors}}
                         {{#errorEmail}}
