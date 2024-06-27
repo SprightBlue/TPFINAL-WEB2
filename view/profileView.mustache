@@ -19,7 +19,7 @@
                             <p class="card-text text-dark fw-bold">Ciudad: {{city}}</p>
                             <a class="btn btn-dark" href="/register/update?id={{id}}">Actualizar</a>
                         </div>
-                    </div>  
+                    </div>
                 </div>
                 {{#qr}}
                     <div class="col-md-3 d-flex flex-column justify-content-center my-3">
@@ -29,5 +29,11 @@
                 {{/qr}}
             </div>        
         </div>
+
+        <form method="post" action="/challenge/createChallenge">
+            <input type="hidden" name="challenged_id" value="{{user.id}}">
+            <button type="submit" class="btn btn-dark">Desafiar a este jugador</button>
+        </form>
+        ...
     {{/user}}
 </main>

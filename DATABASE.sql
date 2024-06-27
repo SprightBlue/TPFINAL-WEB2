@@ -81,6 +81,18 @@ CREATE TABLE pregunta_sugerida
     correct      INT                            NOT NULL,
     FOREIGN KEY (idUser) REFERENCES usuario (id)
 );
+
+CREATE TABLE challenge (
+                           id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                           challenger_id INT NOT NULL,
+                           challenged_id INT NOT NULL,
+                           challenger_score INT DEFAULT 0,
+                           challenged_score INT DEFAULT 0,
+                           status ENUM('pending', 'accepted', 'resolved') NOT NULL,
+                           FOREIGN KEY (challenger_id) REFERENCES usuario(id),
+                           FOREIGN KEY (challenged_id) REFERENCES usuario(id)
+);
+
 INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
 VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com', '123', 'Leo', 'public/img/9163b1ee956ebfc8d3e37edba53d7d0b.png', 'tokenUsuario', 1, 'player');
 

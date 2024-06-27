@@ -59,11 +59,24 @@
         private function incorrectCase() {
             $data = $_SESSION["partida"];
             unset($_SESSION["partida"]);
-            $this->model->saveGame($_SESSION["usuario"]["id"], $data["score"]);
+
+            if (isset($_SESSION['challenge_id'])) {
+                $this->model->updateChallengeScore($_SESSION['challenge_id'], $_SESSION["usuario"]["id"], $data["score"]);
+                if ($this->model->isChallenger($_SESSION['challenge_id'], $_SESSION["usuario"]["id"])) {
+                    $this->model->updateChallengeStatus($_SESSION['challenge_id'], 'pending');
+                } else {
+                    $this->model->updateChallengeStatus($_SESSION['challenge_id'], 'resolved');
+                    $this->model->compareScores($_SESSION['challenge_id']);
+                }
+            } else {
+                $this->model->saveGame($_SESSION["usuario"]["id"], $data["score"]);
+            }
+
             $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la proxima" : $data["score"];
             $data["gameOver"] = true;
             $this->presenter->render("view/playView.mustache", $data);
         }
+
         public function reportQuestion() {
             $this->incorrectCase();
             if(isset($_SESSION["usuario"])) {
