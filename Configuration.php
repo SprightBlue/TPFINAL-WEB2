@@ -41,6 +41,9 @@
     include_once("model/EditorModel.php");
     include_once("controller/EditorController.php");
 
+    include_once("model/ChallengeModel.php");
+    include_once("controller/ChallengeController.php");
+
     class Configuration {
 
         public static function getDatabase() {
@@ -85,11 +88,21 @@
         }
 
         public static function getPlayController() {
-            return new PlayController(self::getPlayModel(), self::getPresenter());
+            return new PlayController(self::getPlayModel(), self::getChallengeModel(), self::getPresenter());
         }
 
         private static function getPlayModel() {
             return new PlayModel(self::getDatabase());
+        }
+
+
+        public static function getChallengeController() {
+            return new ChallengeController(self::getChallengeModel(), self::getPresenter());
+        }
+
+        public static function getChallengeModel(){
+            return new ChallengeModel(self::getDatabase());
+
         }
 
         public static function getRankingController() {

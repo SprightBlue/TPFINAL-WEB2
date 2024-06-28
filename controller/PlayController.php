@@ -2,11 +2,13 @@
 
     class PlayController {
 
-        private $model;
+        private $playModel;
+        private $challengeModel;
         private $presenter;
 
-        public function __construct($model, $presenter) {
-            $this->model = $model;
+        public function __construct($playModel, $challengeModel, $presenter) {
+            $this->playModel = $playModel;
+            $this->challengeModel = $challengeModel;
             $this->presenter = $presenter;
         }
 
@@ -15,7 +17,7 @@
                 if(isset($_SESSION["partida"]) && !empty($_SESSION["partida"])) {
                     $data = $_SESSION["partida"];
                 }else {
-                    $data = $this->model->getData($_SESSION["usuario"]["id"], 0);
+                    $data = $this->playModel->getData($_SESSION["usuario"]["id"], 0);
                     $_SESSION["partida"] = $data;
                     $_SESSION["startTime"] = time();
                 }
@@ -39,18 +41,18 @@
 
 
         private function updateAnswerStats($isCorrect, $elapsedTime) {
-            $this->model->incrementTotalAnswers($_SESSION["partida"]["question"]["idQuestion"]);
-            $this->model->incrementUserAnsweredQuestions($_SESSION["usuario"]["id"]);
+            $this->playModel->incrementTotalAnswers($_SESSION["partida"]["question"]["idQuestion"]);
+            $this->playModel->incrementUserAnsweredQuestions($_SESSION["usuario"]["id"]);
             if ($isCorrect && $elapsedTime > 0) {
                 $_SESSION["partida"]["score"] += 1;
-                $this->model->incrementCorrectAnswers($_SESSION["partida"]["question"]["idQuestion"]);
-                $this->model->incrementUserCorrectAnswers($_SESSION["usuario"]["id"]);
+                $this->playModel->incrementCorrectAnswers($_SESSION["partida"]["question"]["idQuestion"]);
+                $this->playModel->incrementUserCorrectAnswers($_SESSION["usuario"]["id"]);
             }
-            $this->model->updateQuestionDifficulty($_SESSION["partida"]["question"]["idQuestion"]);
+            $this->playModel->updateQuestionDifficulty($_SESSION["partida"]["question"]["idQuestion"]);
         }
 
         private function correctCase() {
-            $data = $this->model->getData($_SESSION["usuario"]["id"], $_SESSION["partida"]["score"]);
+            $data = $this->playModel->getData($_SESSION["usuario"]["id"], $_SESSION["partida"]["score"]);
             $_SESSION["partida"] = $data;
             $data["gameOver"] = false;
             $this->presenter->render("view/playView.mustache", $data);
@@ -60,16 +62,17 @@
             $data = $_SESSION["partida"];
             unset($_SESSION["partida"]);
 
+            //challenge
             if (isset($_SESSION['challenge_id'])) {
-                $this->model->updateChallengeScore($_SESSION['challenge_id'], $_SESSION["usuario"]["id"], $data["score"]);
-                if ($this->model->isChallenger($_SESSION['challenge_id'], $_SESSION["usuario"]["id"])) {
-                    $this->model->updateChallengeStatus($_SESSION['challenge_id'], 'pending');
+                $this->challengeModel->updateChallengeScore($_SESSION['challenge_id'], $_SESSION["usuario"]["id"], $data["score"]);
+                if ($this->challengeModel->isChallenger($_SESSION['challenge_id'], $_SESSION["usuario"]["id"])) {
+                    $this->challengeModel->updateChallengeStatus($_SESSION['challenge_id'], 'pending');
                 } else {
-                    $this->model->updateChallengeStatus($_SESSION['challenge_id'], 'resolved');
-                    $this->model->compareScores($_SESSION['challenge_id']);
+                    $this->challengeModel->updateChallengeStatus($_SESSION['challenge_id'], 'resolved');
+                    $this->challengeModel->compareScores($_SESSION['challenge_id']);
                 }
             } else {
-                $this->model->saveGame($_SESSION["usuario"]["id"], $data["score"]);
+                $this->playModel->saveGame($_SESSION["usuario"]["id"], $data["score"]);
             }
 
             $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la proxima" : $data["score"];
@@ -84,7 +87,7 @@
                 $idUser = $_SESSION["usuario"]["id"];
                 $idQuestion = $_POST["idQuestion"];
                 $reason = $_POST["reason"];
-                $this->model->insertReport($idUser, $idQuestion, $reason);
+                $this->playModel->insertReport($idUser, $idQuestion, $reason);
             } else {
 
             }

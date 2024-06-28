@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS qampa;
 
 CREATE DATABASE IF NOT EXISTS qampa;
-
+select * from usuario;
 
 USE qampa;
 
@@ -88,9 +88,14 @@ CREATE TABLE challenge (
                            challenged_id INT NOT NULL,
                            challenger_score INT DEFAULT 0,
                            challenged_score INT DEFAULT 0,
-                           status ENUM('pending', 'accepted', 'resolved') NOT NULL,
+                           status ENUM('pending', 'accepted', 'resolved') ,
+                           winner_id INT,
+                           loser_id INT,
+                           is_tie BOOLEAN DEFAULT 0,
                            FOREIGN KEY (challenger_id) REFERENCES usuario(id),
-                           FOREIGN KEY (challenged_id) REFERENCES usuario(id)
+                           FOREIGN KEY (challenged_id) REFERENCES usuario(id),
+                           FOREIGN KEY (winner_id) REFERENCES usuario(id),
+                           FOREIGN KEY (loser_id) REFERENCES usuario(id)
 );
 
 INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)

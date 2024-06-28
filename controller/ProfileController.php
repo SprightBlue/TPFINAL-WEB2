@@ -35,10 +35,10 @@
 
         private function getData($username) {
             $user = $this->model->getUser($username);
-            $data = ["user"=>$user, "qr"=>"/public/qr/qr-". $username . ".png"];
+            $isOwnProfile = ($_SESSION["usuario"]["username"] == $username);
+            $data = ["user"=>$user, "qr"=>"/public/qr/qr-". $username . ".png", "isOwnProfile" => $isOwnProfile];
             return $data;
         }
 
     }
 
-?>

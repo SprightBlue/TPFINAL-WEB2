@@ -1,7 +1,11 @@
+
 {{#pendingChallenges}}
     <div>
-        <p>Desafío pendiente de {{challenger_username}} con un puntaje de {{challenger_score}}.</p>
-        <a href="/challenge/acceptChallenge?challenge_id={{challenge_id}}">Aceptar desafío</a>
+        <p>Desafío pendiente de {{challenger_username}}.</p>
+        <form method="post" action="/challenge/acceptChallenge">
+            <input type="hidden" name="challengeId" value="{{id}}">
+            <button type="submit">Aceptar desafío</button>
+        </form>
     </div>
 {{/pendingChallenges}}
 
@@ -16,3 +20,9 @@
         <p>Desafío perdido contra {{challenged_username}} con un puntaje de {{challenger_score}} a {{challenged_score}}.</p>
     </div>
 {{/lostChallenges}}
+
+{{#tiedChallenges}}
+    <div>
+        <p>Desafío empatado con {{challenged_username}}. Ambos obtuvieron un puntaje de {{challenger_score}}.</p>
+    </div>
+{{/tiedChallenges}}

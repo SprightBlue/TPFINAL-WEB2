@@ -1,6 +1,6 @@
 <main>
     {{#user}}
-        <div class="container my-5"> 
+        <div class="container my-5">
             <div class="row d-flex align-items-center">
                 <div class="col-md-3 d-flex flex-column justify-content-center my-3">
                     <h3 class="text-center text-dark">Foto</h3>
@@ -27,13 +27,13 @@
                         <img class="img-fluid rounded" src="{{qr}}" alt="img-qr">
                     </div>
                 {{/qr}}
-            </div>        
+            </div>
         </div>
 
         <form method="post" action="/challenge/createChallenge">
             <input type="hidden" name="challenged_id" value="{{user.id}}">
             <button type="submit" class="btn btn-dark">Desafiar a este jugador</button>
         </form>
-        ...
+
     {{/user}}
 </main>
