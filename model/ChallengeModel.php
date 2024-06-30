@@ -16,37 +16,42 @@ class ChallengeModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getWonChallenges($userId) {
-        $stmt = $this->database->query("SELECT c.id, c.challenger_score, c.challenged_score, u1.username as challenger_username, u2.username as challenged_username 
-                                    FROM challenge c 
-                                    JOIN usuario u1 ON c.challenger_id = u1.id 
-                                    JOIN usuario u2 ON c.challenged_id = u2.id 
-                                    WHERE winner_id=:userId");
+    public function getAllChallenges($userId) {
+        $stmt = $this->database->query("
+    SELECT * FROM (
+        (SELECT c.id, c.challenger_score, c.challenged_score, u1.username as challenger_username, u2.username as challenged_username, 'won' as result
+        FROM challenge c 
+        JOIN usuario u1 ON c.challenger_id = u1.id 
+        JOIN usuario u2 ON c.challenged_id = u2.id 
+        WHERE winner_id=:userId)
+        UNION ALL
+        (SELECT c.id, c.challenger_score, c.challenged_score, u1.username as challenger_username, u2.username as challenged_username, 'lost' as result
+        FROM challenge c 
+        JOIN usuario u1 ON c.challenger_id = u1.id 
+        JOIN usuario u2 ON c.challenged_id = u2.id 
+        WHERE loser_id=:userId)
+        UNION ALL
+        (SELECT c.id, c.challenger_score, c.challenged_score, u1.username as challenger_username, u2.username as challenged_username, 'tied' as result
+        FROM challenge c 
+        JOIN usuario u1 ON c.challenger_id = u1.id 
+        JOIN usuario u2 ON c.challenged_id = u2.id 
+        WHERE is_tie=1 AND (challenger_id=:userId OR challenged_id=:userId))
+    ) AS derived_table
+    ORDER BY id DESC
+    ");
         $stmt->execute(array(":userId"=>$userId));
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getLostChallenges($userId) {
-        $stmt = $this->database->query("SELECT c.id, c.challenger_score, c.challenged_score, u1.username as challenger_username, u2.username as challenged_username 
-                                    FROM challenge c 
-                                    JOIN usuario u1 ON c.challenger_id = u1.id 
-                                    JOIN usuario u2 ON c.challenged_id = u2.id 
-                                    WHERE loser_id=:userId");
-        $stmt->execute(array(":userId"=>$userId));
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function updateChallengerScore($challengeId, $score) {
+        $stmt = $this->database->query("UPDATE challenge SET challenger_score=:score WHERE id=:id");
+        $stmt->execute(array(":id"=>$challengeId, ":score"=>$score));
     }
 
-    public function getTiedChallenges($userId) {
-        $stmt = $this->database->query("SELECT c.id, c.challenger_score, c.challenged_score, u1.username as challenger_username, u2.username as challenged_username 
-                                    FROM challenge c 
-                                    JOIN usuario u1 ON c.challenger_id = u1.id 
-                                    JOIN usuario u2 ON c.challenged_id = u2.id 
-                                    WHERE is_tie=1 AND (challenger_id=:userId OR challenged_id=:userId)");
-        $stmt->execute(array(":userId"=>$userId));
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function updateChallengedScore($challengeId, $score) {
+        $stmt = $this->database->query("UPDATE challenge SET challenged_score=:score WHERE id=:id");
+        $stmt->execute(array(":id"=>$challengeId, ":score"=>$score));
     }
-
-
     public function updateChallengeStatus($challengeId, $status) {
         $stmt = $this->database->query("UPDATE challenge SET status=:status WHERE id=:id");
         $stmt->execute(array(":id"=>$challengeId, ":status"=>$status));
@@ -81,7 +86,8 @@ class ChallengeModel{
     }
 
 
-    public function isChallenger($challengeId, $userId) {
+    public function isChallenger($challengeId, $userId): bool
+    {
         $stmt = $this->database->query("SELECT challenger_id FROM challenge WHERE id=:id");
         $stmt->execute(array(":id"=>$challengeId));
         $challengerId = $stmt->fetchColumn();
@@ -91,7 +97,12 @@ class ChallengeModel{
     public function createChallenge($challengerId, $challengedId) {
         $stmt = $this->database->query("INSERT INTO challenge(challenger_id, challenged_id) VALUES (:challenger_id, :challenged_id)");
         $stmt->execute(array(":challenger_id"=>$challengerId, ":challenged_id"=>$challengedId));
-
+        return $this->database->lastInsertId();
     }
 
+    public function getChallengeStatus($challengeId) {
+        $stmt = $this->database->query("SELECT status FROM challenge WHERE id=:id");
+        $stmt->execute(array(":id"=>$challengeId));
+        return $stmt->fetchColumn();
+    }
 }

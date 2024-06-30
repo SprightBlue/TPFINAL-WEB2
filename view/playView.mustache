@@ -25,7 +25,7 @@
 
         </div>
     </div>
-    
+
     <!--modal-->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog modal-dialog-centered">
@@ -45,10 +45,32 @@
                     <form method="post" action="/play/read">
                         <button type="submit" class="btn btn-dark">Volver a jugar</button>
                     </form>
-                </div>                   
+                </div>
             </div>
         </div>
     </div>
+
+    {{#challenge}}
+        <!-- Modal para desafío -->
+        <div class="modal fade" id="challengeModal" tabindex="-1" aria-labelledby="challengeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Fin del desafío</h4>
+                    </div>
+                    <div class="modal-body">
+                        Puntaje final alcanzado: <b>{{score}}</b>
+                    </div>
+                    <div class="modal-footer">
+                        <form method="post" action="/lobby/read">
+                            <button type="submit" class="btn btn-dark">Volver al inicio</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/challenge}}
+
     <!-- Modal para reportar -->
     <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -118,4 +140,12 @@
         });
     </script>
 {{/modal}}
+
+{{#challenge}}
+    <script>
+            document.addEventListener("DOMContentLoaded", (event) => {
+                document.querySelector("#challengeModal").classList.add("show");
+        });
+    </script>
+{{/challenge}}
 

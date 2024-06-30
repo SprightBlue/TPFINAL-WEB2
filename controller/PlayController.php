@@ -21,6 +21,7 @@
                     $_SESSION["partida"] = $data;
                     $_SESSION["startTime"] = time();
                 }
+                $data["isChallenge"] = isset($_SESSION['challenge_id']);
                 $this->presenter->render("view/playView.mustache", $data);
             }else {
                 Redirect::to("/login/read");
@@ -64,19 +65,32 @@
 
             //challenge
             if (isset($_SESSION['challenge_id'])) {
-                $this->challengeModel->updateChallengeScore($_SESSION['challenge_id'], $_SESSION["usuario"]["id"], $data["score"]);
                 if ($this->challengeModel->isChallenger($_SESSION['challenge_id'], $_SESSION["usuario"]["id"])) {
+
+                    $this->challengeModel->updateChallengerScore($_SESSION['challenge_id'], $data["score"]);
                     $this->challengeModel->updateChallengeStatus($_SESSION['challenge_id'], 'pending');
                 } else {
+
+                    $this->challengeModel->updateChallengedScore($_SESSION['challenge_id'], $data["score"]);
                     $this->challengeModel->updateChallengeStatus($_SESSION['challenge_id'], 'resolved');
                     $this->challengeModel->compareScores($_SESSION['challenge_id']);
+
                 }
+                unset($_SESSION['challenge_id']);
+                $data["challenge"] = true;
             } else {
                 $this->playModel->saveGame($_SESSION["usuario"]["id"], $data["score"]);
+                $data["challenge"] = false;
             }
 
-            $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la proxima" : $data["score"];
-            $data["gameOver"] = true;
+
+            if (!$data["challenge"]) {
+                $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la proxima" : $data["score"];
+                $data["gameOver"] = true;
+            } else {
+                $data["gameOver"] = true;
+            }
+
             $this->presenter->render("view/playView.mustache", $data);
         }
 

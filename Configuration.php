@@ -44,6 +44,7 @@
     include_once("model/ChallengeModel.php");
     include_once("controller/ChallengeController.php");
 
+include_once("helper/Logger.php");
     class Configuration {
 
         public static function getDatabase() {
@@ -128,6 +129,10 @@
         private static function getEditorModel() {
             return new EditorModel(self::getDatabase());
         }
+        public static function getLogger()
+        {
+            return new Logger();
+        }
         public static function getRouter() {
             return new Router("getLobbyController", "read");
         }
@@ -138,4 +143,3 @@
 
     }
 
-?>
