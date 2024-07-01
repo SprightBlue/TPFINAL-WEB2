@@ -61,21 +61,26 @@
             $usersByCountry = $this->model->getUsersByCountry($currentDate, $startDate);
             $usersByGender = $this->model->getUsersByGender($currentDate, $startDate);
             $usersByAgeGroup = $this->model->getUsersByAgeGroup($currentDate, $startDate);
-            $data = $this->createData($playersCount, $gamesCount, $questionsCount, $questionsCreated, $newUsers, $correctPercentage, $usersByCountry, $usersByGender, $usersByAgeGroup, $filter);
+            $getTrampitasAcumuladasPorUsuario = $this->model->getTrampitasAcumuladasPorUsuario($currentDate, $startDate);
+            $getGananciasTrampitas = $this->model->getGananciasTrampitas($currentDate, $startDate);
+            $data = $this->createData($playersCount, $gamesCount, $questionsCount, $questionsCreated, $newUsers, $correctPercentage, 
+                                        $usersByCountry, $usersByGender, $usersByAgeGroup, $getTrampitasAcumuladasPorUsuario, $getGananciasTrampitas, $filter);
             return $data;
         }
 
-        private function createData($playersCount, $gamesCount, $questionsCount, $questionsCreated, $newUsers, $correctPercentage, $usersByCountry, $usersByGender, $usersByAgeGroup, $filter) {
+        private function createData($playersCount, $gamesCount, $questionsCount, $questionsCreated, $newUsers, $correctPercentage, 
+                                        $usersByCountry, $usersByGender, $usersByAgeGroup, $getTrampitasAcumuladasPorUsuario, $getGananciasTrampitas, $filter) {
             $user = $_SESSION["usuario"];
             foreach($correctPercentage as $row) {
                 $incorrectPercentage = 100 - $row["correctPercentage"];
                 $correctPercentageGraph[]["graph"] = GeneratorGraph::generateCorrectPercentage($row["username"], $row["correctPercentage"], $incorrectPercentage);
             }
-            $usersByCountryGraph = GeneratorGraph::generateUsersByCountry($usersByCountry);
-            $usersByGenderGraph = GeneratorGraph::generateUsersByGender($usersByGender);
-            $usersByAgeGroupGraph = GeneratorGraph::generateUsersByAgeGroup($usersByAgeGroup);
+            if (!empty($usersByCountry)) {$usersByCountryGraph = GeneratorGraph::generateUsersByCountry($usersByCountry);} 
+            if (!empty($usersByGender)) {$usersByGenderGraph = GeneratorGraph::generateUsersByGender($usersByGender);}
+            if (!empty($usersByAgeGroup)) {$usersByAgeGroupGraph = GeneratorGraph::generateUsersByAgeGroup($usersByAgeGroup);}
             $data = ["user"=>$user, "playersCount"=>$playersCount, "gamesCount"=>$gamesCount, "questionsCount"=>$questionsCount, "questionsCreated"=>$questionsCreated, "newUsers"=>$newUsers,
-                    "correctPercentageGraph"=>$correctPercentageGraph, "usersByCountryGraph"=>$usersByCountryGraph, "usersByGenderGraph"=>$usersByGenderGraph, "usersByAgeGroupGraph"=>$usersByAgeGroupGraph];
+                    "correctPercentageGraph"=>$correctPercentageGraph, "usersByCountryGraph"=>$usersByCountryGraph, "usersByGenderGraph"=>$usersByGenderGraph, "usersByAgeGroupGraph"=>$usersByAgeGroupGraph,
+                    "trampitasAcumuladasPorUsuario"=>$getTrampitasAcumuladasPorUsuario, "gananciasTrampitas"=>$getGananciasTrampitas];
             switch($filter) {
                 case "year":
                     $data["year"] = $filter;

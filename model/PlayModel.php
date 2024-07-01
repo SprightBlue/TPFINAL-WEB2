@@ -23,8 +23,9 @@
             }
             $this->addUserQuestion($idUser, $question["idQuestion"]);
             $answers = $this->getAnswers($question["idQuestion"]);
+            $user = $this->getUser($idUser);
             $styles = ["Arte"=>"primary", "Ciencia"=>"success", "Deporte"=>"info", "Entretenimiento"=>"warning", "Geografía"=>"danger", "Historia"=>"secondary"];
-            $data = ["question"=>$question, "style"=>$styles[$question["category"]], "answers"=>$answers, "score"=>$score];
+            $data = ["question"=>$question, "style"=>$styles[$question["category"]], "answers"=>$answers, "score"=>$score, "trampitas"=>$user["trampitas"]>0, "user"=>$user];
             return $data;
         }
 
@@ -149,17 +150,36 @@
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return ($result["totalAnswers"] == 0) ? null : $result["correctAnswers"] / $result["totalAnswers"];
         }
+
         public function insertReport($idUser, $idQuestion, $reason) {
             $stmt = $this->database->query("INSERT INTO report (idQuestion, idUser, reason) 
-                                    VALUES (:idQuestion, :idUser, :reason)");
+                                            VALUES (:idQuestion, :idUser, :reason)");
             $stmt->execute(array(":idQuestion"=>$idQuestion, ":idUser"=>$idUser, ":reason"=>$reason));
         }
+
         public function getQuestion($idQuestion) {
-            $stmt = $this->database->query("SELECT * FROM question WHERE idQuestion = :idQuestion");
+            $stmt = $this->database->query("SELECT * 
+                                            FROM question 
+                                            WHERE idQuestion = :idQuestion");
             $stmt->execute(array(":idQuestion" => $idQuestion));
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
+        public function getUser($idUsuario) {
+            $stmt = $this->database->query("SELECT *
+                                            FROM usuario u
+                                            WHERE u.id = :idUsuario");
+            $stmt->execute(array(":idUsuario"=>$idUsuario));
+            return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
+        }
+
+        public function updateCantidadTrampitasUsuario($idUsuario) {
+            $stmt = $this->database->query("UPDATE usuario u 
+                                            SET u.trampitas = u.trampitas - 1 
+                                            WHERE id = :idUsuario");
+            $stmt->execute(array(':idUsuario' => $idUsuario));
+        }
+
     }
 
-
+?>

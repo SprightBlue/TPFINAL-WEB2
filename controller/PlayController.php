@@ -40,6 +40,12 @@
             }
         }
 
+        public function trampitas() {
+            $_POST["isCorrect"] = true;
+            $this->playModel->updateCantidadTrampitasUsuario($_SESSION["usuario"]["id"]);
+            $_SESSION["usuario"] = $this->playModel->getUser($_SESSION["usuario"]["id"]);
+            $this->verify();
+        }
 
         private function updateAnswerStats($isCorrect, $elapsedTime) {
             $this->playModel->incrementTotalAnswers($_SESSION["partida"]["question"]["idQuestion"]);
@@ -62,19 +68,15 @@
         private function incorrectCase() {
             $data = $_SESSION["partida"];
             unset($_SESSION["partida"]);
-
             //challenge
             if (isset($_SESSION['challenge_id'])) {
                 if ($this->challengeModel->isChallenger($_SESSION['challenge_id'], $_SESSION["usuario"]["id"])) {
-
                     $this->challengeModel->updateChallengerScore($_SESSION['challenge_id'], $data["score"]);
                     $this->challengeModel->updateChallengeStatus($_SESSION['challenge_id'], 'pending');
                 } else {
-
                     $this->challengeModel->updateChallengedScore($_SESSION['challenge_id'], $data["score"]);
                     $this->challengeModel->updateChallengeStatus($_SESSION['challenge_id'], 'resolved');
                     $this->challengeModel->compareScores($_SESSION['challenge_id']);
-
                 }
                 unset($_SESSION['challenge_id']);
                 $data["challenge"] = true;
@@ -82,29 +84,27 @@
                 $this->playModel->saveGame($_SESSION["usuario"]["id"], $data["score"]);
                 $data["challenge"] = false;
             }
-
-
             if (!$data["challenge"]) {
                 $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la proxima" : $data["score"];
                 $data["gameOver"] = true;
             } else {
                 $data["gameOver"] = true;
             }
-
             $this->presenter->render("view/playView.mustache", $data);
         }
 
         public function reportQuestion() {
             $this->incorrectCase();
             if(isset($_SESSION["usuario"])) {
-
                 $idUser = $_SESSION["usuario"]["id"];
                 $idQuestion = $_POST["idQuestion"];
                 $reason = $_POST["reason"];
                 $this->playModel->insertReport($idUser, $idQuestion, $reason);
-            } else {
-
+            }else {
+                Redirect::to("/login/read");
             }
         }
+
     }
 
+?>

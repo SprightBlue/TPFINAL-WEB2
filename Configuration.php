@@ -3,6 +3,7 @@
     include_once("helper/Database.php");
     include_once("helper/Mailer.php");
     include_once("helper/MustachePresenter.php");
+    include_once("helper/Logger.php");
     include_once("helper/Redirect.php");
     include_once("helper/Router.php");
     include_once("helper/GeneratorQR.php");
@@ -44,7 +45,9 @@
     include_once("model/ChallengeModel.php");
     include_once("controller/ChallengeController.php");
 
-include_once("helper/Logger.php");
+    include_once("model/BuyModel.php");
+    include_once("controller/BuyController.php");
+
     class Configuration {
 
         public static function getDatabase() {
@@ -96,7 +99,6 @@ include_once("helper/Logger.php");
             return new PlayModel(self::getDatabase());
         }
 
-
         public static function getChallengeController() {
             return new ChallengeController(self::getChallengeModel(), self::getPresenter());
         }
@@ -129,10 +131,19 @@ include_once("helper/Logger.php");
         private static function getEditorModel() {
             return new EditorModel(self::getDatabase());
         }
-        public static function getLogger()
-        {
+
+        public static function getBuyController() {
+            return new BuyController(self::getBuyModel(), self::getPresenter());
+        }
+
+        private static function getBuyModel() {
+            return new BuyModel(self::getDatabase());
+        }
+
+        public static function getLogger(){
             return new Logger();
         }
+
         public static function getRouter() {
             return new Router("getLobbyController", "read");
         }
@@ -142,4 +153,3 @@ include_once("helper/Logger.php");
         }
 
     }
-

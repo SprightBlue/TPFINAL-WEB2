@@ -1,5 +1,10 @@
 <main>
     <!--Q&A-->
+    <div class="d-flex flex-column justify-content-start align-items-start m-3">
+        <audio id="miMusica" src="/public/audio/Cycling.mp3" preload="auto" autoplay></audio>
+        <button class="btn btn-dark me-auto" id="playPauseBtn" value="Pause">Pause</button>
+        <input class="form-control-range w-auto" type="range" id="volumeSlider"  min="0" max="1" step="0.1" value="1">
+    </div>
     <div class="container my-5 col-sm-6 card rounded bg-dark text-center">
         <div class="card-header my-4 p-3 rounded d-flex align-items-center bg-{{style}}">
             <h3 class="text-light mx-auto">{{#question}}{{category}}{{/question}}</h3>
@@ -18,11 +23,18 @@
                 <h5 class="text-left text-light">Puntaje: <span class="animate">{{score}}</span></h5>
                 <h4 class="text-left text-light" id="timer">Tiempo restante</h4>
             </div>
-
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reportModal">
-                Reportar pregunta
-            </button>
-
+            <div class="row my-3">
+                <div class="col d-flex flex-column justify-content-center align-items-center">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reportModal">
+                        Reportar pregunta
+                    </button>
+                </div>
+                {{#trampitas}}
+                    <div class="col d-flex flex-column justify-content-center align-items-center">
+                        <a class="btn btn-success" href="/play/trampitas">Usar Trampitas</a>
+                    </div>
+                {{/trampitas}}
+            </div>    
         </div>
     </div>
 
@@ -149,3 +161,27 @@
     </script>
 {{/challenge}}
 
+<script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+        var miMusica = document.getElementById("miMusica");
+        var playPauseBtn = document.getElementById("playPauseBtn");
+        var volumeSlider = document.getElementById("volumeSlider");
+
+        miMusica.volume = 0.5;
+        volumeSlider.value = 0.5;
+
+        playPauseBtn.addEventListener("click", (event) => {
+            if (miMusica.paused) {
+                miMusica.play();
+                playPauseBtn.textContent = "Pause";
+            } else {
+                miMusica.pause();
+                playPauseBtn.textContent = "Play";
+            }
+        });
+
+        volumeSlider.addEventListener("input", (event) => {
+            miMusica.volume = volumeSlider.value;
+        });
+    });
+</script>

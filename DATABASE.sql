@@ -1,8 +1,7 @@
 DROP DATABASE IF EXISTS qampa;
 
 CREATE DATABASE IF NOT EXISTS qampa;
-select * from usuario;
-select * from challenge;
+
 USE qampa;
 
 CREATE TABLE usuario (
@@ -22,6 +21,16 @@ CREATE TABLE usuario (
                          correctAnswers INT DEFAULT 0,
                          userRole VARCHAR(255) DEFAULT 'player',
                          dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+ALTER TABLE usuario ADD trampitas INT DEFAULT 0;
+
+CREATE TABLE ventaTrampitas (
+                                id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                                idUsuario INT NOT NULL,
+                                cantidad INT NULL,
+                                precioTotal INT NOT NULL,
+                                fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                FOREIGN KEY(idUsuario) REFERENCES usuario(id)
 );
 
 CREATE TABLE pregunta (

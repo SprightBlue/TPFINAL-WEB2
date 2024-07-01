@@ -15,6 +15,7 @@
                 $user = $_SESSION["usuario"];
                 $user["isPlayer"] = $user["userRole"] == "player";
                 $user["isEditor"] = $user["userRole"] == "editor";
+                $user["isAdmin"] = $user["userRole"] == "admin";
                 $data = $this->getData($user);
                 $this->presenter->render("view/lobbyView.mustache", $data);
             }else {
@@ -30,9 +31,6 @@
         private function getData($user) {
             $userScore = $this->model->getUserScore($user["id"]);
             $data = ["user"=>$user, "userScore"=>$userScore];
-            if($user["userRole"] == "admin") {
-                $data["admin"] = "only admin mode";
-            }
             return $data;
         }
 
@@ -43,6 +41,7 @@
                 Redirect::to("/login/read");
             }
         }
+
         public function suggestQuestion() {
             if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]["userRole"] == "player") {
                 $idUser = $_SESSION["usuario"]["id"];
@@ -58,6 +57,7 @@
             }
             Redirect::to("/lobby/read");
         }
+
     }
 
 

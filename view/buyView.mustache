@@ -1,0 +1,35 @@
+<main class="container my-5">
+    <div class="row d-flex flex-column justify-content-center align-items-center">  
+        <div class="col-sm-6 border border-1 rounded" style="background-color: #F9AD30">
+            <form class="p-4" action="/buy/update" method="post">
+                <h2 class="text-center mb-3">Comprar Trampitas</h2>
+                <input type="hidden" name="idUsuario" value="{{#user}}{{id}}{{/user}}">
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="number" name="cantidad" id="cantidad" min="1" placeholder="Ingresar Cantidad" required>
+                    <label for="cantidad">Ingresar Cantidad</label>
+                </div>
+                <div class="mb-3 d-flex align-items-center">
+                    <label class="fw-bold fs-5 w-auto" for="precioTotal">Precio Total = </label>
+                    <strong class="fw-bold fs-5">$</strong><input class="form-control-plaintext fw-bold fs-5 w-auto" type="number" id="precioTotal" name="precioTotal" required readonly>
+                </div>
+                <div class="mb-3 d-flex justify-content-center align-items-center">
+                    <input class="btn btn-dark" type="submit" name="buy" value="Comprar">
+                </div>
+            </form>            
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var cantidadInput = document.getElementById("cantidad");
+        var precioTotalInput = document.getElementById("precioTotal");
+            
+        cantidadInput.addEventListener("input", function() {
+            var cantidad = parseInt(cantidadInput.value);
+            var precioTotal = cantidad * 1; 
+            precioTotalInput.value = precioTotal;
+        });
+
+    });
+</script>

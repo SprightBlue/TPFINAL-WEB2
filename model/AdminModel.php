@@ -10,8 +10,8 @@
 
         public function getPlayersCount() {
             $stmt = $this->database->query("SELECT COUNT(*) AS playersCount
-                                            FROM usuario
-                                            WHERE userRole = 'player'");
+                                            FROM usuario u
+                                            WHERE u.userRole = 'player'");
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["playersCount"];
@@ -19,7 +19,8 @@
 
         public function getGamesCount() {
             $stmt = $this->database->query("SELECT COUNT(*) AS gamesCount
-                                            FROM partida");
+                                            FROM partida p JOIN usuario u ON u.id = p.idUser
+                                            WHERE u.userRole = 'player'");
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["gamesCount"];            
@@ -99,6 +100,27 @@
             $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
+        }
+
+        public function getTrampitasAcumuladasPorUsuario($currentDate, $startDate) {
+            $stmt = $this->database->query("SELECT u.username AS nombreUsuario, SUM(vt.cantidad) AS trampitasAcumuladas
+                                            FROM ventaTrampitas vt JOIN usuario u ON u.id = vt.idUsuario
+                                            WHERE vt.fecha BETWEEN :startDate AND :currentDate
+                                            AND u.userRole = 'player'
+                                            GROUP BY u.id, u.username");
+            $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+    
+        public function getGananciasTrampitas($currentDate, $startDate) {
+            $stmt = $this->database->query("SELECT SUM(vt.precioTotal) AS gananciasTrampitas 
+                                            FROM ventaTrampitas vt JOIN usuario u ON u.id = vt.idUsuario
+                                            WHERE vt.fecha BETWEEN :startDate AND :currentDate
+                                            AND u.userRole = 'player'");
+            $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result["gananciasTrampitas"];
         }
 
     }

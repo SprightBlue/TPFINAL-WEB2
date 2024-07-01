@@ -4,12 +4,6 @@
             <div class="col-sm-6">
                 <h2 class="text-center text-dark">Bienvenido al Lobby!!!</h2>
             </div>
-            {{#admin}}
-                <div class="col-sm-6 me-auto">
-                    <h4>{{admin}}</h4>
-                    <a class="btn btn-dark" href="/admin/read?filter=day">ver Estadisticas</a>
-                </div>            
-            {{/admin}}
         </div>
         <div class="row d-flex align-items-center">
             <div class="col-sm-3 d-flex flex-column justify-content-center my-3">
@@ -20,30 +14,30 @@
                     <div class="card-body">
                         <h4 class="card-title text-dark">{{#user}}{{username}}{{/user}}</h4>
                         {{#userScore}}
-                            {{#maxScore}}
-                                <h5 class="card-text text-dark">Puntaje mas alto alcanzado: {{maxScore}}</h5>
-                            {{/maxScore}}
-                            {{^maxScore}}
-                                <h5><caption>No hay datos disponibles de este ultimo mes.</caption></h5>
-                            {{/maxScore}}
+                            <h5 class="card-text text-dark">Puntaje mas alto alcanzado: {{#maxScore}}{{maxScore}}{{/maxScore}}{{^maxScore}}0{{/maxScore}}</h5>  
                         {{/userScore}}
+                        <h6><a href="/buy/read" class="text-decoration-none text-warning">{{#user}}{{trampitas}}{{/user}} Trampitas BUY&raquo;</a></h6>
                         <a class="btn btn-dark" href="/play/read">Nueva Partida</a>
                         <a class="btn btn-dark" href="/ranking/read">Ranking</a>
                     </div>
                 </div>
             </div>
-
-            <a class="btn btn-dark" href="/challenge/readChallenges" style="max-width: 100px">Ver desafíos</a>
-
-            {{#user}}
-                {{#isPlayer}}
-                    <a class="btn btn-dark" href="/lobby/suggestQuestionView" style="max-width: 100px">Sugerir pregunta </a>
-                {{/isPlayer}}
-                {{#isEditor}}
-                    <a class="btn btn-dark px-5 py-2" style="max-width: 200px;" href="/editor/editorView">Ir a vista de editor</a>
-                {{/isEditor}}
-            {{/user}}
-
+            <div class="col-sm-3">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/challenge/readChallenges">Ver desafíos &raquo;</a>
+                    {{#user}}
+                        {{#isPlayer}}
+                            <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/lobby/suggestQuestionView">Sugerir pregunta &raquo;</a>
+                        {{/isPlayer}}
+                        {{#isEditor}}
+                            <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/editor/editorView">Ir a vista de editor &raquo;</a>
+                        {{/isEditor}}
+                        {{#isAdmin}}
+                            <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/admin/read?filter=day">Ver Estadisticas &raquo;</a>
+                        {{/isAdmin}}                
+                    {{/user}} 
+                </div>               
+            </div>
         </div>
     </div>
 </main>
