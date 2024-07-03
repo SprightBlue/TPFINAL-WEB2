@@ -154,27 +154,6 @@ INSERT INTO genero (nombre) VALUES
                                 ('Femenino'),
                                 ('Prefiero no cargarlo');
 
-
-INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole,idPais,idGenero)
-VALUES ('El admin', 1990,'buenos aires', 'admin@gmail.com', '1234', 'admin', '1.jpg', '1234567890qwerty1', '1', 'admin', 1, 1);
-
-/*
-INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
-VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com', '123', 'messi', 'messirve.jpg', 'tokenUsuario', 1, 'player', 1, 1);
-
-
-INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
-VALUES ('Pancho', 1985, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@email.com', '123', 'Pancho', 'pancho.png', 'tokenEditor', 1, 'editor', 1, 1);
-
-
-
-
-INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
-VALUES ('Panchito1', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'panchito111@email.com', '123', 'pan', 'pancho.png', '35435445dfgdfgdfg123213', 1, 'player', 1, 1);
-
-*/
-
-
 INSERT INTO pregunta (question, category) VALUES
 ('¿Cuál es el río más largo del mundo?', 'Geografía'),
 ('¿En qué continente se encuentra Mongolia?', 'Geografía'),
@@ -241,6 +220,14 @@ INSERT INTO respuesta (idQuestion, answer, correct) VALUES
 
 
 /*
+ INSERTAR PRIMERO EL ADMIN Y EDITOR, LUEGO INSERTAR 2 USUARIOS
+ */
+INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole,idPais,idGenero)
+VALUES ('El admin', 1990,'buenos aires', 'admin@gmail.com', '1234', 'admin', '1.jpg', '1234567890qwerty1', '1', 'admin', 1, 1);
+
+INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
+VALUES ('Pancho', 1985, 'Buenos Aires', 'editor@email.com', '123', 'pancho', 'pancho.png', 'tokenEditor', 1, 'editor', 1, 1);
+/*
  insercion de datos por dia para generar graficos
 
 /*
@@ -250,7 +237,7 @@ INSERT INTO respuesta (idQuestion, answer, correct) VALUES
 
      Distribucion de Usuarios por pais, genero y grupo de edad
      */
-select * from usuario;
+
 INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
 VALUES ('Usuario Nuevo', 1900, 'Ciudad', 'nuevo4@email.com', 'pass', 'nuevousuario4', 'profile.jpg', 'token4', 1, 'player', 3, 1, CURDATE(),100,30);
 INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
@@ -265,13 +252,13 @@ VALUES (4, CURDATE(), 25);
 INSERT INTO partida (idUser, dateGame, score)
 VALUES (5, CURDATE(), 25);
 INSERT INTO partida (idUser, dateGame, score)
-VALUES (6, CURDATE(), 21);
+VALUES (4, CURDATE(), 21);
 INSERT INTO partida (idUser, dateGame, score)
 VALUES (4, CURDATE(), 2);
 INSERT INTO partida (idUser, dateGame, score)
 VALUES (5, CURDATE(), 25);
 INSERT INTO partida (idUser, dateGame, score)
-VALUES (6, CURDATE(), 22);
+VALUES (4, CURDATE(), 22);
 
 /*
  Cantidad de preguntas
@@ -286,7 +273,7 @@ VALUES ('¿Cuál es la capital de La pampa?', 'Geografía', CURDATE());
 -- Insertar ventas de trampitas para el día actual
 INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
                                                                          (4, 10, 100, NOW()),
-                                                                         (6, 5, 50, NOW()),
+                                                                         (5, 5, 50, NOW()),
                                                                          (5, 20, 200, NOW());
 /*
  insercion de datos por semana para generar graficos
@@ -316,11 +303,11 @@ VALUES (7, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 25);
 INSERT INTO partida (idUser, dateGame, score)
 VALUES (8, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 21);
 INSERT INTO partida (idUser, dateGame, score)
-VALUES (9, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 2);
+VALUES (8, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 2);
 INSERT INTO partida (idUser, dateGame, score)
-VALUES (9, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 25);
+VALUES (8, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 25);
 INSERT INTO partida (idUser, dateGame, score)
-VALUES (9, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 22);
+VALUES (8, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 22);
 
 /*
  Cantidad de preguntas
@@ -337,7 +324,7 @@ VALUES ('¿Cuál es la capital de La pampa?', 'Geografía', DATE_SUB(CURDATE(), 
 INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
                                                                          (7, 10, 100, DATE_SUB(NOW(), INTERVAL 7 DAY)),
                                                                          (7, 5, 50, DATE_SUB(NOW(), INTERVAL 7 DAY)),
-                                                                         (9, 20, 200, DATE_SUB(NOW(), INTERVAL 7 DAY));
+                                                                         (8, 20, 200, DATE_SUB(NOW(), INTERVAL 7 DAY));
 
 /*
  insercion de datos por Mes para generar graficos
@@ -365,13 +352,13 @@ VALUES (10, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 25);
 INSERT INTO partida (idUser, dateGame, score)
 VALUES (11, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 25);
 INSERT INTO partida (idUser, dateGame, score)
-VALUES (12, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 21);
+VALUES (11, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 21);
 INSERT INTO partida (idUser, dateGame, score)
 VALUES (10, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 2);
 INSERT INTO partida (idUser, dateGame, score)
 VALUES (11, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 25);
 INSERT INTO partida (idUser, dateGame, score)
-VALUES (12, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 22);
+VALUES (11, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 22);
 
 /*
  Cantidad de preguntas
@@ -387,8 +374,8 @@ VALUES ('¿Cuál es la capital de La pampa?', 'Geografía',DATE_SUB(CURDATE(), I
 -- Insertar ventas de trampitas para el día actual
 INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
                                                                          (10, 10, 100, DATE_SUB(NOW(), INTERVAL 1 MONTH)),
-                                                                         (12, 5, 50, DATE_SUB(NOW(), INTERVAL 1 MONTH)),
-                                                                         (12, 20, 200, DATE_SUB(NOW(), INTERVAL 1 MONTH));
+                                                                         (11, 5, 50, DATE_SUB(NOW(), INTERVAL 1 MONTH)),
+                                                                         (11, 20, 200, DATE_SUB(NOW(), INTERVAL 1 MONTH));
 
 /*
  insercion de datos por año para generar graficos
@@ -412,9 +399,9 @@ VALUES ('Usuario Nuevo', 2022, 'Ciudad', 'nuevo15@email.com', 'pass', 'nuevousua
 INSERT INTO partida (idUser, dateGame, score)
 VALUES (14, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 25);
 INSERT INTO partida (idUser, dateGame, score)
-VALUES (15, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 25);
+VALUES (14, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 25);
 INSERT INTO partida (idUser, dateGame, score)
-VALUES (15, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 21);
+VALUES (14, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 21);
 INSERT INTO partida (idUser, dateGame, score)
 VALUES (13, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 2);
 INSERT INTO partida (idUser, dateGame, score)
@@ -437,4 +424,4 @@ VALUES ('¿Cuál es la capital de La pampa?', 'Geografía',DATE_SUB(CURDATE(), I
 INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
                                                                          (13, 10, 100, DATE_SUB(NOW(), INTERVAL 1 YEAR)),
                                                                          (14, 5, 50, DATE_SUB(NOW(), INTERVAL 1 YEAR)),
-                                                                         (15, 20, 200, DATE_SUB(NOW(), INTERVAL 1 YEAR));
+                                                                         (14, 20, 200, DATE_SUB(NOW(), INTERVAL 1 YEAR));
