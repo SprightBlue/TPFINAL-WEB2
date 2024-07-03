@@ -12,9 +12,13 @@
 
         public function read() {
             if(isset($_SESSION["usuario"])) {
-                $user = $_SESSION["usuario"];
-                $isOwnProfile = ($_SESSION["usuario"]["username"] == $user["username"]);
-                $this->presenter->render("view/profileView.mustache", ["user"=>$user, "isOwnProfile"=>$isOwnProfile]);
+                $username = $_SESSION["usuario"]["username"];
+                $user = $this->model->getUser($username);
+                if($user) {
+                    $isOwnProfile = ($_SESSION["usuario"]["username"] == $user["username"]);
+                    $this->presenter->render("view/profileView.mustache", ["user"=>$user, "isOwnProfile"=>$isOwnProfile]);
+                }
+
             }else {
                 Redirect::to("/login/read");
             }

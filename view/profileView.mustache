@@ -14,8 +14,8 @@
                             <h5 class="card-title text-dark">{{email}}</h5>
                             <p class="card-text text-dark fw-bold">Nombre completo: {{fullname}}</p>
                             <p class="card-text text-dark fw-bold">Año de nacimiento: {{yearOfBirth}}</p>
-                            <p class="card-text text-dark fw-bold">Genero: {{gender}}</p>
-                            <p class="card-text text-dark fw-bold">Pais: {{country}}</p>
+                            <p class="card-text text-dark fw-bold">Género: {{user.generoNombre}}</p>
+                            <p class="card-text text-dark fw-bold">País: {{user.paisNombre}}</p>
                             <p class="card-text text-dark fw-bold">Ciudad: {{city}}</p>
                             {{#isOwnProfile}}
                                 <a class="btn btn-dark" href="/register/update?id={{id}}">Actualizar</a>

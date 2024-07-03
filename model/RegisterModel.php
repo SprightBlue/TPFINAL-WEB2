@@ -28,7 +28,7 @@
                 $imgName = $this->addImg($img, $errors);
             }
             if (empty($errors)) {
-                $stmt = $this->database->query("INSERT INTO usuario(fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active)
+                $stmt = $this->database->query("INSERT INTO usuario(fullname, yearOfBirth, idGenero, idPais, city, email, pass, username, profilePicture, token, active)
                                                 VALUES(:fullname, :yearOfBirth, :gender, :country, :city, :email, :pass, :username, :profilePicture, :token, 0)");
                 $stmt->execute(array(":fullname" => $fullname, ":yearOfBirth" => $yearOfBirth, ":gender" => $gender, ":country" => $country, ":city" => $city, ":email" => $email, ":pass" => $pass, ":username" => $username, ":profilePicture" => $imgName, ":token" => $token));
             }

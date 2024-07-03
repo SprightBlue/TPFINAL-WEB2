@@ -119,10 +119,20 @@
 
         private function getData($id) {
             $user = $this->model->getUser($id);
-            $genderMasculino = $user["gender"]=="Masculino";
-            $genderFemenino = $user["gender"]=="Femenino";
-            $genderPrefieroNoCargarlo = $user["gender"]=="Prefiero no cargarlo";
-            $data = ["user"=>$user, "genderMasculino"=>$genderMasculino, "genderFemenino"=>$genderFemenino, "genderPrefieroNoCargarlo"=>$genderPrefieroNoCargarlo];
+            $genders = $this->model->getGenders();
+            $countries = $this->model->getCountries();
+
+            foreach ($genders as &$gender) {
+                $gender['selected'] = $gender['id'] == $user['idGenero'];
+            }
+            foreach ($countries as &$country) {
+                $country['selected'] = $country['id'] == $user['idPais'];
+            }
+            $data = [
+                "user" => $user,
+                "genders" => $genders,
+                "countries" => $countries
+            ];
             return $data;
         }
 

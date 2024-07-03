@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS qampa;
 USE qampa;
 
 select *  from usuario;
-delete from usuario where id=8;
+
 CREATE TABLE genero (
                         id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
                         nombre VARCHAR(255) NOT NULL
@@ -19,9 +19,7 @@ CREATE TABLE usuario (
                          id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
                          fullname VARCHAR(255) NOT NULL,
                          yearOfBirth INT NOT NULL,
-                         gender VARCHAR(255) NOT NULL,
-                         country VARCHAR(255) NOT NULL,
-                         city VARCHAR(255) NOT NULL,
+                        city VARCHAR(255) NOT NULL,
                          email VARCHAR(255) NOT NULL,
                          pass VARCHAR(255) NOT NULL,
                          username VARCHAR(255) NOT NULL,
@@ -150,8 +148,7 @@ INSERT INTO pais (nombre) VALUES
                               ('República Dominicana'),
                               ('Uruguay'),
                               ('Venezuela');
-select * from genero;
-select * from pais;
+
 INSERT INTO genero (nombre) VALUES
                                 ('Masculino'),
                                 ('Femenino'),

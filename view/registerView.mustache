@@ -12,19 +12,19 @@
                     <div class="form-floating mb-3">
                         <input class="form-control" type="number" min="1900" max="2100" name="yearOfBirth" id="yearOfBirth" placeholder="Ingresar año de nacimiento" value="{{#user}}{{yearOfBirth}}{{/user}}" required>
                         <label for="yearOfBirth">Año de Nacimiento</label>
-                    </div>                   
+                    </div>
                     <div class="form-floating mb-3">
                         <select class="form-select" name="gender" id="gender" required>
                             {{#genders}}
-                                <option value="{{id}}">{{nombre}}</option>
+                                <option value="{{id}}" {{#selectedGender}}{{id}}{{/selectedGender}}>{{nombre}}</option>
                             {{/genders}}
                         </select>
                         <label for="gender">Género</label>
-                    </div>   
+                    </div>
                     <div class="form-floating mb-3">
                         <select class="form-select" name="country" id="country" required>
                             {{#countries}}
-                                <option value="{{id}}">{{nombre}}</option>
+                                <option value="{{id}}" {{#selectedCountry}}{{id}}{{/selectedCountry}}>{{nombre}}</option>
                             {{/countries}}
                         </select>
                         <label for="country">País</label>
