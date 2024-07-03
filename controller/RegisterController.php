@@ -20,7 +20,7 @@
 
         public function insert(){
             if(isset($_POST["registrarse"])) {
-                $erros = [];
+                $errors = [];
                 $fullname = $_POST["fullname"];
                 $yearOfBirth = $_POST["yearOfBirth"];
                 $gender = $_POST["gender"];

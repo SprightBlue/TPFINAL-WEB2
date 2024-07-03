@@ -4,6 +4,8 @@ CREATE DATABASE IF NOT EXISTS qampa;
 
 USE qampa;
 
+select *  from usuario;
+delete from usuario where id=8;
 CREATE TABLE usuario (
                          id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
                          fullname VARCHAR(255) NOT NULL,
@@ -187,3 +189,160 @@ INSERT INTO respuesta (idQuestion, answer, correct) VALUES
 (28, 'Lusitania', 0), (28, 'Titanic', 1), (28, 'Britannic', 0), (28, 'Queen Mary', 0), 
 (29, 'Josef Stalin', 0), (29, 'Vladimir Lenin', 1), (29, 'León Trotsky', 0), (29, 'Nikita Khrushchev', 0),
 (30, 'Dinastía Tang', 0), (30, 'Dinastía Qin', 1), (30, 'Dinastía Ming', 0), (30, 'Dinastía Han', 0);
+
+
+/*
+ insercion de datos por dia para generar graficos
+ */
+/*
+ Cantidad de jugadores que tiene la aplicacion
+ */
+
+    /*
+     Cantidad de partidas jugadas
+     */
+
+
+/*
+ Cantidad de preguntas en el juego
+ */
+
+
+    /*
+     Cantidad de preguntas creadas
+     */
+
+/*
+ Cantidad de usuarios nuevos
+ */
+
+
+/*
+ Porcentaje de preguntas respondidas correctamente por usuario
+ */
+
+
+    /*
+     Distribucion de Usuarios por pais, genero y grupo de edad
+     */
+
+
+
+/*
+ insercion de datos por semana para generar graficos
+ */
+
+/*
+ Cantidad de jugadores que tiene la aplicacion
+ */
+
+/*
+ Cantidad de partidas jugadas
+ */
+
+
+/*
+ Cantidad de preguntas en el juego
+ */
+
+
+/*
+ Cantidad de preguntas creadas
+ */
+
+/*
+ Cantidad de usuarios nuevos
+ */
+
+
+/*
+ Porcentaje de preguntas respondidas correctamente por usuario
+ */
+
+
+/*
+ Distribucion de Usuarios por pais, genero y grupo de edad
+ */
+
+
+
+
+
+/*
+ insercion de datos por Mes para generar graficos
+ */
+
+
+/*
+ Cantidad de jugadores que tiene la aplicacion
+ */
+
+/*
+ Cantidad de partidas jugadas
+ */
+
+
+/*
+ Cantidad de preguntas en el juego
+ */
+
+
+/*
+ Cantidad de preguntas creadas
+ */
+
+/*
+ Cantidad de usuarios nuevos
+ */
+
+
+/*
+ Porcentaje de preguntas respondidas correctamente por usuario
+ */
+
+
+/*
+ Distribucion de Usuarios por pais, genero y grupo de edad
+ */
+
+
+
+
+
+
+
+/*
+ insercion de datos por año para generar graficos
+ */
+/*
+ Cantidad de jugadores que tiene la aplicacion
+ */
+
+/*
+ Cantidad de partidas jugadas
+ */
+
+
+/*
+ Cantidad de preguntas en el juego
+ */
+
+
+/*
+ Cantidad de preguntas creadas
+ */
+
+/*
+ Cantidad de usuarios nuevos
+ */
+
+
+/*
+ Porcentaje de preguntas respondidas correctamente por usuario
+ */
+
+
+/*
+ Distribucion de Usuarios por pais, genero y grupo de edad
+ */
+
