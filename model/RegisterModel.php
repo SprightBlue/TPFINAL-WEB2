@@ -62,7 +62,7 @@
             }
             if (empty($errors)) {
                 $stmt = $this->database->query("UPDATE usuario 
-                                                SET fullname=:fullname, yearOfBirth=:yearOfBirth, gender=:gender, country=:country, city=:city, email=:email, pass=:pass, username=:username, profilePicture=:profilePicture
+                                                SET fullname=:fullname, yearOfBirth=:yearOfBirth, idGenero=:gender, idPais=:country, city=:city, email=:email, pass=:pass, username=:username, profilePicture=:profilePicture
                                                 WHERE id = :id");
                 $stmt->execute(array("id" => $id, ":fullname" => $fullname, ":yearOfBirth" => $yearOfBirth, ":gender" => $gender, ":country" => $country, ":city" => $city, ":email" => $email, ":pass" => $pass, ":username" => $username, ":profilePicture" => $imgName));
             }

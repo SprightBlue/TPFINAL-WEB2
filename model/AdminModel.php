@@ -67,19 +67,20 @@
         }
 
         public function getUsersByCountry($currentDate, $startDate) {
-            $stmt = $this->database->query("SELECT country, COUNT(*) AS usersCount
-                                            FROM usuario
-                                            WHERE userRole = 'player'
-                                            AND dateCreated BETWEEN :startDate AND :currentDate
-                                            GROUP BY country");
-            $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
+            $stmt = $this->database->query("SELECT pais.nombre AS country, COUNT(*) AS usersCount
+                                    FROM usuario
+                                    INNER JOIN pais ON usuario.idPais = pais.id
+                                    WHERE usuario.userRole = 'player'
+                                    AND usuario.dateCreated BETWEEN :startDate AND :currentDate
+                                    GROUP BY pais.nombre");
+            $stmt->execute(array(":startDate" => $startDate, ":currentDate" => $currentDate));
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
-
         public function getUsersByGender($currentDate, $startDate) {
-            $stmt = $this->database->query("SELECT gender, COUNT(*) AS usersCount
+            $stmt = $this->database->query("SELECT genero.nombre AS gender, COUNT(*) AS usersCount
                                             FROM usuario
+                                            INNER JOIN genero ON usuario.idGenero = genero.id
                                             WHERE userRole = 'player'
                                             AND dateCreated BETWEEN :startDate AND :currentDate
                                             GROUP BY gender");

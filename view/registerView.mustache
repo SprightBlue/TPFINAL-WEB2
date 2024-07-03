@@ -16,7 +16,7 @@
                     <div class="form-floating mb-3">
                         <select class="form-select" name="gender" id="gender" required>
                             {{#genders}}
-                                <option value="{{id}}" {{#selectedGender}}{{id}}{{/selectedGender}}>{{nombre}}</option>
+                                <option value="{{id}}" {{#selected}}selected{{/selected}}>{{nombre}}</option>
                             {{/genders}}
                         </select>
                         <label for="gender">Género</label>
