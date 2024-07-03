@@ -54,6 +54,7 @@ include_once("vendor/PHPMailer/src/SMTP.php");
 
     class Configuration {
 
+
         public static function getDatabase() {
             $config = self::getConfig();
             return new Database($config["host"], $config["dbname"], $config["username"], $config["password"]);
@@ -64,11 +65,11 @@ include_once("vendor/PHPMailer/src/SMTP.php");
         }
 
         public static function getRegisterController() {
-            return new RegisterController(self::getRegisterModel(), self::getPresenter());
+            return new RegisterController(self::getRegisterModel(), self::getPresenter(), self::getLogger());
         }
 
         private static function getRegisterModel() {
-            return new RegisterModel(self::getDatabase());
+            return new RegisterModel(self::getDatabase(),self::getLogger());
         }
 
         public static function getLoginController() {

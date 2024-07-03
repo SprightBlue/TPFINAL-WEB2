@@ -52,9 +52,9 @@
         }
 
         private function setData($currentDate, $startDate, $filter) {
-            $playersCount = $this->model->getPlayersCount();
-            $gamesCount = $this->model->getGamesCount();
-            $questionsCount = $this->model->getQuestionsCount();
+            $playersCount = $this->model->getPlayersCount($startDate);
+            $gamesCount = $this->model->getGamesCount($startDate);
+            $questionsCount = $this->model->getQuestionsCount($startDate);
             $questionsCreated = $this->model->getQuestionsCreated($currentDate, $startDate);
             $newUsers = $this->model->getNewUsers($currentDate, $startDate);            
             $correctPercentage = $this->model->getCorrectPercentage($currentDate, $startDate);

@@ -15,23 +15,19 @@
                     </div>                   
                     <div class="form-floating mb-3">
                         <select class="form-select" name="gender" id="gender" required>
-                            {{#user}}
-                            <option value="Masculino" {{#genderMasculino}}selected{{/genderMasculino}}>Masculino</option>
-                            <option value="Femenino" {{#genderFemenino}}selected{{/genderFemenino}}>Femenino</option>
-                            <option value="Prefiero no cargarlo" {{#genderPrefieroNoCargarlo}}selected{{/genderPrefieroNoCargarlo}}>Prefiero no cargarlo</option>
-                            {{/user}}
-                            {{^user}}
-                                <option value="" hidden selected>Seleccione tipo</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
-                                <option value="Prefiero no cargarlo">Prefiero no cargarlo</option>
-                            {{/user}}
+                            {{#genders}}
+                                <option value="{{id}}">{{nombre}}</option>
+                            {{/genders}}
                         </select>
-                        <label for="gender">Genero</label>
+                        <label for="gender">Género</label>
                     </div>   
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="text" name="country" id="country" placeholder="Ingresar pais" value="{{#user}}{{country}}{{/user}}" required>
-                        <label for="country">Pais</label>
+                        <select class="form-select" name="country" id="country" required>
+                            {{#countries}}
+                                <option value="{{id}}">{{nombre}}</option>
+                            {{/countries}}
+                        </select>
+                        <label for="country">País</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" type="text" name="city" id="city" placeholder="Ingresar ciudad" value="{{#user}}{{city}}{{/user}}" required>

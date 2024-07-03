@@ -6,30 +6,31 @@
 
         public function __construct($database) {
             $this->database = $database;
-        }     
+        }
 
-        public function getPlayersCount() {
+        public function getPlayersCount($endDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS playersCount
-                                            FROM usuario u
-                                            WHERE u.userRole = 'player'");
-            $stmt->execute();
+                                    FROM usuario u
+                                    WHERE u.dateCreated <= :endDate AND userRole = 'player'");
+            $stmt->execute(array(":endDate"=>$endDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["playersCount"];
         }
 
-        public function getGamesCount() {
+        public function getGamesCount($endDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS gamesCount
-                                            FROM partida p JOIN usuario u ON u.id = p.idUser
-                                            WHERE u.userRole = 'player'");
-            $stmt->execute();
+                                    FROM partida p JOIN usuario u ON u.id = p.idUser
+                                    WHERE u.userRole = 'player' AND p.dateGame <= :endDate");
+            $stmt->execute(array(":endDate"=>$endDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result["gamesCount"];            
+            return $result["gamesCount"];
         }
 
-        public function getQuestionsCount() {
+        public function getQuestionsCount($endDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS questionsCount
-                                            FROM pregunta");
-            $stmt->execute();
+                                    FROM pregunta p
+                                    WHERE p.dateCreated <= :endDate");
+            $stmt->execute(array(":endDate"=>$endDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["questionsCount"];
         }

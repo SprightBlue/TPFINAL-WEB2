@@ -1034,7 +1034,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="301" parent="1" name="qampa">
-      <LastIntrospectionLocalTimestamp>2024-07-02.21:31:56</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-07-03.02:30:52</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="302" parent="1" name="questiones">
@@ -1090,543 +1090,621 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="317" parent="301" name="partida">
+    <table id="317" parent="301" name="genero">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="318" parent="301" name="pregunta">
+    <table id="318" parent="301" name="pais">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="319" parent="301" name="pregunta_sugerida">
+    <table id="319" parent="301" name="partida">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="320" parent="301" name="report">
+    <table id="320" parent="301" name="pregunta">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="321" parent="301" name="respuesta">
+    <table id="321" parent="301" name="pregunta_sugerida">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="322" parent="301" name="usuario">
+    <table id="322" parent="301" name="report">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="323" parent="301" name="usuario_pregunta">
+    <table id="323" parent="301" name="respuesta">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="324" parent="301" name="ventatrampitas">
+    <table id="324" parent="301" name="usuario">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="325" parent="316" name="id">
-      <AutoIncrement>2</AutoIncrement>
+    <table id="325" parent="301" name="usuario_pregunta">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="326" parent="301" name="ventatrampitas">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="327" parent="316" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="326" parent="316" name="challenger_id">
+    <column id="328" parent="316" name="challenger_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="327" parent="316" name="challenged_id">
+    <column id="329" parent="316" name="challenged_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="328" parent="316" name="challenger_score">
+    <column id="330" parent="316" name="challenger_score">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>4</Position>
     </column>
-    <column id="329" parent="316" name="challenged_score">
+    <column id="331" parent="316" name="challenged_score">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>5</Position>
     </column>
-    <column id="330" parent="316" name="status">
+    <column id="332" parent="316" name="status">
       <DasType>enum(&apos;pending&apos;, &apos;accepted&apos;, &apos;resolved&apos;)|0e</DasType>
       <Position>6</Position>
     </column>
-    <column id="331" parent="316" name="winner_id">
+    <column id="333" parent="316" name="winner_id">
       <DasType>int|0s</DasType>
       <Position>7</Position>
     </column>
-    <column id="332" parent="316" name="loser_id">
+    <column id="334" parent="316" name="loser_id">
       <DasType>int|0s</DasType>
       <Position>8</Position>
     </column>
-    <column id="333" parent="316" name="is_tie">
+    <column id="335" parent="316" name="is_tie">
       <DasType>tinyint(1)|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>9</Position>
     </column>
-    <foreign-key id="334" parent="316" name="challenge_ibfk_1">
+    <foreign-key id="336" parent="316" name="challenge_ibfk_1">
       <ColNames>challenger_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>usuario</RefTableName>
     </foreign-key>
-    <foreign-key id="335" parent="316" name="challenge_ibfk_2">
+    <foreign-key id="337" parent="316" name="challenge_ibfk_2">
       <ColNames>challenged_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>usuario</RefTableName>
     </foreign-key>
-    <foreign-key id="336" parent="316" name="challenge_ibfk_3">
+    <foreign-key id="338" parent="316" name="challenge_ibfk_3">
       <ColNames>winner_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>usuario</RefTableName>
     </foreign-key>
-    <foreign-key id="337" parent="316" name="challenge_ibfk_4">
+    <foreign-key id="339" parent="316" name="challenge_ibfk_4">
       <ColNames>loser_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>usuario</RefTableName>
     </foreign-key>
-    <index id="338" parent="316" name="PRIMARY">
+    <index id="340" parent="316" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="339" parent="316" name="challenger_id">
+    <index id="341" parent="316" name="challenger_id">
       <ColNames>challenger_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="340" parent="316" name="challenged_id">
+    <index id="342" parent="316" name="challenged_id">
       <ColNames>challenged_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="341" parent="316" name="winner_id">
+    <index id="343" parent="316" name="winner_id">
       <ColNames>winner_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="342" parent="316" name="loser_id">
+    <index id="344" parent="316" name="loser_id">
       <ColNames>loser_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="343" parent="316" name="PRIMARY">
+    <key id="345" parent="316" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="344" parent="317" name="id">
-      <AutoIncrement>8</AutoIncrement>
+    <column id="346" parent="317" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="345" parent="317" name="score">
-      <DasType>int|0s</DasType>
+    <column id="347" parent="317" name="nombre">
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="346" parent="317" name="dateGame">
-      <DasType>timestamp|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="347" parent="317" name="idUser">
-      <DasType>int|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <foreign-key id="348" parent="317" name="partida_ibfk_1">
-      <ColNames>idUser</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>usuario</RefTableName>
-    </foreign-key>
-    <index id="349" parent="317" name="PRIMARY">
+    <index id="348" parent="317" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="350" parent="317" name="idUser">
-      <ColNames>idUser</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="351" parent="317" name="PRIMARY">
+    <key id="349" parent="317" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="352" parent="318" name="idQuestion">
+    <column id="350" parent="318" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="351" parent="318" name="nombre">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <index id="352" parent="318" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="353" parent="318" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="354" parent="319" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="355" parent="319" name="score">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="356" parent="319" name="dateGame">
+      <DasType>timestamp|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="357" parent="319" name="idUser">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <foreign-key id="358" parent="319" name="partida_ibfk_1">
+      <ColNames>idUser</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>usuario</RefTableName>
+    </foreign-key>
+    <index id="359" parent="319" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="360" parent="319" name="idUser">
+      <ColNames>idUser</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="361" parent="319" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="362" parent="320" name="idQuestion">
       <AutoIncrement>31</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="353" parent="318" name="question">
+    <column id="363" parent="320" name="question">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="354" parent="318" name="category">
+    <column id="364" parent="320" name="category">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="355" parent="318" name="dateCreated">
+    <column id="365" parent="320" name="dateCreated">
       <DasType>timestamp|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>4</Position>
     </column>
-    <column id="356" parent="318" name="correctAnswers">
+    <column id="366" parent="320" name="correctAnswers">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>5</Position>
     </column>
-    <column id="357" parent="318" name="totalAnswers">
+    <column id="367" parent="320" name="totalAnswers">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>6</Position>
     </column>
-    <column id="358" parent="318" name="difficulty">
+    <column id="368" parent="320" name="difficulty">
       <DasType>varchar(255)|0s</DasType>
       <DefaultExpression>&apos;easy&apos;</DefaultExpression>
       <Position>7</Position>
     </column>
-    <index id="359" parent="318" name="PRIMARY">
+    <index id="369" parent="320" name="PRIMARY">
       <ColNames>idQuestion</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="360" parent="318" name="PRIMARY">
+    <key id="370" parent="320" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="361" parent="319" name="idSuggestion">
+    <column id="371" parent="321" name="idSuggestion">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="362" parent="319" name="idUser">
+    <column id="372" parent="321" name="idUser">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="363" parent="319" name="question">
+    <column id="373" parent="321" name="question">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="364" parent="319" name="category">
+    <column id="374" parent="321" name="category">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="365" parent="319" name="answer1">
+    <column id="375" parent="321" name="answer1">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="366" parent="319" name="answer2">
+    <column id="376" parent="321" name="answer2">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="367" parent="319" name="answer3">
+    <column id="377" parent="321" name="answer3">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="368" parent="319" name="answer4">
+    <column id="378" parent="321" name="answer4">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="369" parent="319" name="correct">
+    <column id="379" parent="321" name="correct">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
-    <foreign-key id="370" parent="319" name="pregunta_sugerida_ibfk_1">
+    <foreign-key id="380" parent="321" name="pregunta_sugerida_ibfk_1">
       <ColNames>idUser</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>usuario</RefTableName>
     </foreign-key>
-    <index id="371" parent="319" name="PRIMARY">
+    <index id="381" parent="321" name="PRIMARY">
       <ColNames>idSuggestion</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="372" parent="319" name="idUser">
+    <index id="382" parent="321" name="idUser">
       <ColNames>idUser</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="373" parent="319" name="PRIMARY">
+    <key id="383" parent="321" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="374" parent="320" name="idReport">
+    <column id="384" parent="322" name="idReport">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="375" parent="320" name="idQuestion">
+    <column id="385" parent="322" name="idQuestion">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="376" parent="320" name="idUser">
+    <column id="386" parent="322" name="idUser">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="377" parent="320" name="reason">
+    <column id="387" parent="322" name="reason">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="378" parent="320" name="dateReported">
+    <column id="388" parent="322" name="dateReported">
       <DasType>timestamp|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>5</Position>
     </column>
-    <foreign-key id="379" parent="320" name="report_ibfk_1">
+    <foreign-key id="389" parent="322" name="report_ibfk_1">
       <ColNames>idQuestion</ColNames>
       <RefColNames>idQuestion</RefColNames>
       <RefTableName>pregunta</RefTableName>
     </foreign-key>
-    <foreign-key id="380" parent="320" name="report_ibfk_2">
+    <foreign-key id="390" parent="322" name="report_ibfk_2">
       <ColNames>idUser</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>usuario</RefTableName>
     </foreign-key>
-    <index id="381" parent="320" name="PRIMARY">
+    <index id="391" parent="322" name="PRIMARY">
       <ColNames>idReport</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="382" parent="320" name="idQuestion">
+    <index id="392" parent="322" name="idQuestion">
       <ColNames>idQuestion</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="383" parent="320" name="idUser">
+    <index id="393" parent="322" name="idUser">
       <ColNames>idUser</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="384" parent="320" name="PRIMARY">
+    <key id="394" parent="322" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="385" parent="321" name="idAnswer">
+    <column id="395" parent="323" name="idAnswer">
       <AutoIncrement>121</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="386" parent="321" name="idQuestion">
+    <column id="396" parent="323" name="idQuestion">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="387" parent="321" name="answer">
+    <column id="397" parent="323" name="answer">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="388" parent="321" name="correct">
+    <column id="398" parent="323" name="correct">
       <DasType>tinyint(1)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <foreign-key id="389" parent="321" name="respuesta_ibfk_1">
+    <foreign-key id="399" parent="323" name="respuesta_ibfk_1">
       <ColNames>idQuestion</ColNames>
       <RefColNames>idQuestion</RefColNames>
       <RefTableName>pregunta</RefTableName>
     </foreign-key>
-    <index id="390" parent="321" name="PRIMARY">
+    <index id="400" parent="323" name="PRIMARY">
       <ColNames>idAnswer</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="391" parent="321" name="idQuestion">
+    <index id="401" parent="323" name="idQuestion">
       <ColNames>idQuestion</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="392" parent="321" name="PRIMARY">
+    <key id="402" parent="323" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="393" parent="322" name="id">
-      <AutoIncrement>6</AutoIncrement>
-      <DasType>int|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="394" parent="322" name="fullname">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="395" parent="322" name="yearOfBirth">
-      <DasType>int|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="396" parent="322" name="gender">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="397" parent="322" name="country">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <column id="398" parent="322" name="city">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-    </column>
-    <column id="399" parent="322" name="email">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-    </column>
-    <column id="400" parent="322" name="pass">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>8</Position>
-    </column>
-    <column id="401" parent="322" name="username">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>9</Position>
-    </column>
-    <column id="402" parent="322" name="profilePicture">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>10</Position>
-    </column>
-    <column id="403" parent="322" name="token">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>11</Position>
-    </column>
-    <column id="404" parent="322" name="active">
-      <DasType>tinyint(1)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>12</Position>
-    </column>
-    <column id="405" parent="322" name="answeredQuestions">
-      <DasType>int|0s</DasType>
-      <DefaultExpression>0</DefaultExpression>
-      <Position>13</Position>
-    </column>
-    <column id="406" parent="322" name="correctAnswers">
-      <DasType>int|0s</DasType>
-      <DefaultExpression>0</DefaultExpression>
-      <Position>14</Position>
-    </column>
-    <column id="407" parent="322" name="userRole">
-      <DasType>varchar(255)|0s</DasType>
-      <DefaultExpression>&apos;player&apos;</DefaultExpression>
-      <Position>15</Position>
-    </column>
-    <column id="408" parent="322" name="dateCreated">
-      <DasType>timestamp|0s</DasType>
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
-      <Position>16</Position>
-    </column>
-    <column id="409" parent="322" name="trampitas">
-      <DasType>int|0s</DasType>
-      <DefaultExpression>0</DefaultExpression>
-      <Position>17</Position>
-    </column>
-    <index id="410" parent="322" name="PRIMARY">
-      <ColNames>id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="411" parent="322" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <column id="412" parent="323" name="idUsuario">
-      <DasType>int|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="413" parent="323" name="idPregunta">
-      <DasType>int|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <foreign-key id="414" parent="323" name="usuario_pregunta_ibfk_1">
-      <ColNames>idUsuario</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>usuario</RefTableName>
-    </foreign-key>
-    <foreign-key id="415" parent="323" name="usuario_pregunta_ibfk_2">
-      <ColNames>idPregunta</ColNames>
-      <RefColNames>idQuestion</RefColNames>
-      <RefTableName>pregunta</RefTableName>
-    </foreign-key>
-    <index id="416" parent="323" name="PRIMARY">
-      <ColNames>idUsuario
-idPregunta</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="417" parent="323" name="idPregunta">
-      <ColNames>idPregunta</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="418" parent="323" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <column id="419" parent="324" name="id">
+    <column id="403" parent="324" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="420" parent="324" name="idUsuario">
-      <DasType>int|0s</DasType>
+    <column id="404" parent="324" name="fullname">
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="421" parent="324" name="cantidad">
+    <column id="405" parent="324" name="yearOfBirth">
       <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="422" parent="324" name="precioTotal">
-      <DasType>int|0s</DasType>
+    <column id="406" parent="324" name="gender">
+      <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="423" parent="324" name="fecha">
-      <DasType>timestamp|0s</DasType>
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    <column id="407" parent="324" name="country">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <foreign-key id="424" parent="324" name="ventatrampitas_ibfk_1">
-      <ColNames>idUsuario</ColNames>
+    <column id="408" parent="324" name="city">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="409" parent="324" name="email">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+    </column>
+    <column id="410" parent="324" name="pass">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+    </column>
+    <column id="411" parent="324" name="username">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>9</Position>
+    </column>
+    <column id="412" parent="324" name="profilePicture">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>10</Position>
+    </column>
+    <column id="413" parent="324" name="token">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>11</Position>
+    </column>
+    <column id="414" parent="324" name="active">
+      <DasType>tinyint(1)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>12</Position>
+    </column>
+    <column id="415" parent="324" name="answeredQuestions">
+      <DasType>int|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
+      <Position>13</Position>
+    </column>
+    <column id="416" parent="324" name="correctAnswers">
+      <DasType>int|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
+      <Position>14</Position>
+    </column>
+    <column id="417" parent="324" name="userRole">
+      <DasType>varchar(255)|0s</DasType>
+      <DefaultExpression>&apos;player&apos;</DefaultExpression>
+      <Position>15</Position>
+    </column>
+    <column id="418" parent="324" name="dateCreated">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>16</Position>
+    </column>
+    <column id="419" parent="324" name="trampitas">
+      <DasType>int|0s</DasType>
+      <DefaultExpression>0</DefaultExpression>
+      <Position>17</Position>
+    </column>
+    <column id="420" parent="324" name="idPais">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>18</Position>
+    </column>
+    <column id="421" parent="324" name="idGenero">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>19</Position>
+    </column>
+    <foreign-key id="422" parent="324" name="usuario_ibfk_1">
+      <ColNames>idPais</ColNames>
       <RefColNames>id</RefColNames>
-      <RefTableName>usuario</RefTableName>
+      <RefTableName>pais</RefTableName>
     </foreign-key>
-    <index id="425" parent="324" name="PRIMARY">
+    <foreign-key id="423" parent="324" name="usuario_ibfk_2">
+      <ColNames>idGenero</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>genero</RefTableName>
+    </foreign-key>
+    <index id="424" parent="324" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="426" parent="324" name="idUsuario">
-      <ColNames>idUsuario</ColNames>
+    <index id="425" parent="324" name="idPais">
+      <ColNames>idPais</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="426" parent="324" name="idGenero">
+      <ColNames>idGenero</ColNames>
       <Type>btree</Type>
     </index>
     <key id="427" parent="324" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="428" parent="325" name="idUsuario">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="429" parent="325" name="idPregunta">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <foreign-key id="430" parent="325" name="usuario_pregunta_ibfk_1">
+      <ColNames>idUsuario</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>usuario</RefTableName>
+    </foreign-key>
+    <foreign-key id="431" parent="325" name="usuario_pregunta_ibfk_2">
+      <ColNames>idPregunta</ColNames>
+      <RefColNames>idQuestion</RefColNames>
+      <RefTableName>pregunta</RefTableName>
+    </foreign-key>
+    <index id="432" parent="325" name="PRIMARY">
+      <ColNames>idUsuario
+idPregunta</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="433" parent="325" name="idPregunta">
+      <ColNames>idPregunta</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="434" parent="325" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="435" parent="326" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="436" parent="326" name="idUsuario">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="437" parent="326" name="cantidad">
+      <DasType>int|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="438" parent="326" name="precioTotal">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="439" parent="326" name="fecha">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="440" parent="326" name="ventatrampitas_ibfk_1">
+      <ColNames>idUsuario</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>usuario</RefTableName>
+    </foreign-key>
+    <index id="441" parent="326" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="442" parent="326" name="idUsuario">
+      <ColNames>idUsuario</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="443" parent="326" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

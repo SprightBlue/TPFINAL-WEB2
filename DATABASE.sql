@@ -6,6 +6,15 @@ USE qampa;
 
 select *  from usuario;
 delete from usuario where id=8;
+CREATE TABLE genero (
+                        id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                        nombre VARCHAR(255) NOT NULL
+);
+CREATE TABLE pais (
+                      id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                      nombre VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE usuario (
                          id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
                          fullname VARCHAR(255) NOT NULL,
@@ -22,9 +31,20 @@ CREATE TABLE usuario (
                          answeredQuestions INT DEFAULT 0,
                          correctAnswers INT DEFAULT 0,
                          userRole VARCHAR(255) DEFAULT 'player',
-                         dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                         dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        trampitas INT DEFAULT 0,
+                     idPais INT NOT NULL,
+                    idGenero INT NOT NULL,
+                    FOREIGN KEY (idPais) REFERENCES pais(id),
+                    FOREIGN KEY (idGenero) REFERENCES genero(id)
 );
-ALTER TABLE usuario ADD trampitas INT DEFAULT 0;
+
+
+
+
+
+
+
 
 CREATE TABLE ventaTrampitas (
                                 id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -109,21 +129,49 @@ CREATE TABLE challenge (
                            FOREIGN KEY (loser_id) REFERENCES usuario(id)
 );
 
-INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
-VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com', '123', 'messi', 'messirve.jpg', 'tokenUsuario', 1, 'player');
+INSERT INTO pais (nombre) VALUES
+                              ('Argentina'),
+                              ('Bolivia'),
+                              ('Brasil'),
+                              ('Chile'),
+                              ('Colombia'),
+                              ('Costa Rica'),
+                              ('Cuba'),
+                              ('Ecuador'),
+                              ('El Salvador'),
+                              ('Guatemala'),
+                              ('Honduras'),
+                              ('México'),
+                              ('Nicaragua'),
+                              ('Panamá'),
+                              ('Paraguay'),
+                              ('Perú'),
+                              ('Puerto Rico'),
+                              ('República Dominicana'),
+                              ('Uruguay'),
+                              ('Venezuela');
+select * from genero;
+select * from pais;
+INSERT INTO genero (nombre) VALUES
+                                ('Masculino'),
+                                ('Femenino'),
+                                ('Prefiero no cargarlo');
+
+/*INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
+VALUES ('Messi', 1990, 'Masculino', 'Argentina', 'Rosario', 'usuario@email.com', '123', 'messi', 'messirve.jpg', 'tokenUsuario', 1, 'player', 1, 1);
 
 
-INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
-VALUES ('Pancho', 1985, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@email.com', '123', 'Pancho', 'pancho.png', 'tokenEditor', 1, 'editor');
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
+VALUES ('Pancho', 1985, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@email.com', '123', 'Pancho', 'pancho.png', 'tokenEditor', 1, 'editor', 1, 1);
 
 
-INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole) VALUES
-('El admin', 1990, 'masculino', 'argentina', 'buenos aires', 'admin@gmail.com', '1234', 'admin', '1.jpg', '1234567890qwerty1', '1', 'admin');
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole,idPais,idGenero)
+VALUES ('El admin', 1990, 'masculino', 'argentina', 'buenos aires', 'admin@gmail.com', '1234', 'admin', '1.jpg', '1234567890qwerty1', '1', 'admin', 1, 1);
 
-INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole)
-VALUES ('Panchito1', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'panchito111@email.com', '123', 'pan', 'pancho.png', '35435445dfgdfgdfg123213', 1, 'player');
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
+VALUES ('Panchito1', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'panchito111@email.com', '123', 'pan', 'pancho.png', '35435445dfgdfgdfg123213', 1, 'player', 1, 1);
 
-
+*/
 
 
 INSERT INTO pregunta (question, category) VALUES

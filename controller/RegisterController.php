@@ -4,18 +4,37 @@
 
         private $model;
         private $presenter;
+        private $logger;
 
-        public function __construct($model, $presenter){
+        public function __construct($model, $presenter, $logger){
             $this->model = $model;
             $this->presenter = $presenter;
+            $this->logger = $logger;
         }
-        
+
+
+
         public function read() {
+            $logger = new Logger();
+
             if(isset($_SESSION["usuario"])) {
+                $logger->info("Usuario ya está en sesión, redirigiendo a /lobby/read");
                 Redirect::to("/lobby/read");
-            }else {
-                $this->presenter->render("view/registerView.mustache");
-            }  
+            } else {
+                $countries = $this->model->getCountries();
+                $genders = $this->model->getGenders();
+                $logger->info("Renderizando vista de registro con países y géneros");
+
+                $logger->info("Obteniendo países...");
+                $countries = $this->model->getCountries();
+                $logger->info("Países obtenidos: " . count($countries));
+
+                $logger->info("Obteniendo géneros...");
+                $genders = $this->model->getGenders();
+                $logger->info("Géneros obtenidos: " . count($genders));
+
+                $this->presenter->render("view/registerView.mustache", ['countries' => $countries, 'genders' => $genders]);
+            }
         }
 
         public function insert(){
@@ -66,7 +85,7 @@
 
         public function set() { 
             if(isset($_POST["actualizar"])) {
-                $erros = [];
+                $errors = [];
                 $id = $_POST["id"];
                 $fullname = $_POST["fullname"];
                 $yearOfBirth = $_POST["yearOfBirth"];
@@ -109,4 +128,4 @@
 
     }
 
-?>
+
