@@ -13,11 +13,13 @@
                 <div class="card bg">
                     <div class="card-body">
                         <h4 class="card-title text-dark">{{#user}}{{username}}{{/user}}</h4>
-                        {{#userScore}}
-                            <h5 class="card-text text-dark">Puntaje mas alto alcanzado: {{#maxScore}}{{maxScore}}{{/maxScore}}{{^maxScore}}0{{/maxScore}}</h5>  
-                        {{/userScore}}
-                        <h6><a href="/buy/read" class="text-decoration-none text-warning">{{#user}}{{trampitas}}{{/user}} Trampitas BUY&raquo;</a></h6>
-                        <a class="btn btn-dark" href="/play/read">Nueva Partida</a>
+                        {{#user.isPlayer}}
+                            {{#userScore}}
+                                <h5 class="card-text text-dark">Puntaje más alto alcanzado: {{#maxScore}}{{maxScore}}{{/maxScore}}{{^maxScore}}0{{/maxScore}}</h5>
+                            {{/userScore}}
+                            <h6><a href="/buy/read" class="text-decoration-none text-warning">{{trampitas}} Trampitas BUY&raquo;</a></h6>
+                            <a class="btn btn-dark" href="/play/read">Nueva Partida</a>
+                        {{/user.isPlayer}}
                         <a class="btn btn-dark" href="/ranking/read">Ranking</a>
                     </div>
                 </div>
