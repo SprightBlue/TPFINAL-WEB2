@@ -51,6 +51,9 @@
     include_once("model/BuyModel.php");
     include_once("controller/BuyController.php");
 
+    include_once("model/EntornoModel.php");
+    include_once("controller/EntornoController.php");
+
     class Configuration {
 
         public static function getDatabase() {
@@ -141,6 +144,14 @@
 
         private static function getBuyModel() {
             return new BuyModel(self::getDatabase());
+        }
+
+        private static function getEntornoController() {
+            return new EntornoController(self::getEntornoModel(), self::getPresenter());
+        }
+
+        private static function getEntornoModel() {
+            return new EntornoModel(self::getDatabase());
         }
 
         public static function getLogger(){

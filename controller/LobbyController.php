@@ -18,6 +18,7 @@
             $user["isPlayer"] = $user["userRole"] == "player";
             $user["isEditor"] = $user["userRole"] == "editor";
             $user["isAdmin"] = $user["userRole"] == "admin";
+            $user["isEmpresa"] = $user["userRole"] == "empresa";
             $data = $this->getData($user, $entorno);
             $this->presenter->render("view/lobbyView.mustache", $data);
         }
