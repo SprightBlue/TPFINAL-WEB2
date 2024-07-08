@@ -10,8 +10,8 @@
 
         public function getPlayersCount($endDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS playersCount
-                                    FROM usuario u
-                                    WHERE u.dateCreated <= :endDate AND userRole = 'player'");
+                                            FROM usuario u
+                                            WHERE u.dateCreated <= :endDate AND userRole = 'player'");
             $stmt->execute(array(":endDate"=>$endDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["playersCount"];
@@ -19,8 +19,8 @@
 
         public function getGamesCount($endDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS gamesCount
-                                    FROM partida p JOIN usuario u ON u.id = p.idUser
-                                    WHERE u.userRole = 'player' AND p.dateGame <= :endDate");
+                                            FROM partida p JOIN usuario u ON u.id = p.idUser
+                                            WHERE u.userRole = 'player' AND p.dateGame <= :endDate");
             $stmt->execute(array(":endDate"=>$endDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["gamesCount"];
@@ -28,8 +28,8 @@
 
         public function getQuestionsCount($endDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS questionsCount
-                                    FROM pregunta p
-                                    WHERE p.dateCreated <= :endDate");
+                                            FROM pregunta p
+                                            WHERE p.dateCreated <= :endDate");
             $stmt->execute(array(":endDate"=>$endDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["questionsCount"];
@@ -77,6 +77,7 @@
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
+
         public function getUsersByGender($currentDate, $startDate) {
             $stmt = $this->database->query("SELECT genero.nombre AS gender, COUNT(*) AS usersCount
                                             FROM usuario
@@ -125,6 +126,14 @@
             return $result["gananciasTrampitas"];
         }
 
-    }
+        public function getEntorno($idTerceros, $idUsuario, $currentTime) {
+            $stmt = $this->database->query("SELECT *
+                                            FROM entorno e
+                                            WHERE e.idTerceros = :idTerceros
+                                            AND e.idUsuario = :idUsuario
+                                            AND :currentTime BETWEEN e.inicio AND e.fin");
+            $stmt->execute(array(":idTerceros"=>$idTerceros, ":idUsuario"=>$idUsuario, ":currentTime"=>$currentTime));
+            return ($stmt->rowCount() > 0);
+        }
 
-?>
+    }

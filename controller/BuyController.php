@@ -11,28 +11,36 @@
         }
 
         public function read() {
-            if(isset($_SESSION["usuario"])) {
-                $user = $_SESSION["usuario"];
-                $this->presenter->render("view/buyView.mustache", ["user" => $user]);
-            }else {
-                Redirect::to("/login/read");
-            }
+            $this->verifyUserSession();
+            $this->verifyEntorno();
+            $user = $_SESSION["usuario"];
+            $this->presenter->render("view/buyView.mustache", ["user" => $user]);
         }
 
         public function update() {
-            if(isset($_SESSION["usuario"]) && isset($_POST["buy"])) {
-                $idUsuario = $_POST["idUsuario"];
-                $cantidad = $_POST["cantidad"];
-                $precioTotal = $_POST["precioTotal"];
-                $this->model->buyTrampitas($idUsuario, $cantidad, $precioTotal);
-                $this->model->updateCantidadTrampitasUsuario($idUsuario, $cantidad);
-                $_SESSION["usuario"] = $this->model->getUser($idUsuario);
-                Redirect::to("/lobby/read");
-            }else {
-                Redirect::to("/login/read");
-            }
+            $this->verifyUserSession();
+            $this->verifyEntorno();
+            $idUsuario = $_POST["idUsuario"];
+            $cantidad = $_POST["cantidad"];
+            $precioTotal = $_POST["precioTotal"];
+            $this->model->buyTrampitas($idUsuario, $cantidad, $precioTotal);
+            $this->model->updateCantidadTrampitasUsuario($idUsuario, $cantidad);
+            $_SESSION["usuario"] = $this->model->getUser($idUsuario);
+            Redirect::to("/lobby/read");
+        }
+
+        private function verifyUserSession() {
+            if (!isset($_SESSION["usuario"])) {Redirect::to("/login/read");}  
+        }
+
+        private function verifyEntorno() {
+            if (isset($_SESSION["entorno"])) {
+                $idEmpresa = $_SESSION["entorno"]["idEmpresa"];
+                $idUsuario = $_SESSION["usuario"]["id"];
+                $currentTime = date("Y-m-d H:i:s");
+                $result = $this->model->getEntorno($idEmpresa, $idUsuario, $currentTime);
+                if (!$result) {$_SESSION["entorno"] = null;}
+            } 
         }
 
     }
-
-?>

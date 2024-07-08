@@ -1,32 +1,21 @@
 <?php
 
-    class RegisterModel
-    {
+    class RegisterModel {
 
         private $database;
-    private $logger;
-        public function __construct($database, $logger)
-        {
+        private $logger;
+        
+        public function __construct($database, $logger) {
             $this->database = $database;
             $this->logger = $logger;
         }
 
-        public function createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img, $token, &$errors)
-        {
-            if ($this->emailExists($email)) {
-                $errors["errorEmail"] = "El correo electrónico ya está en uso.";
-            }
-            if ($pass != $repeatPass) {
-                $errors["errorPass"] = "Las contraseñas ingresadas no coinciden.";
-            }
-            if ($this->usernameExists($username)) {
-                $errors["errorUsername"] = "El nombre de usuario ya está en uso.";
-            }
-            if (empty($img['name'])) {
-                $errors["errorImg"] = "No se ha subido ningún archivo.";
-            } else {
-                $imgName = $this->addImg($img, $errors);
-            }
+        public function createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img, $token, &$errors) {
+            if ($this->emailExists($email)) {$errors["errorEmail"] = "El correo electrónico ya está en uso.";}
+            if ($pass != $repeatPass) {$errors["errorPass"] = "Las contraseñas ingresadas no coinciden.";}
+            if ($this->usernameExists($username)) {$errors["errorUsername"] = "El nombre de usuario ya está en uso.";}
+            if (empty($img['name'])) {$errors["errorImg"] = "No se ha subido ningún archivo.";
+            } else {$imgName = $this->addImg($img, $errors);}
             if (empty($errors)) {
                 $stmt = $this->database->query("INSERT INTO usuario(fullname, yearOfBirth, idGenero, idPais, city, email, pass, username, profilePicture, token, active)
                                                 VALUES(:fullname, :yearOfBirth, :gender, :country, :city, :email, :pass, :username, :profilePicture, :token, 0)");
@@ -34,28 +23,19 @@
             }
         }
 
-        public function activeUser($token)
-        {
+        public function activeUser($token) {
             $stmt = $this->database->query("UPDATE usuario 
                                             SET active=1 
                                             WHERE token=:token");
             $stmt->execute(array(":token" => $token));
         }
 
-        public function updateUser($id, $fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img, &$errors)
-        {
+        public function updateUser($id, $fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img, &$errors) {
             $user = $this->getUser($id);
-            if ($user["email"] != $email && $this->emailExists($email)) {
-                $errors["errorEmail"] = "El correo electrónico ya está en uso.";
-            }
-            if ($pass != $repeatPass) {
-                $errors["errorPass"] = "Las contraseñas ingresadas no coinciden.";
-            }
-            if ($user["username"] != $username && $this->usernameExists($username)) {
-                $errors["errorUsername"] = "El nombre de usuario ya está en uso.";
-            }
-            if (empty($img['name'])) {
-                $imgName = $user["profilePicture"];
+            if ($user["email"] != $email && $this->emailExists($email)) {$errors["errorEmail"] = "El correo electrónico ya está en uso.";}
+            if ($pass != $repeatPass) {$errors["errorPass"] = "Las contraseñas ingresadas no coinciden.";}
+            if ($user["username"] != $username && $this->usernameExists($username)) {$errors["errorUsername"] = "El nombre de usuario ya está en uso.";}
+            if (empty($img['name'])) {$imgName = $user["profilePicture"];
             } else {
                 $imgName = $this->addImg($img, $errors);
                 $this->deleteImg($user["profilePicture"]);
@@ -68,32 +48,28 @@
             }
         }
 
-        public function getUser($id)
-        {
+        public function getUser($id) {
             $stmt = $this->database->query("SELECT * FROM usuario
                                             WHERE id=:id");
             $stmt->execute(array(":id" => $id));
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
 
-        private function emailExists($email)
-        {
+        private function emailExists($email) {
             $stmt = $this->database->query("SELECT * FROM usuario 
                                             WHERE email=:email");
             $stmt->execute(array(":email" => $email));
             return $stmt->rowCount() > 0;
         }
 
-        private function usernameExists($username)
-        {
+        private function usernameExists($username) {
             $stmt = $this->database->query("SELECT * FROM usuario 
                                             WHERE username=:username");
             $stmt->execute(array(":username" => $username));
             return $stmt->rowCount() > 0;
         }
 
-        private function addImg($img, &$errors)
-        {
+        private function addImg($img, &$errors){
             if ($img['error'] !== UPLOAD_ERR_OK) {
                 $errors["errorImg"] = "Error al subir el archivo.";
                 return false;
@@ -113,7 +89,6 @@
             }
             $imgName = bin2hex(random_bytes(16)) . '.' . $ext;
             $destination = 'public/img/' . $imgName;
-
             if (!move_uploaded_file($img['tmp_name'], $destination)) {
                 $errors["errorImg"] = "Error al mover el archivo.";
                 return false;
@@ -121,11 +96,8 @@
             return $imgName;
         }
 
-        private function deleteImg($img)
-        {
-            if (file_exists("public/img/" . $img)) {
-                unlink("public/img/" . $img);
-            }
+        private function deleteImg($img) {
+            if (file_exists("public/img/" . $img)) {unlink("public/img/" . $img);}
         }
 
         public function getCountries() {
@@ -133,10 +105,21 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-        public function getGenders()
-        {
+
+        public function getGenders(){
             $stmt = $this->database->query("SELECT * FROM genero");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function getEntorno($idTerceros, $idUsuario, $currentTime) {
+            $stmt = $this->database->query("SELECT *
+                                            FROM entorno e
+                                            WHERE e.idTerceros = :idTerceros
+                                            AND e.idUsuario = :idUsuario
+                                            AND :currentTime BETWEEN e.inicio AND e.fin");
+            $stmt->execute(array(":idTerceros"=>$idTerceros, ":idUsuario"=>$idUsuario, ":currentTime"=>$currentTime));
+            return ($stmt->rowCount() > 0);
+        }
+
     }

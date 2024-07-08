@@ -29,6 +29,14 @@
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
 
-    }
+        public function getEntorno($idTerceros, $idUsuario, $currentTime) {
+            $stmt = $this->database->query("SELECT *
+                                            FROM entorno e
+                                            WHERE e.idTerceros = :idTerceros
+                                            AND e.idUsuario = :idUsuario
+                                            AND :currentTime BETWEEN e.inicio AND e.fin");
+            $stmt->execute(array(":idTerceros"=>$idTerceros, ":idUsuario"=>$idUsuario, ":currentTime"=>$currentTime));
+            return ($stmt->rowCount() > 0);
+        }     
 
-?>
+    }

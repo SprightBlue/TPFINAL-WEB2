@@ -157,14 +157,6 @@
             $stmt->execute(array(":idQuestion"=>$idQuestion, ":idUser"=>$idUser, ":reason"=>$reason));
         }
 
-        public function getQuestion($idQuestion) {
-            $stmt = $this->database->query("SELECT * 
-                                            FROM question 
-                                            WHERE idQuestion = :idQuestion");
-            $stmt->execute(array(":idQuestion" => $idQuestion));
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        }
-
         public function getUser($idUsuario) {
             $stmt = $this->database->query("SELECT *
                                             FROM usuario u
@@ -180,6 +172,75 @@
             $stmt->execute(array(':idUsuario' => $idUsuario));
         }
 
-    }
+        public function getEntorno($idTerceros, $idUsuario, $currentTime) {
+            $stmt = $this->database->query("SELECT *
+                                            FROM entorno e
+                                            WHERE e.idTerceros = :idTerceros
+                                            AND e.idUsuario = :idUsuario
+                                            AND :currentTime BETWEEN e.inicio AND e.fin");
+            $stmt->execute(array(":idTerceros"=>$idTerceros, ":idUsuario"=>$idUsuario, ":currentTime"=>$currentTime));
+            return ($stmt->rowCount() > 0);
+        }
 
-?>
+        public function getNombreEntorno($idTerceros) {
+            $stmt = $this->database->query("SELECT username
+                                            FROM usuario
+                                            WHERE id = :idTerceros");
+            $stmt->execute(array(":idTerceros"=>$idTerceros));
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $user["username"];
+        }
+
+        public function getDataNodoEntorno($idUser, $score, $idTerceros) {
+            $answeredQuestions = $this->getAnsweredQuestions($idUser);
+            if($answeredQuestions <= 10) {
+                $difficulty = "easy";
+            }else {
+                $ratio = $this->getUserRatio($idUser);
+                $difficulty = $this->getDifficulty($ratio);
+            }
+            $question = $this->getQuestionRandom($idUser, $difficulty);
+            if($question == false) {
+                $this->resetUserQuestions($idUser);
+                $question = $this->getQuestionRandomModoEntorno($idUser, $difficulty, $idTerceros);
+            }
+            $this->addUserQuestion($idUser, $question["idQuestion"]);
+            $answers = $this->getAnswers($question["idQuestion"]);
+            $user = $this->getUser($idUser);
+            $nombreEntorno = $this->getNombreEntorno($idTerceros);
+            $styles = ["Arte"=>"primary", "Ciencia"=>"success", "Deporte"=>"info", "Entretenimiento"=>"warning", "Geografía"=>"danger", "Historia"=>"secondary"];
+            $data = ["question"=>$question, "style"=>$styles[$question["category"]], "answers"=>$answers, "score"=>$score, "trampitas"=>$user["trampitas"]>0, "user"=>$user, "nombreEntorno"=>$nombreEntorno];
+            return $data;
+        }
+
+        public function saveGameModoEntorno($idUser, $score, $idTerceros){
+            $stmt = $this->database->query("INSERT INTO partida(score, dateGame, idUser, idEntorno) 
+                                            VALUES (:score, NOW(), :idUser, :idTerceros)");
+            $stmt->execute(array(":score"=>$score, ":idUser"=>$idUser, ":idTerceros"=>$idTerceros));
+        }
+
+        private function getQuestionRandomModoEntorno($idUser, $difficulty, $idTerceros) {
+            $answeredQuestions = $this->getUserQuestions($idUser);
+            if(empty($answeredQuestions)) {
+                $stmt = $this->database->query("SELECT * 
+                                                FROM pregunta 
+                                                WHERE difficulty=:difficulty 
+                                                AND idCreador = :idTerceros
+                                                ORDER BY RAND() 
+                                                LIMIT 1");
+                $stmt->execute(array(":idTerceros"=>$idTerceros, ":difficulty"=>$difficulty));
+            }else {
+                $placeholders = implode(",", array_fill(0, count($answeredQuestions), "?"));
+                $stmt = $this->database->query("SELECT * 
+                                                FROM pregunta 
+                                                WHERE idQuestion NOT IN ($placeholders) 
+                                                AND difficulty = ?
+                                                AND idCreador = ?
+                                                ORDER BY RAND() 
+                                                LIMIT 1");
+                $stmt->execute(array_merge($answeredQuestions, [$difficulty, $idTerceros]));
+            }
+            return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
+        }
+
+    }

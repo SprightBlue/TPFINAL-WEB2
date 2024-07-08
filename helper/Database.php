@@ -16,12 +16,11 @@
         public function query($sql) {
             return $this->conn->prepare($sql);
         }
+        
         public function lastInsertId() {
             return $this->conn->lastInsertId();
         }
-        public function __destruct() {
-            $this->conn = null;
-        }
+
         public function beginTransaction() {
             return $this->conn->beginTransaction();
         }
@@ -34,6 +33,8 @@
             return $this->conn->rollBack();
         }
 
-    }
+        public function __destruct() {
+            $this->conn = null;
+        }
 
-?>
+    }

@@ -1,5 +1,8 @@
 <main>
     <!--Q&A-->
+    {{#nombreEntorno}}
+        <h2 class="fw-bold text-center my-3">Modo {{nombreEntorno}}</h2>
+    {{/nombreEntorno}}
     <div class="d-flex flex-column justify-content-start align-items-start m-3">
         <audio id="miMusica" src="/public/audio/Cycling.mp3" preload="auto" autoplay></audio>
         <button class="btn btn-dark me-auto" id="playPauseBtn" value="Pause">Pause</button>

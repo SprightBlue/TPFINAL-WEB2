@@ -1,21 +1,20 @@
 <?php
-include_once("vendor/PHPMailer/src/PHPMailer.php");
-include_once("vendor/PHPMailer/src/Exception.php");
-include_once("vendor/PHPMailer/src/SMTP.php");
-
-
+    
     include_once("helper/Database.php");
-    include_once("helper/Mailer.php");
-    include_once("helper/MustachePresenter.php");
-    include_once("helper/Logger.php");
-    include_once("helper/Redirect.php");
-    include_once("helper/Router.php");
-    include_once("helper/GeneratorQR.php");
-    include_once("helper/GeneratorPDF.php");
-    include_once("helper/GeneratorGraph.php");
+    include_once("helper/GeneratorGraph.php");  
+    include_once("helper/GeneratorPDF.php");   
+    include_once("helper/GeneratorQR.php");       
+    include_once("helper/Logger.php");    
+    include_once("helper/Mailer.php");    
+    include_once("helper/MustachePresenter.php"); 
+    include_once("helper/Redirect.php");    
+    include_once("helper/Router.php");       
 
+    include_once("vendor/mustache/src/Mustache/Autoloader.php");    
+    include_once("vendor/PHPMailer/src/PHPMailer.php");
+    include_once("vendor/PHPMailer/src/Exception.php");
+    include_once("vendor/PHPMailer/src/SMTP.php");    
     include_once("vendor/autoload.php");
-    include_once("vendor/mustache/src/Mustache/Autoloader.php");
     include_once("vendor/phpqrcode/qrlib.php");
     include_once("vendor/dompdf/autoload.inc.php");
     include_once("vendor/jpgraph/src/jpgraph.php");
@@ -53,7 +52,6 @@ include_once("vendor/PHPMailer/src/SMTP.php");
     include_once("controller/BuyController.php");
 
     class Configuration {
-
 
         public static function getDatabase() {
             $config = self::getConfig();

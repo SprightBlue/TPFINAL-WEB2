@@ -11,23 +11,19 @@
         }
 
         public function read() {
-            if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]["userRole"]=="admin") {
-                $filter = $_GET["filter"] ?? "day";
-                $data = $this->getData($filter);
-                $this->presenter->render("view/adminView.mustache", $data);
-            }else {
-                Redirect::to("/login/read");
-            }
+            $this->verifyAdminSession();
+            $this->verifyEntorno();
+            $filter = $_GET["filter"] ?? "day";
+            $data = $this->getData($filter);
+            $this->presenter->render("view/adminView.mustache", $data);
         }
 
         public function create() {
-            if(isset($_SESSION["usuario"]) && $_SESSION["usuario"]["userRole"]=="admin") {
-                $filter = $_GET["filter"] ?? "day";
-                $data = $this->getData($filter);
-                GeneratorPDF::generate($data);
-            }else {
-                Redirect::to("/login/read");
-            }
+            $this->verifyAdminSession();
+            $this->verifyEntorno();
+            $filter = $_GET["filter"] ?? "day";
+            $data = $this->getData($filter);
+            GeneratorPDF::generate($data);
         }
 
         private function getData($filter) {
@@ -71,6 +67,10 @@
         private function createData($playersCount, $gamesCount, $questionsCount, $questionsCreated, $newUsers, $correctPercentage, 
                                         $usersByCountry, $usersByGender, $usersByAgeGroup, $getTrampitasAcumuladasPorUsuario, $getGananciasTrampitas, $filter) {
             $user = $_SESSION["usuario"];
+            $correctPercentageGraph = false;
+            $usersByCountryGraph = false;
+            $usersByGenderGraph = false;
+            $usersByAgeGroupGraph = false;
             foreach($correctPercentage as $row) {
                 $incorrectPercentage = 100 - $row["correctPercentage"];
                 $correctPercentageGraph[]["graph"] = GeneratorGraph::generateCorrectPercentage($row["username"], $row["correctPercentage"], $incorrectPercentage);
@@ -98,7 +98,19 @@
             }  
             return $data;
         }
+        
+        private function verifyAdminSession() {
+            if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"]["userRole"] != "admin") {Redirect::to("/login/read");}  
+        }
 
+        private function verifyEntorno() {
+            if (isset($_SESSION["entorno"])) {
+                $idEmpresa = $_SESSION["entorno"]["idEmpresa"];
+                $idUsuario = $_SESSION["usuario"]["id"];
+                $currentTime = date("Y-m-d H:i:s");
+                $result = $this->model->getEntorno($idEmpresa, $idUsuario, $currentTime);
+                if (!$result) {$_SESSION["entorno"] = null;}
+            } 
+        }
+    
     }
-
-

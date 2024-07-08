@@ -13,34 +13,31 @@
         }
 
         public function read() {
-            if(isset($_SESSION["usuario"])) {
-                if(isset($_SESSION["partida"]) && !empty($_SESSION["partida"])) {
-                    $data = $_SESSION["partida"];
-                }else {
-                    $data = $this->playModel->getData($_SESSION["usuario"]["id"], 0);
-                    $_SESSION["partida"] = $data;
-                    $_SESSION["startTime"] = time();
-                }
-                $data["isChallenge"] = isset($_SESSION['challenge_id']);
-                $this->presenter->render("view/playView.mustache", $data);
-            }else {
-                Redirect::to("/login/read");
+            $this->verifyUserSession();
+            if (isset($_SESSION["partida"]) && !empty($_SESSION["partida"])) {
+                $data = $_SESSION["partida"];
+            } else {
+                $entorno = isset($_SESSION["entorno"]) ? $_SESSION["entorno"] : null;
+                if ($entorno != null) {$data = $this->playModel->getDataModoEntorno($_SESSION["usuario"]["id"], 0, $entorno["idTerceros"]);} 
+                else {$data = $this->playModel->getData($_SESSION["usuario"]["id"], 0);}       
+                $_SESSION["partida"] = $data;
+                $_SESSION["startTime"] = time();
             }
+            $data["isChallenge"] = isset($_SESSION['challenge_id']);
+            $this->presenter->render("view/playView.mustache", $data);
         }
 
         public function verify() {
-            if(isset($_SESSION["usuario"])) {
-                $isCorrect = isset($_POST["isCorrect"]) ? $_POST["isCorrect"] : null;
-                $elapsedTime = isset($_SESSION["startTime"]) ? time() - $_SESSION["startTime"] : null;
-                $this->updateAnswerStats($isCorrect, $elapsedTime);
-                if($isCorrect && $elapsedTime > 0) {$this->correctCase();}
-                else {$this->incorrectCase();}
-            }else {
-                Redirect::to("/login/read");
-            }
+            $this->verifyUserSession();
+            $isCorrect = isset($_POST["isCorrect"]) ? $_POST["isCorrect"] : null;
+            $elapsedTime = isset($_SESSION["startTime"]) ? time() - $_SESSION["startTime"] : null;
+            $this->updateAnswerStats($isCorrect, $elapsedTime);
+            if ($isCorrect && $elapsedTime > 0) {$this->correctCase();}
+            else {$this->incorrectCase();}
         }
 
         public function trampitas() {
+            $this->verifyUserSession();
             $_POST["isCorrect"] = true;
             $this->playModel->updateCantidadTrampitasUsuario($_SESSION["usuario"]["id"]);
             $_SESSION["usuario"] = $this->playModel->getUser($_SESSION["usuario"]["id"]);
@@ -81,7 +78,9 @@
                 unset($_SESSION['challenge_id']);
                 $data["challenge"] = true;
             } else {
-                $this->playModel->saveGame($_SESSION["usuario"]["id"], $data["score"]);
+                $entorno = isset($_SESSION["entorno"]) ? $_SESSION["entorno"] : null;
+                if ($entorno != null) {$this->playModel->saveGameModoEntorno($_SESSION["usuario"]["id"], $data["score"], $entorno["idTerceros"]);} 
+                else {$this->playModel->saveGame($_SESSION["usuario"]["id"], $data["score"]);}
                 $data["challenge"] = false;
             }
             if (!$data["challenge"]) {
@@ -95,16 +94,15 @@
 
         public function reportQuestion() {
             $this->incorrectCase();
-            if(isset($_SESSION["usuario"])) {
-                $idUser = $_SESSION["usuario"]["id"];
-                $idQuestion = $_POST["idQuestion"];
-                $reason = $_POST["reason"];
-                $this->playModel->insertReport($idUser, $idQuestion, $reason);
-            }else {
-                Redirect::to("/login/read");
-            }
+            $this->verifyUserSession();
+            $idUser = $_SESSION["usuario"]["id"];
+            $idQuestion = $_POST["idQuestion"];
+            $reason = $_POST["reason"];
+            $this->playModel->insertReport($idUser, $idQuestion, $reason);
+        }
+
+        private function verifyUserSession() {
+            if (!isset($_SESSION["usuario"])) {Redirect::to("/login/read");}  
         }
 
     }
-
-?>

@@ -10,5 +10,3 @@
 
     $router = Configuration::getRouter();
     $router->route($controller, $action, $idQuestion);
-
-?>

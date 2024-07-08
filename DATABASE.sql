@@ -4,8 +4,6 @@ CREATE DATABASE IF NOT EXISTS qampa;
 
 USE qampa;
 
-select *  from usuario;
-
 CREATE TABLE genero (
                         id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
                         nombre VARCHAR(255) NOT NULL
@@ -16,32 +14,36 @@ CREATE TABLE pais (
 );
 
 CREATE TABLE usuario (
-                         id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                         fullname VARCHAR(255) NOT NULL,
-                         yearOfBirth INT NOT NULL,
+                        id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                        fullname VARCHAR(255) NOT NULL,
+                        yearOfBirth INT NOT NULL,
                         city VARCHAR(255) NOT NULL,
-                         email VARCHAR(255) NOT NULL,
-                         pass VARCHAR(255) NOT NULL,
-                         username VARCHAR(255) NOT NULL,
-                         profilePicture VARCHAR(255) NOT NULL,
-                         token VARCHAR(255) NOT NULL,
-                         active BOOLEAN NOT NULL,
-                         answeredQuestions INT DEFAULT 0,
-                         correctAnswers INT DEFAULT 0,
-                         userRole VARCHAR(255) DEFAULT 'player',
-                         dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        email VARCHAR(255) NOT NULL,
+                        pass VARCHAR(255) NOT NULL,
+                        username VARCHAR(255) NOT NULL,
+                        profilePicture VARCHAR(255) NOT NULL,
+                        token VARCHAR(255) NOT NULL,
+                        active BOOLEAN NOT NULL,
+                        answeredQuestions INT DEFAULT 0,
+                        correctAnswers INT DEFAULT 0,
+                        userRole VARCHAR(255) DEFAULT 'player',
+                        dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                         trampitas INT DEFAULT 0,
-                     idPais INT NOT NULL,
-                    idGenero INT NOT NULL,
-                    FOREIGN KEY (idPais) REFERENCES pais(id),
-                    FOREIGN KEY (idGenero) REFERENCES genero(id)
+                        idPais INT NOT NULL,
+                        idGenero INT NOT NULL,
+                        FOREIGN KEY (idPais) REFERENCES pais(id),
+                        FOREIGN KEY (idGenero) REFERENCES genero(id)
 );
 
-
-
-
-
-
+CREATE TABLE entorno (
+                            id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                            idTerceros INT NOT NULL,
+                            idUsuario INT NOT NULL,
+                            inicio TIMESTAMP NOT NULL,
+                            fin TIMESTAMP NOT NULL,
+                            FOREIGN KEY(idTerceros) REFERENCES usuario(id),
+                            FOREIGN KEY(idUsuario) REFERENCES usuario(id)
+);
 
 
 CREATE TABLE ventaTrampitas (
@@ -60,7 +62,9 @@ CREATE TABLE pregunta (
                           dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           correctAnswers INT DEFAULT 0,
                           totalAnswers INT DEFAULT 0,
-                          difficulty VARCHAR(255) DEFAULT 'easy'
+                          difficulty VARCHAR(255) DEFAULT 'easy',
+                          idCreador INT DEFAULT NULL,
+                          FOREIGN KEY (idCreador) REFERENCES usuario(id)
 );
 
 CREATE TABLE usuario_pregunta (
@@ -84,7 +88,9 @@ CREATE TABLE partida (
                          score INT NOT NULL,
                          dateGame TIMESTAMP NOT NULL,
                          idUser INT NOT NULL,
-                         FOREIGN KEY (idUser) REFERENCES usuario(id)
+                         idEntorno INT DEFAULT NULL,
+                         FOREIGN KEY (idUser) REFERENCES usuario(id),
+                         FOREIGN KEY (idEntorno) REFERENCES entorno(id)
 );
 
 CREATE TABLE report (
@@ -222,8 +228,8 @@ INSERT INTO respuesta (idQuestion, answer, correct) VALUES
 /*
  INSERTAR PRIMERO EL ADMIN Y EDITOR, LUEGO INSERTAR 2 USUARIOS
  */
-INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole,idPais,idGenero)
-VALUES ('El admin', 1990,'buenos aires', 'admin@gmail.com', '1234', 'admin', '1.jpg', '1234567890qwerty1', '1', 'admin', 1, 1);
+INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
+VALUES ('El admin', 1990,'buenos aires', 'admin@gmail.com', '1234', 'admin', 'arthas.jpg', '1234567890qwerty1', '1', 'admin', 1, 1);
 
 INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
 VALUES ('Pancho', 1985, 'Buenos Aires', 'editor@email.com', '123', 'pancho', 'pancho.png', 'tokenEditor', 1, 'editor', 1, 1);
