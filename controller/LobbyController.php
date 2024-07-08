@@ -53,6 +53,9 @@
             $answer4 = $_POST["answer4"];
             $correct = $_POST["correct"];
             $this->model->addSuggestQuestion($idUser, $question, $category, $answer1, $answer2, $answer3, $answer4, $correct);
+
+
+            Redirect::to("/lobby/read");
         }
 
         private function verifyUserSession() {

@@ -233,6 +233,16 @@ VALUES ('El admin', 1990,'buenos aires', 'admin@gmail.com', '1234', 'admin', 'ar
 
 INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
 VALUES ('Pancho', 1985, 'Buenos Aires', 'editor@email.com', '123', 'pancho', 'pancho.png', 'tokenEditor', 1, 'editor', 1, 1);
+
+INSERT INTO usuario (fullname, yearOfBirth,  city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
+VALUES ('Messi', 1990, 'Rosario', 'usuario@email.com', '123', 'messi', 'messirve.jpg', 'tokenUsuario546546546456', 1, 'player', 1, 1);
+
+
+
+INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
+VALUES ('Panchito1', 1990, 'Buenos Aires', 'panchito111@email.com', '123', 'pan', 'pancho.png', '35435445dfgdfgdfg123213', 1, 'player', 1, 1);
+
+
 /*
  insercion de datos por dia para generar graficos
 

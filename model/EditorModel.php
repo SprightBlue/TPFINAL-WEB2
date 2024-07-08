@@ -91,10 +91,13 @@
 
         private function updateAnswers($idQuestion, $answer1, $answer2, $answer3, $answer4, $correct) {
             $answers = [$answer1, $answer2, $answer3, $answer4];
+            $currentAnswers = $this->getAnswers($idQuestion);
+
             for ($i = 0; $i < 4; $i++) {
                 $isCorrect = ($i + 1 == $correct) ? 1 : 0;
+                $idAnswer = $currentAnswers[$i]['idAnswer'];
                 $stmt = $this->database->query("UPDATE respuesta SET answer = :answer, correct = :correct WHERE idQuestion = :idQuestion AND idAnswer = :idAnswer");
-                $stmt->execute(array(":answer" => $answers[$i], ":correct" => $isCorrect, ":idQuestion" => $idQuestion, ":idAnswer" => $i + 1));
+                $stmt->execute(array(":answer" => $answers[$i], ":correct" => $isCorrect, ":idQuestion" => $idQuestion, ":idAnswer" => $idAnswer));
             }
         }
 
