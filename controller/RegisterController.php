@@ -43,13 +43,15 @@
             $img = $_FILES["img"];
             $token = bin2hex(random_bytes(16)); 
             $this->model->createUser($fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img, $token, $errors);
-            if(!empty($errors)) {$this->presenter->render("view/registerView.mustache", ["errors"=>$errors]);}                
-            $profileUrl = "http:/localhost/profile/get?username=$username";
-            $pathImg = "public/qr/qr-". $username . ".png";
-            GeneratorQR::generate($profileUrl, $pathImg); 
-            $verificationUrl = "http://localhost/register/active?token=$token";
-            Mailer::send($email, $fullname, $verificationUrl);
-            $this->presenter->render("view/loginView.mustache", ["mail"=>"Se envio un mensaje a su email para activar su cuenta."]);
+            if (!empty($errors)) {$this->presenter->render("view/registerView.mustache", ["errors"=>$errors]);}                
+            else {
+                $profileUrl = "http:/localhost/profile/get?username=$username";
+                $pathImg = "public/qr/qr-". $username . ".png";
+                GeneratorQR::generate($profileUrl, $pathImg); 
+                $verificationUrl = "http://localhost/register/active?token=$token";
+                Mailer::send($email, $fullname, $verificationUrl);
+                $this->presenter->render("view/loginView.mustache", ["mail"=>"Se envio un mensaje a su email para activar su cuenta."]);
+            }   
         }
 
         public function active() {
@@ -69,7 +71,7 @@
         public function set() { 
             $this->verifyUserSession();
             $this->verifyEntorno();
-            if(!isset($_POST["actualizar"])) {Redirect::to("/lobby/read");}
+            if (!isset($_POST["actualizar"])) {Redirect::to("/lobby/read");}
             $errors = [];
             $id = $_POST["id"];
             $fullname = $_POST["fullname"];
@@ -84,16 +86,18 @@
             $img = $_FILES["img"];
             $user = $this->model->getUser($id);
             $this->model->updateUser($id, $fullname, $yearOfBirth, $gender, $country, $city, $email, $pass, $repeatPass, $username, $img, $errors);
-            if(!empty($errors)) {$this->presenter->render("view/registerView.mustache", ["errors"=>$errors]);}  
-            if (!file_exists("public/qr/qr-" . $username . ".png")) {
-                unlink("public/qr/qr-" . $user["username"] . ".png");
-                $profileUrl = "http:/localhost/profile/get?username=$username";
-                $pathImg = "public/qr/qr-". $username . ".png";
-                GeneratorQR::generate($profileUrl, $pathImg);                     
+            if (!empty($errors)) {$this->presenter->render("view/registerView.mustache", ["errors"=>$errors]);}  
+            else {
+                if (!file_exists("public/qr/qr-" . $username . ".png")) {
+                    unlink("public/qr/qr-" . $user["username"] . ".png");
+                    $profileUrl = "http:/localhost/profile/get?username=$username";
+                    $pathImg = "public/qr/qr-". $username . ".png";
+                    GeneratorQR::generate($profileUrl, $pathImg);                     
+                }
+                $user = $this->model->getUser($id);
+                $_SESSION["usuario"] = $user;
+                Redirect::to("/profile/read");                
             }
-            $user = $this->model->getUser($id);
-            $_SESSION["usuario"] = $user;
-            Redirect::to("/profile/read");
         }
 
         private function getData($id) {

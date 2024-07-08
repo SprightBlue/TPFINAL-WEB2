@@ -22,8 +22,10 @@
             $pass = $_POST["pass"];
             $user = $this->model->loginUser($username, $pass, $errors);
             if(!empty($errors)) {$this->presenter->render("view/loginView.mustache", ["errors"=>$errors]);}
-            $_SESSION["usuario"] = $user;
-            Redirect::to("/lobby/read");       
+            else {
+                $_SESSION["usuario"] = $user;
+                Redirect::to("/lobby/read");  
+            }      
         }
 
         public function active() {
