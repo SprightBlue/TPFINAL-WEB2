@@ -7,7 +7,8 @@
     <list default="true" id="87edfaae-a29d-4a37-b5a3-1302ae29fa96" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/lobbyView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/lobbyView.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/PlayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PlayController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/playView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/playView.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,8 +63,9 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gonza&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Gonza/Desktop/samp/htdocs/vendor&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -148,10 +150,22 @@
       <workItem from="1720022514736" duration="12000" />
       <workItem from="1720022603891" duration="6253000" />
       <workItem from="1720126776528" duration="3589000" />
+      <workItem from="1720835168958" duration="44652000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

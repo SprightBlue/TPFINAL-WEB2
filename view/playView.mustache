@@ -71,19 +71,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Fin del desafío</h4>
+
                     </div>
-                    <div class="modal-body">
-                        Puntaje final alcanzado: <b>{{score}}</b>
-                    </div>
-                    <div class="modal-footer">
-                        <form method="post" action="/lobby/read">
-                            <button type="submit" class="btn btn-dark">Volver al inicio</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     {{/challenge}}
 
     <!-- Modal para reportar -->
@@ -107,9 +96,18 @@
             </div>
         </div>
     </div>
+</div>
+</div>
+        </div>
 </main>
 
 
+<script>
+    // Detectar la recarga de página intencional
+    if (performance.navigation.type === 1) {
+        window.location.href = "/lobby/read";
+    }
+</script>
 
 <script>
     var timerId;
@@ -158,8 +156,8 @@
 
 {{#challenge}}
     <script>
-            document.addEventListener("DOMContentLoaded", (event) => {
-                document.querySelector("#challengeModal").classList.add("show");
+        document.addEventListener("DOMContentLoaded", (event) => {
+            document.querySelector("#challengeModal").classList.add("show");
         });
     </script>
 {{/challenge}}
