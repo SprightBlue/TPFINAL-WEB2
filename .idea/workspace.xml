@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/PlayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PlayController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/log-24-07-17.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/view/playView.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/view/playView.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

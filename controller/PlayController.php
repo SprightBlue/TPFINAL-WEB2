@@ -116,9 +116,9 @@
 
         private function incorrectCase() {
             $this->logger->info("Respuesta incorrecta");
-            $data = $_SESSION["partida"];
+            $data = $_SESSION["partida"] ?? null;
 
-            if(!isset($_SESSION["partida"])){
+            if(!isset($_SESSION["partida"])) {
                 Redirect::to("/lobby/read");
             }
             if (isset($_SESSION['challenge_id'])) {
@@ -135,6 +135,7 @@
                 unset($_SESSION['challenge_id']);
                 unset($_SESSION["partida"]);
                 $data["challenge"] = true;
+
             } else {
                 $sessionThirdParties = isset($_SESSION["modoTerceros"]) ? $_SESSION["modoTerceros"] : null;
                 if ($sessionThirdParties != null) {
