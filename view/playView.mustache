@@ -63,15 +63,23 @@
     </div>
 
     {{#challenge}}
-        <!-- Modal para desafío -->
-        <div class="modal fade" id="challengeModal" tabindex="-1" aria-labelledby="challengeModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    </div>
+    <div class="modal fade" id="challengeModal" tabindex="-1" aria-labelledby="challengeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Fin del desafío</h4>
+                </div>
+                <div class="modal-body">
+                    Puntaje final alcanzado: <b>{{score}}</b>
+                </div>
+                <div class="modal-footer">
+                    <form method="post" action="/lobby/read">
+                        <button type="submit" class="btn btn-dark">Volver al inicio</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     {{/challenge}}
 
     <!-- Modal para reportar -->

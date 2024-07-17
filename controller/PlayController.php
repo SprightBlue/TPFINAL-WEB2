@@ -29,7 +29,6 @@
                 $_SESSION["startTime"] = time();
 
             }
-            $data["isChallenge"] = isset($_SESSION['challenge_id']);
             $this->presenter->render("view/playView.mustache", $data);
         }
 
@@ -118,11 +117,8 @@
                 } else {
                     $this->playModel->saveGame($_SESSION["usuario"]["id"], $data["score"]);
                 }
-                $data["challenge"] = false;
-            }
-
-            if (!$data["challenge"]) {
                 $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la próxima" : $data["score"];    
+                $data["challenge"] = false;
             }
 
             $data["gameOver"] = true;
