@@ -22,7 +22,7 @@
             if (isset($_SESSION["partida"]) && !empty($_SESSION["partida"])) {
                 $this->logger->info("Partida en curso");
                 $this->incorrectCase();
-
+                return;
             } else {
                 $sessionThirdParties = isset($_SESSION["modoTerceros"]) ? $_SESSION["modoTerceros"] : null;
                 if ($sessionThirdParties != null) {
@@ -109,12 +109,8 @@
         }
 
         private function incorrectCase() {
-            $this->logger->info("Respuesta incorrecta");
-            $data = $_SESSION["partida"] ?? null;
+            $data = $_SESSION["partida"];
 
-            if(!isset($_SESSION["partida"])) {
-                Redirect::to("/lobby/read");
-            }
             if (isset($_SESSION['challenge_id'])) {
                 $this->logger->info("Fin de partida por desafío");
                 if ($this->challengeModel->isChallenger($_SESSION['challenge_id'], $_SESSION["usuario"]["id"])) {
@@ -142,8 +138,10 @@
 
             }
             $this->logger->info("Fin de partida normal");
+            $data["gameOver"] = true;
             unset($_SESSION["partida"]);
             $_SESSION["startTime"] = null;
+
 
             $this->presenter->render("view/playView.mustache", $data);
         }
@@ -158,14 +156,7 @@
             $this->playModel->insertReport($idUser, $idQuestion, $reason);
         }
 
-        public function lostGame(){
-            $this->logger->info("Partida perdida");
-            $this->verifyUserSession();
-            $this->incorrectCase();
-        }
-
         private function verifyUserSession() {
-
             if (!isset($_SESSION["usuario"])) {
                 Redirect::to("/login/read");
             }

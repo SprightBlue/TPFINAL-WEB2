@@ -1,15 +1,9 @@
 <main class="container my-5">
-    <!-- Música -->
-    <div class="d-flex flex-column justify-content-start align-items-start m-3">
-        <audio id="miMusica" src="/public/audio/Cycling.mp3" preload="auto" autoplay></audio>
-        <button class="btn btn-dark me-auto" id="playPauseBtn" value="Pause">Pause</button>
-        <input class="form-control-range w-auto" type="range" id="volumeSlider"  min="0" max="1" step="0.1" value="1">
-    </div>
 
-    <!-- Preguntas y respuestas -->
+    <!--Q&A-->
     <div class="container my-5 col-sm-6 card rounded bg-dark text-center">
         {{#nameThirdParties}}
-            <h2 class="fw-bold text-center my-3">Modo {{nameThirdParties}}</h2>
+            <h2 class="fw-bold text-center text-white my-3">Modo {{nameThirdParties}}</h2>
         {{/nameThirdParties}}
         <div class="card-header my-4 p-3 rounded d-flex align-items-center bg-{{style}}">
             <h3 class="text-light mx-auto">{{#question}}{{category}}{{/question}}</h3>
@@ -44,7 +38,7 @@
         </div>
     </div>
 
-    <!-- Modal de fin de partida -->
+    <!--modal-->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-bg-warning border border-3 border-dark rounded">
@@ -110,6 +104,7 @@
 
 </main>
 
+{{^gameOver}}
 <script>
     var timerId;
     var timeLeft = 20;
@@ -146,6 +141,7 @@
                 startTimer();
             });
         });
+{{/gameOver}}
 
         // Animación de elementos
         document.querySelectorAll(".animate").forEach(element => {
@@ -176,15 +172,16 @@
 
         // Lógica para mostrar el modal correspondiente
         {{#modal}}
-            document.getElementById('myModal').classList.add('show');
-            stopTimer();
+                document.addEventListener("DOMContentLoaded", (event) => {
+                    document.querySelector("#myModal").classList.add("show");
+                });
         {{/modal}}
 
         {{#challenge}}
-            document.getElementById('challengeModal').classList.add('show');
-            stopTimer();
+                    document.addEventListener("DOMContentLoaded", (event) => {
+                    document.querySelector("#challengeModal").classList.add("show");
+                });
         {{/challenge}}
-
 
     });
 </script>

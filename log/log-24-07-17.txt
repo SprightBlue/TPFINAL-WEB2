@@ -264,122 +264,22 @@
 [24-07-17 10:59:22][INFO] Respuesta incorrecta
 [24-07-17 10:59:22][INFO] Fin de partida por desafío
 [24-07-17 10:59:22][INFO] Fin de partida normal
-[24-07-17 11:02:18][INFO] Iniciando nueva partida
-[24-07-17 11:02:18][INFO] PlayController: read
-[24-07-17 11:02:29][INFO] Iniciando nueva partida
-[24-07-17 11:02:29][INFO] PlayController: read
-[24-07-17 11:02:32][INFO] Usando bonificación
-[24-07-17 11:02:32][INFO] Respuesta incorrecta
-[24-07-17 11:02:32][INFO] Fin de partida normal
-[24-07-17 11:03:23][INFO] Iniciando nueva partida
-[24-07-17 11:03:23][INFO] PlayController: read
-[24-07-17 11:03:24][INFO] Usando bonificación
-[24-07-17 11:03:24][INFO] Respuesta correcta
-[24-07-17 11:03:26][INFO] Usando bonificación
-[24-07-17 11:03:26][INFO] Respuesta correcta
-[24-07-17 11:03:27][INFO] Usando bonificación
-[24-07-17 11:03:27][INFO] Respuesta correcta
-[24-07-17 11:03:28][INFO] Usando bonificación
-[24-07-17 11:03:28][INFO] Respuesta correcta
-[24-07-17 11:03:29][INFO] Usando bonificación
-[24-07-17 11:03:29][INFO] Respuesta correcta
-[24-07-17 11:03:32][INFO] Usando bonificación
-[24-07-17 11:03:32][INFO] Respuesta incorrecta
-[24-07-17 11:03:32][INFO] Fin de partida normal
-[24-07-17 11:03:34][INFO] Usando bonificación
-[24-07-17 11:03:34][INFO] Respuesta incorrecta
-[24-07-17 11:06:09][INFO] Iniciando nueva partida
-[24-07-17 11:06:09][INFO] PlayController: read
-[24-07-17 11:06:12][INFO] Validando pregunta
-[24-07-17 11:06:12][INFO] Actualizando estadísticas de respuesta
-[24-07-17 11:06:12][INFO] Respuesta correcta
-[24-07-17 11:06:13][INFO] Iniciando nueva partida
-[24-07-17 11:06:13][INFO] PlayController: read
-[24-07-17 11:07:14][INFO] PlayController: read
-[24-07-17 11:07:14][INFO] Partida en curso
-[24-07-17 11:07:14][INFO] Respuesta incorrecta
-[24-07-17 11:07:14][INFO] Fin de partida normal
-[24-07-17 11:07:16][INFO] PlayController: read
-[24-07-17 11:07:20][INFO] Validando pregunta
-[24-07-17 11:07:20][INFO] Actualizando estadísticas de respuesta
-[24-07-17 11:07:20][INFO] Respuesta correcta
-[24-07-17 11:07:22][INFO] PlayController: read
-[24-07-17 11:07:22][INFO] Partida en curso
-[24-07-17 11:07:22][INFO] Respuesta incorrecta
-[24-07-17 11:07:22][INFO] Fin de partida normal
-[24-07-17 11:07:27][INFO] PlayController: read
-[24-07-17 11:07:30][INFO] PlayController: read
-[24-07-17 11:07:30][INFO] Partida en curso
-[24-07-17 11:07:30][INFO] Respuesta incorrecta
-[24-07-17 11:07:30][INFO] Fin de partida normal
-[24-07-17 11:07:33][INFO] PlayController: read
-[24-07-17 11:07:35][INFO] Validando pregunta
-[24-07-17 11:07:35][INFO] Actualizando estadísticas de respuesta
-[24-07-17 11:07:36][INFO] Respuesta correcta
-[24-07-17 11:07:37][INFO] Validando pregunta
-[24-07-17 11:07:37][INFO] Token incorrecto
-[24-07-17 11:07:37][INFO] Respuesta incorrecta
-[24-07-17 11:07:38][INFO] Fin de partida normal
-[24-07-17 11:19:59][INFO] PlayController: read
-[24-07-17 11:20:01][INFO] PlayController: read
-[24-07-17 11:20:01][INFO] Partida en curso
-[24-07-17 11:20:01][INFO] Respuesta incorrecta
-[24-07-17 11:20:01][INFO] Fin de partida normal
-[24-07-17 11:20:03][INFO] PlayController: read
-[24-07-17 11:20:06][INFO] Validando pregunta
-[24-07-17 11:20:06][INFO] Actualizando estadísticas de respuesta
-[24-07-17 11:20:06][INFO] Respuesta correcta
-[24-07-17 11:20:08][INFO] PlayController: read
-[24-07-17 11:20:08][INFO] Partida en curso
-[24-07-17 11:20:08][INFO] Respuesta incorrecta
-[24-07-17 11:20:08][INFO] Fin de partida normal
-[24-07-17 11:20:09][INFO] PlayController: read
-[24-07-17 11:23:07][INFO] PlayController: read
-[24-07-17 11:23:07][INFO] Partida en curso
-[24-07-17 11:23:07][INFO] Respuesta incorrecta
-[24-07-17 11:23:08][INFO] Fin de partida normal
-[24-07-17 11:23:10][INFO] PlayController: read
-[24-07-17 11:23:13][INFO] PlayController: read
-[24-07-17 11:23:13][INFO] Partida en curso
-[24-07-17 11:23:13][INFO] Respuesta incorrecta
-[24-07-17 11:23:13][INFO] Fin de partida normal
-[24-07-17 11:23:20][INFO] PlayController: read
-[24-07-17 11:23:25][INFO] PlayController: read
-[24-07-17 11:23:25][INFO] Partida en curso
-[24-07-17 11:23:25][INFO] Respuesta incorrecta
-[24-07-17 11:23:25][INFO] Fin de partida normal
-[24-07-17 11:23:26][INFO] PlayController: read
-[24-07-17 11:23:32][INFO] Validando pregunta
-[24-07-17 11:23:32][INFO] Actualizando estadísticas de respuesta
-[24-07-17 11:23:32][INFO] Respuesta correcta
-[24-07-17 11:23:35][INFO] Validando pregunta
-[24-07-17 11:23:35][INFO] Actualizando estadísticas de respuesta
-[24-07-17 11:23:35][INFO] Respuesta correcta
-[24-07-17 11:23:37][INFO] Validando pregunta
-[24-07-17 11:23:37][INFO] Token incorrecto
-[24-07-17 11:23:37][INFO] Respuesta incorrecta
-[24-07-17 11:23:38][INFO] Fin de partida normal
-[24-07-17 11:23:41][INFO] Validando pregunta
-[24-07-17 11:23:41][INFO] Token incorrecto
-[24-07-17 11:23:41][INFO] Respuesta incorrecta
-[24-07-17 11:23:47][INFO] PlayController: read
-[24-07-17 11:23:48][INFO] PlayController: read
-[24-07-17 11:23:48][INFO] Partida en curso
-[24-07-17 11:23:48][INFO] Respuesta incorrecta
-[24-07-17 11:23:48][INFO] Fin de partida normal
-[24-07-17 11:24:09][INFO] PlayController: read
-[24-07-17 11:24:10][INFO] PlayController: read
-[24-07-17 11:24:10][INFO] Partida en curso
-[24-07-17 11:24:10][INFO] Respuesta incorrecta
-[24-07-17 11:24:10][INFO] Fin de partida normal
-[24-07-17 11:24:32][INFO] Validando pregunta
-[24-07-17 11:24:32][INFO] Actualizando estadísticas de respuesta
-[24-07-17 11:24:32][INFO] Respuesta incorrecta
-[24-07-17 11:24:38][INFO] PlayController: read
-[24-07-17 11:24:39][INFO] PlayController: read
-[24-07-17 11:24:39][INFO] Partida en curso
-[24-07-17 11:24:39][INFO] Respuesta incorrecta
-[24-07-17 11:24:39][INFO] Fin de partida normal
-[24-07-17 11:25:00][INFO] Validando pregunta
-[24-07-17 11:25:00][INFO] Actualizando estadísticas de respuesta
-[24-07-17 11:25:00][INFO] Respuesta incorrecta
+[24-07-17 11:01:25][INFO] Iniciando nueva partida
+[24-07-17 11:01:25][INFO] PlayController: read
+[24-07-17 11:01:34][INFO] Iniciando nueva partida
+[24-07-17 11:01:34][INFO] PlayController: read
+[24-07-17 11:01:41][INFO] Iniciando nueva partida
+[24-07-17 11:01:41][INFO] PlayController: read
+[24-07-17 11:01:50][INFO] Iniciando nueva partida
+[24-07-17 11:01:50][INFO] PlayController: read
+[24-07-17 11:01:53][INFO] Validando pregunta
+[24-07-17 11:01:53][INFO] Actualizando estadísticas de respuesta
+[24-07-17 11:01:53][INFO] Respuesta correcta
+[24-07-17 11:01:56][INFO] Validando pregunta
+[24-07-17 11:01:56][INFO] Token incorrecto
+[24-07-17 11:01:56][INFO] Respuesta incorrecta
+[24-07-17 11:01:56][INFO] Fin de partida normal
+[24-07-17 11:02:11][INFO] Iniciando nueva partida
+[24-07-17 11:02:11][INFO] PlayController: read
+[24-07-17 11:02:15][INFO] Iniciando nueva partida
+[24-07-17 11:02:15][INFO] PlayController: read
