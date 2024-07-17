@@ -12,7 +12,7 @@
 
         public function readChallenges() {
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $userId = $_SESSION["usuario"]["id"];
             $allChallenges = $this->model->getAllChallenges($userId);
             $pendingChallenges = $this->model->getPendingChallenges($userId);
@@ -21,7 +21,7 @@
 
         public function createChallenge() {
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $challengerId = $_SESSION["usuario"]["id"];
             $challengedId = $_POST["challenged_id"];
             $challengeId = $this->model->createChallenge($challengerId, $challengedId);
@@ -31,7 +31,7 @@
 
         public function acceptChallenge() {
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             if (isset($_POST["aceptar"])) {
                 $challengeId = $_POST["challengeId"];
                 $this->model->updateChallengeStatus($challengeId, "accepted");
@@ -48,7 +48,7 @@
             }
         }
 
-        /*
+        
         private function verifySessionThirdParties() {
             if (isset($_SESSION["modoTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
@@ -58,6 +58,5 @@
                 }
             } 
         }
-        */
 
     }

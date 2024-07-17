@@ -12,27 +12,27 @@
 
         public function editorView() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $this->presenter->render("view/editorView.mustache", ["user" => $_SESSION["usuario"]]);
         }
 
         public function questionsView() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $questions = $this->model->getQuestions();
             $this->presenter->render("view/questionsView.mustache", ["user" => $_SESSION["usuario"], "questions" => $questions]);
         }
 
         public function suggestedQuestionsView() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $suggestedQuestions = $this->model->getSuggestedQuestions();
             $this->presenter->render("view/suggestedQuestionsView.mustache", ["user" => $_SESSION["usuario"], "suggestedQuestions" => $suggestedQuestions]);
         }
 
         public function suggestedQuestionView() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $idSuggestion = isset($_GET["idSuggestion"]) ? $_GET["idSuggestion"] : null;
             $suggestedQuestion = $this->model->getSuggestedQuestion($idSuggestion);
 
@@ -62,7 +62,7 @@
 
         public function acceptOrDenySuggestion() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $idSuggestion = $_POST["idSuggestion"];
             if (isset($_POST["accept"])) {
                 $suggestedQuestion = $this->model->getSuggestedQuestion($idSuggestion);
@@ -75,13 +75,13 @@
 
         public function createQuestionView() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $this->presenter->render("view/createUpdateQuestionView.mustache", ["user" => $_SESSION["usuario"], "action" => "/editor/createQuestion", "submitText" => "Guardar"]);
         }
 
         public function createQuestion() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             if (isset($_POST["submit"])) {
                 $question = $_POST["question"];
                 $category = $_POST["category"];
@@ -97,7 +97,7 @@
 
         public function updateQuestionView() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $idQuestion = isset($_GET["idQuestion"]) ? $_GET["idQuestion"] : null;
             $question = $this->model->getQuestion($idQuestion);
             $answers = $this->model->getAnswers($idQuestion);
@@ -123,7 +123,7 @@
 
         public function updateQuestion() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             if (isset($_POST["submit"])) {
                 $idQuestion = $_POST["idQuestion"];
                 $question = $_POST["question"];
@@ -140,7 +140,7 @@
 
         public function deleteQuestion() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $idQuestion = isset($_GET["idQuestion"]) ? $_GET["idQuestion"] : null;
             if ($idQuestion !== null) {
                 $this->model->deleteAnswers($idQuestion);
@@ -151,14 +151,14 @@
 
         public function reportedQuestionsView() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $reportedQuestions = $this->model->getReportedQuestions();
             $this->presenter->render("view/reportedQuestionsView.mustache", ["user" => $_SESSION["usuario"], "reportedQuestions" => $reportedQuestions]);
         }
 
         public function ignoreReport() {
             $this->verifyEditorSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $idReport = isset($_GET["idReport"]) ? $_GET["idReport"] : null;
             if($idReport !== null) {
                 $this->model->ignoreReport($idReport);
@@ -172,7 +172,7 @@
             }  
         }
 
-        /*
+        
         private function verifySessionThirdParties() {
             if (isset($_SESSION["modoTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
@@ -182,6 +182,6 @@
                 }
             } 
         }
-        */
+        
 
     }

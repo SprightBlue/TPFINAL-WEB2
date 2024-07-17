@@ -175,7 +175,7 @@
             $stmt->execute(array(":idUser"=>$idUser));
         }
 
-        /* 
+        
         public function getSessionThirdParties($idEnterprise, $idUser, $currentTime) {
             $stmt = $this->database->query("SELECT *
                                             FROM sesionTerceros
@@ -203,17 +203,19 @@
                 $ratio = $this->getUserRatio($idUser);
                 $difficulty = $this->getDifficulty($ratio);
             }
-            $question = $this->getQuestionRandom($idUser, $difficulty);
+            $question = $this->getQuestionRandomSessionThirdParties($idUser, $difficulty, $idThirdParties);
             if($question == false) {
                 $this->resetUserQuestions($idUser);
-                $question = $this->getQuestionRandomModoEntorno($idUser, $difficulty, $idThirdParties);
+                $question = $this->getQuestionRandomSessionThirdParties($idUser, $difficulty, $idThirdParties);
             }
             $this->addUserQuestion($idUser, $question["idQuestion"]);
             $answers = $this->getAnswers($question["idQuestion"]);
             $user = $this->getUser($idUser);
             $nameThirdParties = $this->getNameThirdParties($idThirdParties);
             $styles = ["Arte"=>"primary", "Ciencia"=>"success", "Deporte"=>"info", "Entretenimiento"=>"warning", "Geografía"=>"danger", "Historia"=>"secondary"];
-            $data = ["question"=>$question, "style"=>$styles[$question["category"]], "answers"=>$answers, "score"=>$score, "bonus"=>$user["bonus"]>0, "user"=>$user, "nameThirdParties"=>$nameThirdParties];
+            $token = bin2hex(random_bytes(32));
+            $data = ["question"=>$question, "style"=>$styles[$question["category"]], "answers"=>$answers, "score"=>$score, 
+                    "bonus"=>$user["bonus"]>0, "user"=>$user, "nameThirdParties"=>$nameThirdParties, "verificationToken"=>$token];
             return $data;
         }
 
@@ -245,6 +247,6 @@
             }
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }        
-        */
+    
 
     }

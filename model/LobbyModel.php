@@ -25,7 +25,7 @@
             $stmt->execute(array(":idUser"=>$idUser, ":question"=>$question, ":category"=>$category, ":answer1"=>$answer1, ":answer2"=>$answer2, ":answer3"=>$answer3, ":answer4"=>$answer4, ":correct"=>$correct));
         }
 
-        /* 
+        
         public function getSessionThirdParties($idEnterprise, $idUser, $currentTime) {
             $stmt = $this->database->query("SELECT *
                                             FROM sesionTerceros
@@ -35,7 +35,7 @@
             $stmt->execute(array(":idEnterprise"=>$idEnterprise, ":idUser"=>$idUser, ":currentTime"=>$currentTime));
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
-
+        
         public function getNameThirdParties($idEnterprise) {
             $stmt = $this->database->query("SELECT username
                                             FROM usuario
@@ -44,6 +44,6 @@
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             return $user["username"];
         }
-        */
+        
 
     }

@@ -1,16 +1,10 @@
 <main class="container my-5">
-    <!-- Música -->
-    <div class="d-flex flex-column justify-content-start align-items-start m-3">
-        <audio id="miMusica" src="/public/audio/Cycling.mp3" preload="auto" autoplay></audio>
-        <button class="btn btn-dark me-auto" id="playPauseBtn" value="Pause">Pause</button>
-        <input class="form-control-range w-auto" type="range" id="volumeSlider"  min="0" max="1" step="0.1" value="1">
-    </div>
 
-    <!-- Preguntas y respuestas -->
+    <!--Q&A-->
     <div class="container my-5 col-sm-6 card rounded bg-dark text-center">
         {{#nameThirdParties}}
-            <h2 class="fw-bold text-center my-3">Modo {{nameThirdParties}}</h2>
-        {{/nameThirdParties}}
+            <h2 class="fw-bold text-center text-white my-3">Modo {{nameThirdParties}}</h2>
+        {{/nameThirdParties}}        
         <div class="card-header my-4 p-3 rounded d-flex align-items-center bg-{{style}}">
             <h3 class="text-light mx-auto">{{#question}}{{category}}{{/question}}</h3>
         </div>
@@ -35,9 +29,10 @@
                     </button>
                 </div>
                 {{#bonus}}
-                    <div class="col d-flex flex-column justify-content-center align-items-center">
-                        <a class="btn btn-success" href="/play/useBonus">Usar Trampitas</a>
-                    </div>
+                    <form method="post" action="/play/useBonus" class="col d-flex flex-column justify-content-center align-items-center">
+                        <input type="hidden" name="verificationToken" value="{{verificationToken}}">
+                        <button name="bonus" id="bonus" value="bonus" class="btn btn-success">Usar Bonus</button>
+                    </form>
                 {{/bonus}}
             </div>
         </div>
@@ -111,10 +106,10 @@
 
 <script>
     var timerId;
-    var timeLeft = 7;
+    var timeLeft = 20;
 
     function startTimer() {
-        timeLeft = 7;
+        timeLeft = 20;
         document.getElementById('timer').textContent = timeLeft;
         timerId = setInterval(countdown, 1000);
     }

@@ -12,7 +12,7 @@
 
         public function read() {
             $this->verifyAdminSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $filter = $_GET["filter"] ?? "day";
             $data = $this->getData($_SESSION["usuario"], $filter);
             $this->presenter->render("view/adminView.mustache", $data);
@@ -20,7 +20,7 @@
 
         public function create() {
             $this->verifyAdminSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $filter = $_GET["filter"] ?? "day";
             $data = $this->getData($_SESSION["usuario"], $filter);
             GeneratorPDF::generate($data);
@@ -91,7 +91,7 @@
             }  
         }
 
-        /*
+        
         private function verifySessionThirdParties() {
             if (isset($_SESSION["modoTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
@@ -101,6 +101,6 @@
                 }
             } 
         }
-        */
+        
     
     }

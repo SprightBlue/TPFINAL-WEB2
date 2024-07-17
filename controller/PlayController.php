@@ -17,12 +17,10 @@
         public function newGame() {
             $this->logger->info("Iniciando nueva partida");
 
-            // Unsetear valores de sesión relacionados con la partida
             unset($_SESSION["partida"]);
             unset($_SESSION["startTime"]);
             unset($_SESSION["verificationToken"]);
 
-            // Llamar al método read para iniciar una nueva partida
             $this->read();
         }
         public function read() {
@@ -32,13 +30,12 @@
                 $this->logger->info("Partida en curso");
                 $this->incorrectCase();
             } else {
-                /*$sessionThirdParties = isset($_SESSION["modoTerceros"]) ? $_SESSION["modoTerceros"] : null;
+                $sessionThirdParties = isset($_SESSION["modoTerceros"]) ? $_SESSION["modoTerceros"] : null;
                 if ($sessionThirdParties != null) {
                     $data = $this->playModel->getDataSessionThirdParties($_SESSION["usuario"]["id"], 0, $sessionThirdParties["idEnterprise"]);
-                } else {*/
-                $this->logger->info("Partida nueva");
+                } else {
                     $data = $this->playModel->getData($_SESSION["usuario"]["id"], 0);
-                //}
+                }
                 $_SESSION["verificationToken"] = $data["verificationToken"];
                 $_SESSION["partida"] = $data;
                 $_SESSION["startTime"] = time();
@@ -52,7 +49,7 @@
         public function verify() {
             $this->verifyUserSession();
             $this->logger->info("Validando pregunta");
-            //reinicio de pagina
+
             if (!isset($_POST["verificationToken"]) || $_POST["verificationToken"] !== $_SESSION["verificationToken"]) {
                 $this->logger->info("Token incorrecto");
                 $this->incorrectCase();
@@ -74,10 +71,17 @@
         public function useBonus() {
             $this->logger->info("Usando bonificación");
             $this->verifyUserSession();
-            $_POST["isCorrect"] = true;
+
+            if (!isset($_POST["verificationToken"]) || $_POST["verificationToken"] !== $_SESSION["verificationToken"]) {
+                $this->incorrectCase();
+                return;
+            }
+
+            unset($_SESSION["verificationToken"]);
+
             $this->playModel->updateUserBonus($_SESSION["usuario"]["id"]);
             $_SESSION["usuario"] = $this->playModel->getUser($_SESSION["usuario"]["id"]);
-            $this->verify();
+            $this->correctCase();
         }
 
         private function updateAnswerStats($isCorrect, $elapsedTime) {
@@ -94,8 +98,15 @@
         private function correctCase() {
             $this->logger->info("Respuesta correcta");
             $_SESSION["partida"]["score"] += 1;
-            $data = $this->playModel->getData($_SESSION["usuario"]["id"], $_SESSION["partida"]["score"]);
+
+            $sessionThirdParties = isset($_SESSION["modoTerceros"]) ? $_SESSION["modoTerceros"] : null;
+            if ($sessionThirdParties != null) {
+                $data = $this->playModel->getDataSessionThirdParties($_SESSION["usuario"]["id"], $_SESSION["partida"]["score"], $sessionThirdParties["idEnterprise"]);
+            } else {
+                $data = $this->playModel->getData($_SESSION["usuario"]["id"], $_SESSION["partida"]["score"]);
+            }
             $_SESSION["partida"] = $data;
+
             $data["gameOver"] = false;
 
             $_SESSION["verificationToken"] = $data["verificationToken"];
@@ -121,16 +132,17 @@
                 unset($_SESSION["partida"]);
                 $data["challenge"] = true;
             } else {
-                $this->logger->info("Fin de partida normal");
-                /*$sessionThirdParties = isset($_SESSION["modoTerceros"]) ? $_SESSION["modoTerceros"] : null;
+                $sessionThirdParties = isset($_SESSION["modoTerceros"]) ? $_SESSION["modoTerceros"] : null;
                 if ($sessionThirdParties != null) {
                     $this->playModel->saveGameSessionThirdParties($_SESSION["usuario"]["id"], $data["score"], $sessionThirdParties["idEnterprise"]);
-                } else {*/
+                } else {
                     $this->playModel->saveGame($_SESSION["usuario"]["id"], $data["score"]);
+
+                }
                 $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la próxima" : $data["score"];
-                //}
                 $data["challenge"] = false;
             }
+            $this->logger->info("Fin de partida normal");
 
             $_SESSION["startTime"] = null;
 

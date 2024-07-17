@@ -12,7 +12,7 @@
 
         public function read() {
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $data = $this->getData($_SESSION["usuario"]);
             $this->presenter->render("view/lobbyView.mustache", $data);
         }
@@ -29,23 +29,23 @@
             $isEnterprise = ($user["idRole"] == 4);
             $userScore = $this->model->getUserScore($user["id"]);
             $data = ["user"=>$user, "userScore"=>$userScore, "isPlayer"=>$isPlayer, "isEditor"=>$isEditor, "isAdmin"=>$isAdmin, "isEnterprise"=>$isEnterprise];
-            /*
-            if (isset($_SESSION["sesionTerceros"])) {
+            
+            if (isset($_SESSION["modoTerceros"])) {
                 $data["nameThirdParties"] = $this->model->getNameThirdParties($_SESSION["modoTerceros"]["idEnterprise"]);
             }
-            */
+            
             return $data;
         }
 
         public function suggestQuestionView() {
             $this->verifyPlayerSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $this->presenter->render("view/suggestQuestionView.mustache",["action" => "/lobby/suggestQuestion"]);
         }
 
         public function suggestQuestion() {
             $this->verifyPlayerSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             if (isset($_POST["enviar"])) {
                 $idUser = $_SESSION["usuario"]["id"];
                 $question = $_POST["question"];
@@ -72,7 +72,6 @@
             }  
         }
 
-        /*
         private function verifySessionThirdParties() {
             if (isset($_SESSION["sesionTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
@@ -82,6 +81,6 @@
                 }
             } 
         }
-        */
+        
 
     }
