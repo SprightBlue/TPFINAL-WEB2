@@ -60,8 +60,8 @@ CREATE TABLE pregunta (
     question VARCHAR(255),
     category VARCHAR(255),
     dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    correctAnswers INT DEFAULT 0,
-    totalAnswers INT DEFAULT 0,
+    correctAnswers INT DEFAULT 50,
+    totalAnswers INT DEFAULT 100,
     difficulty VARCHAR(255) DEFAULT 'easy',
     idCreator INT,
     FOREIGN KEY (idCreator) REFERENCES usuario(id)
