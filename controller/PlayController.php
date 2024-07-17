@@ -19,9 +19,8 @@
 
             unset($_SESSION["partida"]);
             unset($_SESSION["startTime"]);
-            unset($_SESSION["verificationToken"]);
+            Redirect::to("/play/read");
 
-            $this->read();
         }
         public function read() {
             $this->logger->info("PlayController: read");
@@ -29,6 +28,7 @@
             if (isset($_SESSION["partida"]) && !empty($_SESSION["partida"])) {
                 $this->logger->info("Partida en curso");
                 $this->incorrectCase();
+
             } else {
                 $sessionThirdParties = isset($_SESSION["modoTerceros"]) ? $_SESSION["modoTerceros"] : null;
                 if ($sessionThirdParties != null) {
@@ -118,6 +118,9 @@
             $this->logger->info("Respuesta incorrecta");
             $data = $_SESSION["partida"];
 
+            if(!isset($_SESSION["partida"])){
+                Redirect::to("/lobby/read");
+            }
             if (isset($_SESSION['challenge_id'])) {
                 $this->logger->info("Fin de partida por desafío");
                 if ($this->challengeModel->isChallenger($_SESSION['challenge_id'], $_SESSION["usuario"]["id"])) {
@@ -128,6 +131,7 @@
                     $this->challengeModel->updateChallengeStatus($_SESSION['challenge_id'], 'resolved');
                     $this->challengeModel->compareScores($_SESSION['challenge_id']);
                 }
+
                 unset($_SESSION['challenge_id']);
                 unset($_SESSION["partida"]);
                 $data["challenge"] = true;
@@ -137,13 +141,13 @@
                     $this->playModel->saveGameSessionThirdParties($_SESSION["usuario"]["id"], $data["score"], $sessionThirdParties["idEnterprise"]);
                 } else {
                     $this->playModel->saveGame($_SESSION["usuario"]["id"], $data["score"]);
-
+                    $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la próxima" : $data["score"];
+                    $data["challenge"] = false;
                 }
-                $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la próxima" : $data["score"];
-                $data["challenge"] = false;
+
             }
             $this->logger->info("Fin de partida normal");
-
+            unset($_SESSION["partida"]);
             $_SESSION["startTime"] = null;
 
             $this->presenter->render("view/playView.mustache", $data);
@@ -166,7 +170,7 @@
         }
 
         private function verifyUserSession() {
-            $this->logger->info("Verificando sesión de usuario");
+
             if (!isset($_SESSION["usuario"])) {
                 Redirect::to("/login/read");
             }
