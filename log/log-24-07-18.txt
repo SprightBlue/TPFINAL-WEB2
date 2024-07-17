@@ -78,3 +78,29 @@
 [24-07-18 12:13:15][INFO] Validando pregunta
 [24-07-18 12:13:15][INFO] Actualizando estadísticas de respuesta
 [24-07-18 12:13:16][INFO] Fin de partida normal
+[24-07-18 12:18:50][INFO] PlayController: read
+[24-07-18 12:18:50][INFO] PlayController: read
+[24-07-18 12:18:50][INFO] Partida en curso
+[24-07-18 12:18:50][INFO] Fin de partida normal
+[24-07-18 12:18:55][INFO] PlayController: read
+[24-07-18 12:18:57][INFO] Validando pregunta
+[24-07-18 12:18:57][INFO] Actualizando estadísticas de respuesta
+[24-07-18 12:18:58][INFO] Respuesta correcta
+[24-07-18 12:18:59][INFO] Validando pregunta
+[24-07-18 12:18:59][INFO] Token incorrecto
+[24-07-18 12:18:59][INFO] Fin de partida normal
+[24-07-18 12:19:01][INFO] PlayController: read
+[24-07-18 12:19:03][INFO] PlayController: read
+[24-07-18 12:19:03][INFO] Partida en curso
+[24-07-18 12:19:03][INFO] Fin de partida normal
+[24-07-18 12:19:19][INFO] PlayController: read
+[24-07-18 12:19:20][INFO] PlayController: read
+[24-07-18 12:19:20][INFO] Partida en curso
+[24-07-18 12:19:20][INFO] Fin de partida por desafío
+[24-07-18 12:19:20][INFO] Fin de partida normal
+[24-07-18 12:19:21][INFO] PlayController: read
+[24-07-18 12:19:36][INFO] PlayController: read
+[24-07-18 12:19:37][INFO] PlayController: read
+[24-07-18 12:19:37][INFO] Partida en curso
+[24-07-18 12:19:37][INFO] Fin de partida por desafío
+[24-07-18 12:19:37][INFO] Fin de partida normal

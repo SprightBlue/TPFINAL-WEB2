@@ -35,7 +35,6 @@
                 $_SESSION["startTime"] = time();
 
             }
-            $data["isChallenge"] = isset($_SESSION['challenge_id']);
             $this->presenter->render("view/playView.mustache", $data);
         }
 
@@ -110,7 +109,6 @@
 
         private function incorrectCase() {
             $data = $_SESSION["partida"];
-
 
             if (isset($_SESSION['challenge_id'])) {
                 $this->logger->info("Fin de partida por desafío");
