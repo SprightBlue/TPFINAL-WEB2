@@ -55,10 +55,17 @@
 
         public function useBonus() {
             $this->verifyUserSession();
-            $_POST["isCorrect"] = true;
+            
+            if (!isset($_POST["verificationToken"]) || $_POST["verificationToken"] !== $_SESSION["verificationToken"]) {
+                $this->incorrectCase();
+                return;
+            }
+
+            unset($_SESSION["verificationToken"]);
+
             $this->playModel->updateUserBonus($_SESSION["usuario"]["id"]);
             $_SESSION["usuario"] = $this->playModel->getUser($_SESSION["usuario"]["id"]);
-            $this->verify();
+            $this->correctCase();
         }
 
         private function updateAnswerStats($isCorrect, $elapsedTime) {
