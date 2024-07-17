@@ -70,20 +70,19 @@
             {{/usersByAgeGroupGraph}} 
         </div> 
         <hr class="border border-warning border-1 opacity-50">
-        <h5>Trampitas Acumuladas por Usuario: </h5>
-        <ul>{{#trampitasAcumuladasPorUsuario}}
-            <li class="fw-bold">{{nombreUsuario}} &raquo; {{trampitasAcumuladas}}</li>
-        {{/trampitasAcumuladasPorUsuario}}</ul>
-        {{^trampitasAcumuladasPorUsuario}}
+        <h5>Bonus Acumuladas por Usuario: </h5>
+        <ul>{{#userBonusCount}}
+            <li class="fw-bold">{{username}} &raquo; {{bonusCount}}</li>
+        {{/userBonusCount}}</ul>
+        {{^userBonusCount}}
             <div class="my-2 fw-bold"><caption>No hay datos disponibles.</caption></div>
-        {{/trampitasAcumuladasPorUsuario}}
-        <h5>Ganacias de las Trampitas: ${{#gananciasTrampitas}}{{gananciasTrampitas}}{{/gananciasTrampitas}}{{^gananciasTrampitas}}0{{/gananciasTrampitas}}</h5>
+        {{/userBonusCount}}
+        <h5>Ganacias de los Bonus: ${{#earningsBonus}}{{earningsBonus}}{{/earningsBonus}}{{^earningsBonus}}0{{/earningsBonus}}</h5>
         <hr class="border border-warning border-1 opacity-50">
-        <div class="d-flex justify-content-end">
-            {{#year}}<a class="btn btn-dark" href="/admin/create?filter={{year}}">Generar PDF</a>{{/year}}
-            {{#month}}<a class="btn btn-dark" href="/admin/create?filter={{month}}">Generar PDF</a>{{/month}}
-            {{#week}}<a class="btn btn-dark" href="/admin/create?filter={{week}}">Generar PDF</a>{{/week}}
-            {{#day}}<a class="btn btn-dark" href="/admin/create?filter={{day}}">Generar PDF</a>{{/day}}
-        </div>    
+        {{#filter}}
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-dark" href="/admin/create?filter={{filter}}">Generar PDF</a>
+            </div>    
+        {{/filter}}
     </div>
 </main>

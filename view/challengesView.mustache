@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Partidas</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container mt-5" style="min-height: 60vh;">
+<main class="container mt-5">
     <h1 class="text-center mb-4">Historial de Partidas</h1>
     <div class="row">
         <div class="col-md-6">
@@ -18,7 +9,7 @@
                         <p>Desafío pendiente de <strong>{{challenger_username}}</strong>.</p>
                         <form method="post" action="/challenge/acceptChallenge">
                             <input type="hidden" name="challengeId" value="{{id}}">
-                            <button type="submit" class="btn btn-primary">Aceptar desafío</button>
+                            <button type="submit" name="aceptar" id="aceptar" class="btn btn-primary">Aceptar desafío</button>
                         </form>
                     </div>
                 </div>
@@ -34,17 +25,10 @@
             {{#allChallenges}}
                 <div class="card mb-3 {{#isWon}}bg-success text-white{{/isWon}}{{#isLost}}bg-danger text-white{{/isLost}}{{#isTied}}bg-warning text-dark{{/isTied}}">
                     <div class="card-body text-center">
-
                         <p><strong>{{challenger_username}} ({{challenger_score}}) vs {{challenged_username}} ({{challenged_score}})</strong></p>
                     </div>
                 </div>
             {{/allChallenges}}
         </div>
     </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+</main>

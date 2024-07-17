@@ -1,9 +1,9 @@
 <main>
     {{#user}}
         <div class="container my-5">
-            <div class="row d-flex align-items-center">
-                <div class="col-md-3 d-flex flex-column justify-content-center my-3">
-                    <h3 class="text-center text-dark">Foto</h3>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-3 d-flex flex-column align-items-center my-3">
+                    <h3 class="text-center text-dark">Foto de Perfil</h3>
                     <img class="img-fluid rounded" src="/public/img/{{profilePicture}}" alt="profilePicture">
                 </div>
                 <div class="col-md-6">
@@ -14,16 +14,20 @@
                             <h5 class="card-title text-dark">{{email}}</h5>
                             <p class="card-text text-dark fw-bold">Nombre completo: {{fullname}}</p>
                             <p class="card-text text-dark fw-bold">Año de nacimiento: {{yearOfBirth}}</p>
-                            <p class="card-text text-dark fw-bold">Género: {{user.generoNombre}}</p>
-                            <p class="card-text text-dark fw-bold">País: {{user.paisNombre}}</p>
-                            <p class="card-text text-dark fw-bold">Ciudad: {{city}}</p>
+                            <p class="card-text text-dark fw-bold">Género: {{gender}}</p>
+                            <p class="card-text text-dark fw-bold">País: {{country}}</p>
+                            <p class="card-text text-dark fw-bold">Ciudad: {{city}}</p>                            
+                            <div class="mb-3">
+                                <h5 class="card-title text-dark">Ubicación: </h5>
+                                <div id="map" class="m-2"></div>
+                            </div>
                             {{#isOwnProfile}}
                                 <a class="btn btn-dark" href="/register/update?id={{id}}">Actualizar</a>
                             {{/isOwnProfile}}
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 d-flex flex-column justify-content-center my-3">
+                <div class="col-md-3 d-flex flex-column align-items-center my-3">
                     {{#qr}}
                         <h3 class="text-center text-dark">QR code</h3>
                         <img class="img-fluid rounded" src="{{qr}}" alt="img-qr">
@@ -31,8 +35,8 @@
                     {{^isOwnProfile}}
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <form method="post" action="/challenge/createChallenge">
-                                <input type="hidden" name="challenged_id" value="{{user.id}}">
-                                <button type="submit" class="btn btn-dark">Desafiar</button>
+                                <input type="hidden" name="challenged_id" id="challenged_id" value="{{id}}">
+                                <input type="submit" class="btn btn-dark" name="desafiar" id="desafiar" value="Desafiar">
                             </form>
                         </div>   
                     {{/isOwnProfile}}                 
@@ -41,3 +45,39 @@
         </div>
     {{/user}}
 </main>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var country = "{{#user}}{{country}}{{/user}}";
+        var city = "{{#user}}{{city}}{{/user}}";
+
+        var map = L.map('map', {
+            zoomControl: false,
+            dragging: false,
+            scrollWheelZoom: false,
+            doubleClickZoom: false,
+            boxZoom: false,
+            keyboard: false,
+            touchZoom: false
+        }).setView([0, 0], 2);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        if (country && city) {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${city},${country}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var lat = parseFloat(data[0].lat);
+                        var lon = parseFloat(data[0].lon);
+
+                        L.marker([lat, lon]).addTo(map);
+                        map.setView([lat, lon], 10); // Ajusta el nivel de zoom según sea necesario
+                    }
+                });
+        }
+    });
+</script>

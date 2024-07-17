@@ -1,8 +1,8 @@
 <main>    
     <div class="container my-5">
-        {{#nombreEntorno}}
-            <h2 class="fw-bold text-center my-3">Modo {{nombreEntorno}}</h2>
-        {{/nombreEntorno}}
+        {{#nameThirdParties}}
+            <h2 class="fw-bold text-center my-3">Modo {{nameThirdParties}}</h2>
+        {{/nameThirdParties}}
         <div class="row">
             <div class="col-md-6 px-4 py-2">
                 <h2 class="my-2">Historial del ultimo mes</h2>
@@ -46,7 +46,7 @@
                         {{#rankingScore}}
                             <tr>
                                 <th scope="row">{{rank}}</td>
-                                <td><a href="/profile/get?username={{username}}" class="text-decoration-none fw-bold">{{username}} &raquo;</a></td>
+                                <td><a href="/profile/get?idUser={{id}}" class="text-decoration-none fw-bold">{{username}} &raquo;</a></td>
                                 <td>{{maxScore}}</td>
                             </tr>  
                         {{/rankingScore}}        

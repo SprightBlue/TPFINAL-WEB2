@@ -35,7 +35,6 @@
             </div>
             <div class="mb-3">
 
-
                 <div>
                     <input type="radio" id="correct1" name="correct" value="1" required {{#correctIs1}}checked{{/correctIs1}}>
                     <label for="correct1">Respuesta 1</label>
@@ -63,7 +62,7 @@
             {{/isEditor}}
             {{^isEditor}}
                 <div class="mb-3">
-                    <input type="submit" class="btn btn-dark" name="submit" value="Enviar">
+                    <input type="submit" class="btn btn-dark" name="enviar" id="enviar" value="Enviar">
                     <a class="btn btn-dark" href="/lobby/read">Cancelar</a>
                 </div>
             {{/isEditor}}

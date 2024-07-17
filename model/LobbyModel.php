@@ -13,7 +13,8 @@
             $oneMonthAgo = date('Y-m-d H:i:s', strtotime('-1 month'));
             $stmt = $this->database->query("SELECT MAX(p.score) AS maxScore
                                             FROM partida p
-                                            WHERE p.idUser = :idUser AND p.dateGame BETWEEN :oneMonthAgo AND :currentDate");
+                                            WHERE p.idUser = :idUser 
+                                            AND p.dateGame BETWEEN :oneMonthAgo AND :currentDate");
             $stmt->execute(array(":idUser"=>$idUser, ":currentDate"=>$currentDate, "oneMonthAgo"=>$oneMonthAgo));
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
@@ -24,23 +25,25 @@
             $stmt->execute(array(":idUser"=>$idUser, ":question"=>$question, ":category"=>$category, ":answer1"=>$answer1, ":answer2"=>$answer2, ":answer3"=>$answer3, ":answer4"=>$answer4, ":correct"=>$correct));
         }
 
-        public function getEntorno($idTerceros, $idUsuario, $currentTime) {
+        /* 
+        public function getSessionThirdParties($idEnterprise, $idUser, $currentTime) {
             $stmt = $this->database->query("SELECT *
-                                            FROM entorno e
-                                            WHERE e.idTerceros = :idTerceros
-                                            AND e.idUsuario = :idUsuario
-                                            AND :currentTime BETWEEN e.inicio AND e.fin");
-            $stmt->execute(array(":idTerceros"=>$idTerceros, ":idUsuario"=>$idUsuario, ":currentTime"=>$currentTime));
-            return ($stmt->rowCount() > 0);
+                                            FROM sesionTerceros
+                                            WHERE idEnterprise = :idEnterprise
+                                            AND idUser = :idUser
+                                            AND :currentTime BETWEEN startDate AND endDate");
+            $stmt->execute(array(":idEnterprise"=>$idEnterprise, ":idUser"=>$idUser, ":currentTime"=>$currentTime));
+            return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
 
-        public function getNombreEntorno($idTerceros) {
+        public function getNameThirdParties($idEnterprise) {
             $stmt = $this->database->query("SELECT username
                                             FROM usuario
-                                            WHERE id = :idTerceros");
-            $stmt->execute(array(":idTerceros"=>$idTerceros));
+                                            WHERE id = :idEnterprise");
+            $stmt->execute(array(":idEnterprise"=>$idEnterprise));
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             return $user["username"];
         }
+        */
 
     }

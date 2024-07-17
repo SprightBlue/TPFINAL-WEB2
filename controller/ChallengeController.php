@@ -12,44 +12,52 @@
 
         public function readChallenges() {
             $this->verifyUserSession();
-            $this->verifyEntorno();
+            //$this->verifySessionThirdParties();
             $userId = $_SESSION["usuario"]["id"];
             $allChallenges = $this->model->getAllChallenges($userId);
             $pendingChallenges = $this->model->getPendingChallenges($userId);
-            $this->presenter->render("view/challengesView.mustache",["allChallenges"=>$allChallenges, "pendingChallenges"=>$pendingChallenges]);
+            $this->presenter->render("view/challengesView.mustache", ["user"=>$_SESSION["usuario"], "allChallenges"=>$allChallenges, "pendingChallenges"=>$pendingChallenges]);
         }
 
         public function createChallenge() {
             $this->verifyUserSession();
-            $this->verifyEntorno();
+            //$this->verifySessionThirdParties();
             $challengerId = $_SESSION["usuario"]["id"];
-            $challengedId = $_POST['challenged_id'];
+            $challengedId = $_POST["challenged_id"];
             $challengeId = $this->model->createChallenge($challengerId, $challengedId);
-            $_SESSION['challenge_id'] = $challengeId;
+            $_SESSION["challenge_id"] = $challengeId;
             Redirect::to("/play/read?challenge_id=$challengeId");
         }
 
         public function acceptChallenge() {
             $this->verifyUserSession();
-            $this->verifyEntorno();
-            $challengeId = $_POST['challengeId'];
-            $this->model->updateChallengeStatus($challengeId, 'accepted');
-            $_SESSION['challenge_id'] = $challengeId;
-            Redirect::to("/play/read?challenge_id=$challengeId");
+            //$this->verifySessionThirdParties();
+            if (isset($_POST["aceptar"])) {
+                $challengeId = $_POST["challengeId"];
+                $this->model->updateChallengeStatus($challengeId, "accepted");
+                $_SESSION["challenge_id"] = $challengeId;
+                Redirect::to("/play/read?challenge_id=$challengeId");
+            } else {
+                Redirect::to("/challenge/readChallenges");
+            }
         }
 
         private function verifyUserSession() {
-            if (!isset($_SESSION["usuario"])) {Redirect::to("/login/read");}  
+            if (!isset($_SESSION["usuario"])) {
+                Redirect::to("/login/read");
+            }
         }
 
-        private function verifyEntorno() {
-            if (isset($_SESSION["entorno"])) {
-                $idEmpresa = $_SESSION["entorno"]["idEmpresa"];
-                $idUsuario = $_SESSION["usuario"]["id"];
+        /*
+        private function verifySessionThirdParties() {
+            if (isset($_SESSION["modoTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
-                $result = $this->model->getEntorno($idEmpresa, $idUsuario, $currentTime);
-                if (!$result) {$_SESSION["entorno"] = null;}
+                $session = $this->model->getSessionThirdParties($_SESSION["modoTerceros"]["idEnterprise"], $_SESSION["usuario"]["id"], $currentTime);
+                if ($session == false) {
+                    $_SESSION["modoTerceros"] = null;
+                }
             } 
         }
+        */
 
     }

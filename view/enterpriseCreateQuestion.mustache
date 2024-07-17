@@ -3,12 +3,12 @@
         {{#mensaje}}
         <div class="alert alert-warning alert-dismissible fade show my-5 mx-5">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>Pregunta: </strong>{{mensaje}}
+            {{mensaje}}
         </div>
         {{/mensaje}}
-        <form method="post" action="/entorno/set">
+        <form method="post" action="/enterprise/set">
             <div class="form-floating mb-3">
-                <input type="hidden" name="idCreador" value="{{#user}}{{user}}{{/user}}">
+                <input type="hidden" name="idCreator" id="idCreator" value="{{#user}}{{id}}{{/user}}">
                 <input class="form-control" type="text" name="question" id="question" placeholder="Ingresar nueva pregunta" required>
                 <label for="question">Nueva pregunta</label>
             </div>
@@ -40,7 +40,6 @@
                 <label for="answer4">Respuesta 4</label>
             </div>
             <div class="mb-3">
-
 
                 <div>
                     <input type="radio" id="correct1" name="correct" value="1">

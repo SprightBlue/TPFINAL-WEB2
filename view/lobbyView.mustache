@@ -1,11 +1,8 @@
 <main>
     <div class="container my-5">
-        {{#nombreEntorno}}
-            <h2 class="fw-bold text-center my-3">Modo {{nombreEntorno}}</h2>       
-        {{/nombreEntorno}}
         <div class="row d-flex align-items-center">
             <div class="col-sm-6">
-                <h2 class="text-center text-dark">Bienvenido al Lobby!!!</h2>
+                <h2 class="text-center text-dark">Bienvenido al Lobby!!!</h2>        
             </div>
         </div>
         <div class="row d-flex align-items-center">
@@ -15,36 +12,37 @@
             <div class="col-sm-6">
                 <div class="card bg">
                     <div class="card-body">
+                        {{#nameThirdParties}}
+                            <h3 class="card-title text-dark">Modo {{nameThirdParties}}</h3>       
+                        {{/nameThirdParties}}
                         <h4 class="card-title text-dark">{{#user}}{{username}}{{/user}}</h4>
-                        {{#user.isPlayer}}
+                        {{#isPlayer}}
                             {{#userScore}}
                                 <h5 class="card-text text-dark">Puntaje más alto alcanzado: {{#maxScore}}{{maxScore}}{{/maxScore}}{{^maxScore}}0{{/maxScore}}</h5>
                             {{/userScore}}
-                            <h6><a href="/buy/read" class="text-decoration-none text-warning">{{trampitas}} Trampitas BUY&raquo;</a></h6>
+                            <h6><a href="/buy/read" class="text-decoration-none text-warning">{{#user}}{{bonus}}{{/user}} BONUS <strong class="ms-3">BUY&raquo;</strong></a></h6>
                             <a class="btn btn-dark" href="/play/read">Nueva Partida</a>
-                        {{/user.isPlayer}}
-                        <a class="btn btn-dark" href="/ranking/read">Ranking</a>
+                        {{/isPlayer}}
+                        <a class="btn btn-dark" href="/ranking/read">Ver Ranking</a>
                     </div>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/challenge/readChallenges">Ver desafíos &raquo;</a>
-                    {{#user}}
-                        {{#isPlayer}}
-                            <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/lobby/suggestQuestionView">Sugerir pregunta &raquo;</a>
-                        {{/isPlayer}}
-                        {{#isEditor}}
-                            <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/editor/editorView">Ir a vista de editor &raquo;</a>
-                        {{/isEditor}}
-                        {{#isAdmin}}
-                            <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/admin/read?filter=day">Ver Estadisticas &raquo;</a>
-                        {{/isAdmin}}  
-                        {{#isEmpresa}}
-                            <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/entorno/create">Crear Pregunta &raquo;</a>
-                            <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/entorno/read">Generar QR Entorno &raquo;</a>
-                        {{/isEmpresa}}              
-                    {{/user}} 
+                    {{#isPlayer}}
+                        <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/challenge/readChallenges">Ver desafíos &raquo;</a>
+                        <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/lobby/suggestQuestionView">Sugerir pregunta &raquo;</a>
+                    {{/isPlayer}}
+                    {{#isEditor}}
+                        <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/editor/editorView">Ir a vista de editor &raquo;</a>
+                    {{/isEditor}}
+                    {{#isAdmin}}
+                        <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/admin/read?filter=day">Ver Estadisticas &raquo;</a>
+                    {{/isAdmin}}  
+                    {{#isEnterprise}}
+                        <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/enterprise/create">Crear Pregunta &raquo;</a>
+                        <a class="list-group-item list-group-item-action list-group-item-warning fw-bold" href="/enterprise/read">Generar QR &raquo;</a>
+                    {{/isEnterprise}}              
                 </div>               
             </div>
         </div>

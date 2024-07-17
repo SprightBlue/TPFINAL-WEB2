@@ -1,20 +1,22 @@
-<main>
-    <!--Q&A-->
-    {{#nombreEntorno}}
-        <h2 class="fw-bold text-center my-3">Modo {{nombreEntorno}}</h2>
-    {{/nombreEntorno}}
+<main class="container my-5">
+
+    <!--music-->
     <div class="d-flex flex-column justify-content-start align-items-start m-3">
         <audio id="miMusica" src="/public/audio/Cycling.mp3" preload="auto" autoplay></audio>
         <button class="btn btn-dark me-auto" id="playPauseBtn" value="Pause">Pause</button>
         <input class="form-control-range w-auto" type="range" id="volumeSlider"  min="0" max="1" step="0.1" value="1">
     </div>
+
+    <!--Q&A-->
     <div class="container my-5 col-sm-6 card rounded bg-dark text-center">
+        {{#nameThirdParties}}
+            <h2 class="fw-bold text-center my-3">Modo {{nameThirdParties}}</h2>
+        {{/nameThirdParties}}        
         <div class="card-header my-4 p-3 rounded d-flex align-items-center bg-{{style}}">
             <h3 class="text-light mx-auto">{{#question}}{{category}}{{/question}}</h3>
         </div>
         <div class="container my-2">
             <h2 class="border rounded p-5 bg-light animate">{{#question}}{{question}}{{/question}}</h2>
-
             <div class="my-4">
                 {{#answers}}
                     <form method="post" action="/play/verify">
@@ -32,11 +34,11 @@
                         Reportar pregunta
                     </button>
                 </div>
-                {{#trampitas}}
+                {{#bonus}}
                     <div class="col d-flex flex-column justify-content-center align-items-center">
-                        <a class="btn btn-success" href="/play/trampitas">Usar Trampitas</a>
+                        <a class="btn btn-success" href="/play/useBonus">Usar Trampitas</a>
                     </div>
-                {{/trampitas}}
+                {{/bonus}}
             </div>    
         </div>
     </div>
@@ -71,8 +73,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-
                     </div>
+                </div>
+            </div>
+        </div>
     {{/challenge}}
 
     <!-- Modal para reportar -->
@@ -85,7 +89,6 @@
                 </div>
                 <form action="/play/reportQuestion" method="post">
                     <input type="hidden" name="idQuestion" value="{{question.idQuestion}}">
-
                     <input type="hidden" name="idUser" value="{{idUser}}">
                     <textarea class="form-control" name="reason" placeholder="Escribe aquí la razón del reporte" required></textarea>
                     <div class="modal-footer">
@@ -96,14 +99,11 @@
             </div>
         </div>
     </div>
-</div>
-</div>
-        </div>
+
 </main>
 
 
-<<script>
-    // Detectar la recarga de página intencional
+<script>
     if (performance.navigation.type === 1) {
         window.location.href = "/play/lostGame";
     }

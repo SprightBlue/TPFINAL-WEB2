@@ -1,38 +1,40 @@
 <main>
     <div class="container my-5">
-        <div class="row d-flex flex-column justify-content-center align-items-center" >
+        <div class="row d-flex flex-column justify-content-center align-items-center">
             <div class="col-md-6 border border-1 rounded" style="background-color: #F9AD30;">
-                <form class="p-4" action="/register/{{#user}}set{{/user}}{{^user}}insert{{/user}}" method="POST" enctype="multipart/form-data">
-                    <h2 class="text-center">Formulario Registro</h2>
-                    <input type="hidden" name="id" value="{{#user}}{{id}}{{/user}}">
+                <form class="p-4" action="/register/{{#user}}set{{/user}}{{^user}}create{{/user}}" method="POST" enctype="multipart/form-data">
+                    <h2 class="text-center">{{#user}}Actualizar Datos{{/user}}{{^user}}Registrarse{{/user}}</h2>
+                    <input type="hidden" name="id" id="id" value="{{#user}}{{id}}{{/user}}">
                     <div class="form-floating mb-3">
                         <input class="form-control" type="text" name="fullname" id="fullname" placeholder="Ingresar nombre completo" value="{{#user}}{{fullname}}{{/user}}" required>
                         <label for="fullname">Nombre Completo</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="number" min="1900" max="2100" name="yearOfBirth" id="yearOfBirth" placeholder="Ingresar año de nacimiento" value="{{#user}}{{yearOfBirth}}{{/user}}" required>
+                        <input class="form-control" type="number" min="1900" max="2024" name="yearOfBirth" id="yearOfBirth" placeholder="Ingresar año de nacimiento" value="{{#user}}{{yearOfBirth}}{{/user}}" required>
                         <label for="yearOfBirth">Año de Nacimiento</label>
                     </div>
                     <div class="form-floating mb-3">
                         <select class="form-select" name="gender" id="gender" required>
-                            {{#genders}}
-                                <option value="{{id}}" {{#selected}}selected{{/selected}}>{{nombre}}</option>
-                            {{/genders}}
+                            {{#user}}
+                                <option value="Masculino" {{#genderMasculino}}selected{{/genderMasculino}}>Masculino</option>
+                                <option value="Femenino" {{#genderFemenino}}selected{{/genderFemenino}}>Femenino</option>
+                                <option value="Prefiero no cargarlo" {{#noGender}}selected{{/noGender}}>Prefiero no cargarlo</option>
+                            {{/user}}
+                            {{^user}}
+                                <option value="" hidden selected>Seleccionar genero</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Prefiero no cargarlo">Prefiero no cargarlo</option>
+                            {{/user}}
                         </select>
                         <label for="gender">Género</label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <select class="form-select" name="country" id="country" required>
-                            {{#countries}}
-                                <option value="{{id}}" {{#selectedCountry}}{{id}}{{/selectedCountry}}>{{nombre}}</option>
-                            {{/countries}}
-                        </select>
-                        <label for="country">País</label>
+                    <div class="mb-3">
+                        <label class="form-label" for="map">Seleccionar ubicación</label>
+                        <div id="map"></div>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" name="city" id="city" placeholder="Ingresar ciudad" value="{{#user}}{{city}}{{/user}}" required>
-                        <label for="city">Ciudad</label>
-                    </div>
+                    <input type="hidden" name="country" id="country" value="{{#user}}{{country}}{{/user}}">
+                    <input type="hidden" name="city" id="city" value="{{#user}}{{city}}{{/user}}">
                     <div class="form-floating mb-3">
                         <input class="form-control" type="email" name="email" id="email" placeholder="Ingresar email" value="{{#user}}{{email}}{{/user}}" required>
                         <label for="email">Email</label>
@@ -50,16 +52,12 @@
                         <label for="username">Nombre de Usuario</label>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" for="foto">Subir Foto de Perfil</label>
-                        <input class="form-control form-contrl-sm" type="file" name="img" id="img">
-                    </div>    
+                        <label class="form-label" for="foto">Cargar Foto de Perfil</label>
+                        <input class="form-control form-control-sm" type="file" name="img" id="img">
+                    </div>
                     <div class="mb-3">
-                        {{#user}}
-                            <input type="submit" class="btn btn-dark" name="actualizar" id="actualizar" value="Actualizar">
-                        {{/user}}
-                        {{^user}}
-                            <input type="submit" class="btn btn-dark" name="registrarse" id="registrarse" value="Registrarse">
-                        {{/user}}
+                        <input type="submit" class="btn btn-dark" name="{{#user}}actualizar{{/user}}{{^user}}registrarse{{/user}}" id="{{#user}}actualizar{{/user}}{{^user}}registrarse{{/user}}" value="{{#user}}Actualizar{{/user}}{{^user}}Registrarse{{/user}}">
+                        <a class="btn btn-dark" href="/{{#user}}profile/read{{/user}}{{^user}}login/read{{/user}}">Cancelar</a>
                     </div>
                     {{#errors}}
                         {{#errorEmail}}
@@ -75,8 +73,65 @@
                             <div class="alert alert-danger my-2">{{errorImg}}</div>
                         {{/errorImg}}
                     {{/errors}}
+                    {{#ubicacion}}
+                        <div class="alert alert-danger my-2">{{ubicacion}}</div>
+                    {{/ubicacion}}
                 </form>
             </div>
         </div>
     </div>
 </main>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var map = L.map('map').setView([0, 0], 2);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var countryInput = document.getElementById('country');
+        var cityInput = document.getElementById('city');
+
+        var country = countryInput.value.trim();
+        var city = cityInput.value.trim();
+
+        if (country && city) {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${city},${country}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var lat = parseFloat(data[0].lat);
+                        var lon = parseFloat(data[0].lon);
+
+                        L.marker([lat, lon]).addTo(map);
+                        map.setView([lat, lon], 10);
+                    }
+                });
+        }
+
+        map.on('click', function(e) {
+            var latlng = e.latlng;
+
+            map.eachLayer(function(layer) {
+                if (layer instanceof L.Marker || layer instanceof L.Circle) {
+                    map.removeLayer(layer);
+                }
+            });
+
+            L.marker(latlng).addTo(map);
+
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}&zoom=10`)
+                .then(response => response.json())
+                .then(data => {
+                    var country = data.address.country || '';
+                    var city = data.address.city || data.address.town || data.address.village || '';
+
+                    countryInput.value = country;
+                    cityInput.value = city;
+                });
+        });
+    });
+</script>

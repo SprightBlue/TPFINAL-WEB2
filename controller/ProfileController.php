@@ -12,44 +12,60 @@
 
         public function read() {
             $this->verifyUserSession();
-            $this->verifyEntorno();
-            $username = $_SESSION["usuario"]["username"];
-            $user = $this->model->getUser($username);
-            if ($user) {
-                $isOwnProfile = ($_SESSION["usuario"]["username"] == $user["username"]);
-                $this->presenter->render("view/profileView.mustache", ["user"=>$user, "isOwnProfile"=>$isOwnProfile]);
-            }
+            //$this->verifySessionThirdParties();
+            $data = $this->getData($_SESSION["usuario"]["id"]);
+            $this->presenter->render("view/profileView.mustache", $data);
         }
 
         public function get() {
             $this->verifyUserSession();
-            if (!isset($_GET["username"])) {Redirect::to("/login/read");}
-            $this->verifyEntorno();
-            $username = $_GET["username"];
-            $data = $this->getData($username);
-            if ($data["user"]["userRole"] != "player") {Redirect::to("/login/read");}
-            $this->presenter->render("view/profileView.mustache", $data); 
+            //$this->verifySessionThirdParties();
+            if (isset($_GET["idUser"])) {
+                $data = $this->getData($_GET["idUser"]);
+                if ($data["user"]["idRole"] == 1) {
+                    $this->presenter->render("view/profileView.mustache", $data); 
+                } else {
+                    Redirect::to("/login/read");
+                }
+            } else {
+                Redirect::to("/login/read");
+            }
         }
 
-        private function getData($username) {
-            $user = $this->model->getUser($username);
-            $isOwnProfile = ($_SESSION["usuario"]["username"] == $user["username"]);
-            $data = ["user" => $user, "qr" => "/public/qr/qr-" . $username . ".png", "isOwnProfile" => $isOwnProfile];
-            return $data;
+        private function getData($id) {
+            $user = $this->model->getUser($id);
+            if ($user != false) {
+                $isOwnProfile = ($_SESSION["usuario"]["id"] == $user["id"]);
+                $this->createQR($id);
+                $data = ["user" => $user, "qr" => "/public/qr/qr-" . $id . ".png", "isOwnProfile" => $isOwnProfile];
+                return $data;                
+            }
+        }
+        
+        private function createQR($id) {
+            if (!file_exists("public/qr/qr-" . $id . ".png")) {
+                $profileUrl = "http:/localhost/profile/get?idUser=$id";
+                $pathImg = "public/qr/qr-". $id . ".png";
+                GeneratorQR::generate($profileUrl, $pathImg);             
+            } 
         }
 
         private function verifyUserSession() {
-            if (!isset($_SESSION["usuario"])) {Redirect::to("/login/read");}  
+            if (!isset($_SESSION["usuario"])) {
+                Redirect::to("/login/read");
+            }  
         }
 
-        private function verifyEntorno() {
-            if (isset($_SESSION["entorno"])) {
-                $idEmpresa = $_SESSION["entorno"]["idEmpresa"];
-                $idUsuario = $_SESSION["usuario"]["id"];
+        /*
+        private function verifySessionThirdParties() {
+            if (isset($_SESSION["modoTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
-                $result = $this->model->getEntorno($idEmpresa, $idUsuario, $currentTime);
-                if (!$result) {$_SESSION["entorno"] = null;}
+                $session = $this->model->getSessionThirdParties($_SESSION["modoTerceros"]["idEnterprise"], $_SESSION["usuario"]["id"], $currentTime);
+                if ($session == false) {
+                    $_SESSION["modoTerceros"] = null;
+                }
             } 
         }
+        */
 
     }

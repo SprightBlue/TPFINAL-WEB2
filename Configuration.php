@@ -51,8 +51,8 @@
     include_once("model/BuyModel.php");
     include_once("controller/BuyController.php");
 
-    include_once("model/EntornoModel.php");
-    include_once("controller/EntornoController.php");
+    include_once("model/EnterpriseModel.php");
+    include_once("controller/EnterpriseController.php");
 
     class Configuration {
 
@@ -66,11 +66,11 @@
         }
 
         public static function getRegisterController() {
-            return new RegisterController(self::getRegisterModel(), self::getPresenter(), self::getLogger());
+            return new RegisterController(self::getRegisterModel(), self::getPresenter());
         }
 
         private static function getRegisterModel() {
-            return new RegisterModel(self::getDatabase(),self::getLogger());
+            return new RegisterModel(self::getDatabase());
         }
 
         public static function getLoginController() {
@@ -98,7 +98,7 @@
         }
 
         public static function getPlayController() {
-            return new PlayController(self::getPlayModel(), self::getChallengeModel(), self::getPresenter(), self::getLogger());
+            return new PlayController(self::getPlayModel(), self::getChallengeModel(), self::getPresenter());
         }
 
         private static function getPlayModel() {
@@ -146,12 +146,12 @@
             return new BuyModel(self::getDatabase());
         }
 
-        private static function getEntornoController() {
-            return new EntornoController(self::getEntornoModel(), self::getPresenter());
+        public static function getEnterpriseController() {
+            return new EnterpriseController(self::getEnterpriseModel(), self::getPresenter());
         }
 
-        private static function getEntornoModel() {
-            return new EntornoModel(self::getDatabase());
+        private static function getEnterpriseModel() {
+            return new EnterpriseModel(self::getDatabase());
         }
 
         public static function getLogger(){

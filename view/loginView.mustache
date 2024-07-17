@@ -1,18 +1,6 @@
 <main>
-    <div class="container my-5">
-        {{#mail}}
-            <div class="alert alert-warning alert-dismissible fade show my-5 mx-5">
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                <strong>Verificar: </strong>{{mail}}
-            </div>
-        {{/mail}}
-        {{#verify}}
-            <div class="alert alert-warning alert-dismissible fade show my-5 mx-5">
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                <strong>Activo: </strong>{{verify}}
-            </div>
-        {{/verify}}           
-        <div class="row d-flex flex-column justify-content-center align-items-center">  
+    <div class="container my-5">  
+        <div class="row d-flex flex-column justify-content-center align-items-center">               
             <div class="col-sm-6 border border-1 rounded" style="background-color: #F9AD30">
                 <form class="p-5" action="/login/get" method="POST">
                     <h2 class="text-center mb-3">Iniciar Sesión</h2>
@@ -26,13 +14,25 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6 d-flex flex-column justify-content-center align-items-center">
-                            <input class="btn btn-dark" type="submit" name="enviar" id="enviar" value="Ingresar">
+                            <input class="btn btn-dark" type="submit" name="ingresar" id="ingresar" value="Ingresar">
                         </div>
                         <div class="col-sm-6 d-flex flex-column justify-content-center align-items-center">
                             <p class="text-dark">¿No tienes una cuenta?</p>
                             <a class="btn btn-dark" href="/register/read">Regístrate aquí</a>
                         </div>
                     </div>
+                    {{#verifyMail}}
+                        <div class="alert alert-warning alert-dismissible fade show my-2">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            {{verifyMail}}
+                        </div>
+                    {{/verifyMail}}
+                    {{#activeACC}}
+                        <div class="alert alert-warning alert-dismissible fade show my-2">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            {{activeACC}}
+                        </div>
+                    {{/activeACC}} 
                     {{#errors}}
                         {{#validations}}
                             <div class="alert alert-danger my-2">{{validations}}</div>

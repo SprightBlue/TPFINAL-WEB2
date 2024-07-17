@@ -8,29 +8,28 @@
             $this->database = $database;
         }
 
-        public function getPlayersCount($endDate) {
+        public function getPlayersCount() {
             $stmt = $this->database->query("SELECT COUNT(*) AS playersCount
                                             FROM usuario u
-                                            WHERE u.dateCreated <= :endDate AND userRole = 'player'");
-            $stmt->execute(array(":endDate"=>$endDate));
+                                            WHERE idRole = 1");
+            $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["playersCount"];
         }
 
-        public function getGamesCount($endDate) {
+        public function getGamesCount() {
             $stmt = $this->database->query("SELECT COUNT(*) AS gamesCount
                                             FROM partida p JOIN usuario u ON u.id = p.idUser
-                                            WHERE u.userRole = 'player' AND p.dateGame <= :endDate");
-            $stmt->execute(array(":endDate"=>$endDate));
+                                            WHERE u.idRole = 1");
+            $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["gamesCount"];
         }
 
-        public function getQuestionsCount($endDate) {
+        public function getQuestionsCount() {
             $stmt = $this->database->query("SELECT COUNT(*) AS questionsCount
-                                            FROM pregunta p
-                                            WHERE p.dateCreated <= :endDate");
-            $stmt->execute(array(":endDate"=>$endDate));
+                                            FROM pregunta");
+            $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["questionsCount"];
         }
@@ -47,8 +46,8 @@
         public function getNewUsers($currentDate, $startDate) {
             $stmt = $this->database->query("SELECT COUNT(*) AS newUsers
                                             FROM usuario
-                                            WHERE userRole = 'player'
-                                            AND dateCreated BETWEEN :startDate AND :currentDate");
+                                            WHERE idRole = 1
+                                            AND created BETWEEN :startDate AND :currentDate");
             $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["newUsers"];
@@ -57,37 +56,31 @@
         public function getCorrectPercentage($currentDate, $startDate) {
             $stmt = $this->database->query("SELECT username, (correctAnswers / answeredQuestions) * 100 AS correctPercentage
                                             FROM usuario
-                                            WHERE answeredQuestions > 0
-                                            AND userRole = 'player'
-                                            AND dateCreated BETWEEN :startDate AND :currentDate
-                                            GROUP BY username, correctAnswers, answeredQuestions");
+                                            WHERE answeredQuestions > 0 AND idRole = 1
+                                            AND created BETWEEN :startDate AND :currentDate
+                                            GROUP BY id, username, correctAnswers, answeredQuestions");
             $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function getUsersByCountry($currentDate, $startDate) {
-            $stmt = $this->database->query("SELECT pais.nombre AS country, COUNT(*) AS usersCount
-                                    FROM usuario
-                                    INNER JOIN pais ON usuario.idPais = pais.id
-                                    WHERE usuario.userRole = 'player'
-                                    AND usuario.dateCreated BETWEEN :startDate AND :currentDate
-                                    GROUP BY pais.nombre");
+            $stmt = $this->database->query("SELECT country, COUNT(*) AS usersCount
+                                            FROM usuario
+                                            WHERE idRole = 1
+                                            AND created BETWEEN :startDate AND :currentDate
+                                            GROUP BY country");
             $stmt->execute(array(":startDate" => $startDate, ":currentDate" => $currentDate));
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function getUsersByGender($currentDate, $startDate) {
-            $stmt = $this->database->query("SELECT genero.nombre AS gender, COUNT(*) AS usersCount
+            $stmt = $this->database->query("SELECT gender, COUNT(*) AS usersCount
                                             FROM usuario
-                                            INNER JOIN genero ON usuario.idGenero = genero.id
-                                            WHERE userRole = 'player'
-                                            AND dateCreated BETWEEN :startDate AND :currentDate
+                                            WHERE idRole = 1
+                                            AND created BETWEEN :startDate AND :currentDate
                                             GROUP BY gender");
             $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function getUsersByAgeGroup($currentDate, $startDate) {
@@ -97,43 +90,43 @@
                                                 ELSE 'medio'
                                             END AS ageGroup, COUNT(*) AS usersCount
                                             FROM usuario
-                                            WHERE userRole = 'player'
-                                            AND dateCreated BETWEEN :startDate AND :currentDate
+                                            WHERE idRole = 1
+                                            AND created BETWEEN :startDate AND :currentDate
                                             GROUP BY ageGroup");            
             $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function getTrampitasAcumuladasPorUsuario($currentDate, $startDate) {
-            $stmt = $this->database->query("SELECT u.username AS nombreUsuario, SUM(vt.cantidad) AS trampitasAcumuladas
-                                            FROM ventaTrampitas vt JOIN usuario u ON u.id = vt.idUsuario
-                                            WHERE vt.fecha BETWEEN :startDate AND :currentDate
-                                            AND u.userRole = 'player'
+        public function getUserBonusCount($currentDate, $startDate) {
+            $stmt = $this->database->query("SELECT u.username, SUM(cb.amount) AS bonusCount
+                                            FROM compraBonus cb JOIN usuario u ON u.id = cb.idUser
+                                            WHERE u.idRole = 1
+                                            AND cb.created BETWEEN :startDate AND :currentDate
                                             GROUP BY u.id, u.username");
             $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     
-        public function getGananciasTrampitas($currentDate, $startDate) {
-            $stmt = $this->database->query("SELECT SUM(vt.precioTotal) AS gananciasTrampitas 
-                                            FROM ventaTrampitas vt JOIN usuario u ON u.id = vt.idUsuario
-                                            WHERE vt.fecha BETWEEN :startDate AND :currentDate
-                                            AND u.userRole = 'player'");
+        public function getEarningsBonus($currentDate, $startDate) {
+            $stmt = $this->database->query("SELECT SUM(cb.totalPrice) AS earningsBonus 
+                                            FROM compraBonus cb JOIN usuario u ON u.id = cb.idUser
+                                            WHERE u.idRole = 1
+                                            AND cb.created BETWEEN :startDate AND :currentDate");
             $stmt->execute(array(":startDate"=>$startDate, ":currentDate"=>$currentDate));
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result["gananciasTrampitas"];
+            return $result["earningsBonus"];
         }
 
-        public function getEntorno($idTerceros, $idUsuario, $currentTime) {
+        /*
+        public function getSessionThirdParties($idEnterprise, $idUser, $currentTime) {
             $stmt = $this->database->query("SELECT *
-                                            FROM entorno e
-                                            WHERE e.idTerceros = :idTerceros
-                                            AND e.idUsuario = :idUsuario
-                                            AND :currentTime BETWEEN e.inicio AND e.fin");
-            $stmt->execute(array(":idTerceros"=>$idTerceros, ":idUsuario"=>$idUsuario, ":currentTime"=>$currentTime));
-            return ($stmt->rowCount() > 0);
+                                            FROM sesionTerceros
+                                            WHERE idEnterprise = :idEnterprise
+                                            AND idUser = :idUser
+                                            AND :currentTime BETWEEN startDate AND endDate");
+            $stmt->execute(array(":idEnterprise"=>$idEnterprise, ":idUser"=>$idUser, ":currentTime"=>$currentTime));
+            return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
+        */
 
     }

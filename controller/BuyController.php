@@ -12,35 +12,37 @@
 
         public function read() {
             $this->verifyUserSession();
-            $this->verifyEntorno();
-            $user = $_SESSION["usuario"];
-            $this->presenter->render("view/buyView.mustache", ["user" => $user]);
+            //$this->verifySessionThirdParties();
+            $this->presenter->render("view/buyView.mustache", ["user" => $_SESSION["usuario"]]);
         }
 
         public function update() {
             $this->verifyUserSession();
-            $this->verifyEntorno();
-            $idUsuario = $_POST["idUsuario"];
-            $cantidad = $_POST["cantidad"];
-            $precioTotal = $_POST["precioTotal"];
-            $this->model->buyTrampitas($idUsuario, $cantidad, $precioTotal);
-            $this->model->updateCantidadTrampitasUsuario($idUsuario, $cantidad);
-            $_SESSION["usuario"] = $this->model->getUser($idUsuario);
-            Redirect::to("/lobby/read");
+            //$this->verifySessionThirdParties();
+            if (isset($_POST["comprar"])) {
+                $this->model->buyBonus($_POST["idUser"], $_POST["amount"], $_POST["totalPrice"]);
+                $this->model->updateUserBonus($_POST["idUser"], $_POST["amount"]);
+                $_SESSION["usuario"] = $this->model->getUser($_POST["idUser"]);             
+            } 
+            Redirect::to("/lobby/read"); 
         }
 
         private function verifyUserSession() {
-            if (!isset($_SESSION["usuario"])) {Redirect::to("/login/read");}  
+            if (!isset($_SESSION["usuario"])) {
+                Redirect::to("/login/read");
+            }  
         }
 
-        private function verifyEntorno() {
-            if (isset($_SESSION["entorno"])) {
-                $idEmpresa = $_SESSION["entorno"]["idEmpresa"];
-                $idUsuario = $_SESSION["usuario"]["id"];
+        /*
+        private function verifySessionThirdParties() {
+            if (isset($_SESSION["modoTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
-                $result = $this->model->getEntorno($idEmpresa, $idUsuario, $currentTime);
-                if (!$result) {$_SESSION["entorno"] = null;}
+                $session = $this->model->getSessionThirdParties($_SESSION["modoTerceros"]["idEnterprise"], $_SESSION["usuario"]["id"], $currentTime);
+                if ($session == false) {
+                    $_SESSION["modoTerceros"] = null;
+                }
             } 
         }
+        */
 
     }

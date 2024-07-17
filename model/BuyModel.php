@@ -8,35 +8,37 @@
             $this->database = $database;
         }
 
-        public function buyTrampitas($idUsuario, $cantidad, $precioTotal) {
-            $stmt = $this->database->query("INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal) 
-                                            VALUES (:idUsuario, :cantidad, :precioTotal)");
-            $stmt->execute(array(':idUsuario' => $idUsuario, ':cantidad' => $cantidad, ':precioTotal' => $precioTotal));
+        public function buyBonus($idUser, $amount, $totalPrice) {
+            $stmt = $this->database->query("INSERT INTO compraBonus (idUser, amount, totalPrice) 
+                                            VALUES (:idUser, :amount, :totalPrice)");
+            $stmt->execute(array(":idUser"=>$idUser, ":amount"=>$amount, ":totalPrice"=>$totalPrice));
         }
 
-        public function updateCantidadTrampitasUsuario($idUsuario, $cantidad) {
+        public function updateUserBonus($idUser, $amount) {
             $stmt = $this->database->query("UPDATE usuario u 
-                                            SET u.trampitas = u.trampitas + :cantidad 
-                                            WHERE id = :idUsuario");
-            $stmt->execute(array(':cantidad' => $cantidad, ':idUsuario' => $idUsuario));
+                                            SET u.bonus = u.bonus + :amount 
+                                            WHERE id = :idUser");
+            $stmt->execute(array(":idUser"=>$idUser, ":amount"=>$amount));
         }
 
-        public function getUser($idUsuario) {
+        public function getUser($idUser) {
             $stmt = $this->database->query("SELECT * 
                                             FROM usuario u 
-                                            WHERE u.id=:idUsuario");
-            $stmt->execute(array(":idUsuario"=>$idUsuario));
+                                            WHERE u.id=:idUser AND active = 1");
+            $stmt->execute(array(":idUser"=>$idUser));
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
 
-        public function getEntorno($idTerceros, $idUsuario, $currentTime) {
+        /* 
+        public function getSessionThirdParties($idEnterprise, $idUser, $currentTime) {
             $stmt = $this->database->query("SELECT *
-                                            FROM entorno e
-                                            WHERE e.idTerceros = :idTerceros
-                                            AND e.idUsuario = :idUsuario
-                                            AND :currentTime BETWEEN e.inicio AND e.fin");
-            $stmt->execute(array(":idTerceros"=>$idTerceros, ":idUsuario"=>$idUsuario, ":currentTime"=>$currentTime));
-            return ($stmt->rowCount() > 0);
-        }     
+                                            FROM sesionTerceros
+                                            WHERE idEnterprise = :idEnterprise
+                                            AND idUser = :idUser
+                                            AND :currentTime BETWEEN startDate AND endDate");
+            $stmt->execute(array(":idEnterprise"=>$idEnterprise, ":idUser"=>$idUser, ":currentTime"=>$currentTime));
+            return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
+        }
+        */
 
     }

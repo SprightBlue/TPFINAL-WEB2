@@ -4,161 +4,133 @@ CREATE DATABASE IF NOT EXISTS qampa;
 
 USE qampa;
 
-CREATE TABLE genero (
-                        id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                        nombre VARCHAR(255) NOT NULL
+CREATE TABLE rol (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    descriptionName VARCHAR(255)
 );
-CREATE TABLE pais (
-                      id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                      nombre VARCHAR(255) NOT NULL
-);
+
+INSERT INTO rol (descriptionName) VALUES 
+('player'),
+('editor'),
+('admin'),
+('enterprise');
 
 CREATE TABLE usuario (
-                        id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                        fullname VARCHAR(255) NOT NULL,
-                        yearOfBirth INT NOT NULL,
-                        city VARCHAR(255) NOT NULL,
-                        email VARCHAR(255) NOT NULL,
-                        pass VARCHAR(255) NOT NULL,
-                        username VARCHAR(255) NOT NULL,
-                        profilePicture VARCHAR(255) NOT NULL,
-                        token VARCHAR(255) NOT NULL,
-                        active BOOLEAN NOT NULL,
-                        answeredQuestions INT DEFAULT 0,
-                        correctAnswers INT DEFAULT 0,
-                        userRole VARCHAR(255) DEFAULT 'player',
-                        dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        trampitas INT DEFAULT 0,
-                        idPais INT NOT NULL,
-                        idGenero INT NOT NULL,
-                        FOREIGN KEY (idPais) REFERENCES pais(id),
-                        FOREIGN KEY (idGenero) REFERENCES genero(id)
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    fullname VARCHAR(255),
+    yearOfBirth INT,
+    gender VARCHAR(255),
+    country VARCHAR(255),
+    city VARCHAR(255),
+    email VARCHAR(255),
+    pass VARCHAR(255),
+    username VARCHAR(255),
+    profilePicture VARCHAR(255), 
+    active BOOLEAN DEFAULT 0,
+    token VARCHAR(255),
+    answeredQuestions INT DEFAULT 0,
+    correctAnswers INT DEFAULT 0,
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    bonus INT DEFAULT 0,
+    idRole INT DEFAULT 1,
+    FOREIGN KEY (idRole) REFERENCES rol(id)
 );
 
-CREATE TABLE entorno (
-                            id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                            idTerceros INT NOT NULL,
-                            idUsuario INT NOT NULL,
-                            inicio TIMESTAMP NOT NULL,
-                            fin TIMESTAMP NOT NULL,
-                            FOREIGN KEY(idTerceros) REFERENCES usuario(id),
-                            FOREIGN KEY(idUsuario) REFERENCES usuario(id)
+CREATE TABLE sesionTerceros (
+	idEnterprise INT,
+	idUser INT,
+	startDate TIMESTAMP,
+	endDate TIMESTAMP,
+	PRIMARY KEY(idEnterprise, idUser),
+	FOREIGN KEY(idEnterprise) REFERENCES usuario(id),
+	FOREIGN KEY(idUser) REFERENCES usuario(id)
 );
 
-
-CREATE TABLE ventaTrampitas (
-                                id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                                idUsuario INT NOT NULL,
-                                cantidad INT NULL,
-                                precioTotal INT NOT NULL,
-                                fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                FOREIGN KEY(idUsuario) REFERENCES usuario(id)
+CREATE TABLE compraBonus (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	amount INT,
+	totalPrice DECIMAL(10, 2),
+	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    idUser INT,
+	FOREIGN KEY(idUser) REFERENCES usuario(id)
 );
 
 CREATE TABLE pregunta (
-                          idQuestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                          question VARCHAR(255) NOT NULL,
-                          category VARCHAR(255) NOT NULL,
-                          dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                          correctAnswers INT DEFAULT 0,
-                          totalAnswers INT DEFAULT 0,
-                          difficulty VARCHAR(255) DEFAULT 'easy',
-                          idCreador INT DEFAULT NULL,
-                          FOREIGN KEY (idCreador) REFERENCES usuario(id)
-);
-
-CREATE TABLE usuario_pregunta (
-                                  idUsuario INT NOT NULL,
-                                  idPregunta INT NOT NULL,
-                                  PRIMARY KEY (idUsuario, idPregunta),
-                                  FOREIGN KEY (idUsuario) REFERENCES usuario(id),
-                                  FOREIGN KEY (idPregunta) REFERENCES pregunta(idQuestion)
+    idQuestion INT AUTO_INCREMENT PRIMARY KEY,
+    question VARCHAR(255),
+    category VARCHAR(255),
+    dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    correctAnswers INT DEFAULT 0,
+    totalAnswers INT DEFAULT 0,
+    difficulty VARCHAR(255) DEFAULT 'easy',
+    idCreator INT,
+    FOREIGN KEY (idCreator) REFERENCES usuario(id)
 );
 
 CREATE TABLE respuesta (
-                           idAnswer INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                           idQuestion INT NOT NULL,
-                           answer VARCHAR(255) NOT NULL,
-                           correct BOOLEAN NOT NULL,
-                           FOREIGN KEY (idQuestion) REFERENCES pregunta(idQuestion)
+    idAnswer INT AUTO_INCREMENT PRIMARY KEY,
+    answer VARCHAR(255),
+    correct BOOLEAN,
+    idQuestion INT,         
+    FOREIGN KEY (idQuestion) REFERENCES pregunta(idQuestion)
+);
+
+CREATE TABLE pregunta_sugerida (
+	idSuggestion INT AUTO_INCREMENT PRIMARY KEY,
+    question VARCHAR(255),
+	category VARCHAR(255),
+	answer1 VARCHAR(255),
+	answer2 VARCHAR(255),
+	answer3 VARCHAR(255),
+	answer4 VARCHAR(255),
+	correct INT,
+	idUser INT,
+	FOREIGN KEY (idUser) REFERENCES usuario (id)
 );
 
 CREATE TABLE partida (
-                         id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                         score INT NOT NULL,
-                         dateGame TIMESTAMP NOT NULL,
-                         idUser INT NOT NULL,
-                         idEntorno INT DEFAULT NULL,
-                         FOREIGN KEY (idUser) REFERENCES usuario(id),
-                         FOREIGN KEY (idEntorno) REFERENCES entorno(id)
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	score INT,
+	dateGame TIMESTAMP,
+	idUser INT,
+	idThirdParties INT,
+	FOREIGN KEY (idUser) REFERENCES usuario(id),
+	FOREIGN KEY (idThirdParties) REFERENCES usuario(id)
+);
+
+CREATE TABLE usuario_pregunta (
+    idUsuario INT,
+    idPregunta INT,
+    PRIMARY KEY (idUsuario, idPregunta),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id),
+    FOREIGN KEY (idPregunta) REFERENCES pregunta(idQuestion)
 );
 
 CREATE TABLE report (
-                        idReport INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                        idQuestion INT NOT NULL,
-                        idUser INT NOT NULL,
-                        reason TEXT NOT NULL,
-                        dateReported TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        FOREIGN KEY (idQuestion) REFERENCES pregunta(idQuestion),
-                        FOREIGN KEY (idUser) REFERENCES usuario(id)
-);
-
-CREATE TABLE pregunta_sugerida
-(
-    idSuggestion INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    idUser       INT                            NOT NULL,
-    question     VARCHAR(255)                   NOT NULL,
-    category     VARCHAR(255)                   NOT NULL,
-    answer1      VARCHAR(255)                   NOT NULL,
-    answer2      VARCHAR(255)                   NOT NULL,
-    answer3      VARCHAR(255)                   NOT NULL,
-    answer4      VARCHAR(255)                   NOT NULL,
-    correct      INT                            NOT NULL,
-    FOREIGN KEY (idUser) REFERENCES usuario (id)
+    idReport INT AUTO_INCREMENT PRIMARY KEY,
+    reason TEXT,
+    dateReported TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    
+    idQuestion INT,
+    idUser INT,
+    FOREIGN KEY (idQuestion) REFERENCES pregunta(idQuestion),
+    FOREIGN KEY (idUser) REFERENCES usuario(id)
 );
 
 CREATE TABLE challenge (
-                           id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-                           challenger_id INT NOT NULL,
-                           challenged_id INT NOT NULL,
-                           challenger_score INT DEFAULT 0,
-                           challenged_score INT DEFAULT 0,
-                           status ENUM('pending', 'accepted', 'resolved') ,
-                           winner_id INT,
-                           loser_id INT,
-                           is_tie BOOLEAN DEFAULT 0,
-                           FOREIGN KEY (challenger_id) REFERENCES usuario(id),
-                           FOREIGN KEY (challenged_id) REFERENCES usuario(id),
-                           FOREIGN KEY (winner_id) REFERENCES usuario(id),
-                           FOREIGN KEY (loser_id) REFERENCES usuario(id)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    challenger_id INT,
+    challenged_id INT,
+    challenger_score INT DEFAULT 0,
+    challenged_score INT DEFAULT 0,
+    status ENUM('pending', 'accepted', 'resolved'),
+    winner_id INT,
+    loser_id INT,
+    is_tie BOOLEAN DEFAULT 0,
+    FOREIGN KEY (challenger_id) REFERENCES usuario(id),
+    FOREIGN KEY (challenged_id) REFERENCES usuario(id),
+    FOREIGN KEY (winner_id) REFERENCES usuario(id),
+    FOREIGN KEY (loser_id) REFERENCES usuario(id)
 );
-
-INSERT INTO pais (nombre) VALUES
-                              ('Argentina'),
-                              ('Bolivia'),
-                              ('Brasil'),
-                              ('Chile'),
-                              ('Colombia'),
-                              ('Costa Rica'),
-                              ('Cuba'),
-                              ('Ecuador'),
-                              ('El Salvador'),
-                              ('Guatemala'),
-                              ('Honduras'),
-                              ('México'),
-                              ('Nicaragua'),
-                              ('Panamá'),
-                              ('Paraguay'),
-                              ('Perú'),
-                              ('Puerto Rico'),
-                              ('República Dominicana'),
-                              ('Uruguay'),
-                              ('Venezuela');
-
-INSERT INTO genero (nombre) VALUES
-                                ('Masculino'),
-                                ('Femenino'),
-                                ('Prefiero no cargarlo');
 
 INSERT INTO pregunta (question, category) VALUES
 ('¿Cuál es el río más largo del mundo?', 'Geografía'),
@@ -224,220 +196,14 @@ INSERT INTO respuesta (idQuestion, answer, correct) VALUES
 (29, 'Josef Stalin', 0), (29, 'Vladimir Lenin', 1), (29, 'León Trotsky', 0), (29, 'Nikita Khrushchev', 0),
 (30, 'Dinastía Tang', 0), (30, 'Dinastía Qin', 1), (30, 'Dinastía Ming', 0), (30, 'Dinastía Han', 0);
 
-
 /*
  INSERTAR PRIMERO EL ADMIN Y EDITOR, LUEGO INSERTAR 2 USUARIOS
- */
-INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
-VALUES ('El admin', 1990,'buenos aires', 'admin@gmail.com', '1234', 'admin', 'arthas.jpg', '1234567890qwerty1', '1', 'admin', 1, 1);
+*/
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole)
+VALUES ('admin', 2002, 'Masculino', 'Argentina', 'Ramos Mejia', "admin@gmail.com", '1234', 'admin', '0143Snorlax.png', 1, 3);
 
-INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
-VALUES ('Pancho', 1985, 'Buenos Aires', 'editor@email.com', '123', 'pancho', 'pancho.png', 'tokenEditor', 1, 'editor', 1, 1);
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole)
+VALUES ('editor', 1998, 'Masculino', 'Argentina', 'Liniers', 'editor@gmail.com', '1234', 'editor', '0079Slowpoke.png', 1, 2);
 
-INSERT INTO usuario (fullname, yearOfBirth,  city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
-VALUES ('Messi', 1990, 'Rosario', 'usuario@email.com', '123', 'messi', 'messirve.jpg', 'tokenUsuario546546546456', 1, 'player', 1, 1);
-
-
-
-INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
-VALUES ('Panchito1', 1990, 'Buenos Aires', 'panchito111@email.com', '123', 'pan', 'pancho.png', '35435445dfgdfgdfg123213', 1, 'player', 1, 1);
-
-
-/*
- insercion de datos por dia para generar graficos
-
-/*
- Cantidad de jugadores que tiene la aplicacion
-
- Porcentaje de preguntas respondidas correctamente por usuario
-
-     Distribucion de Usuarios por pais, genero y grupo de edad
-     */
-
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1900, 'Ciudad', 'nuevo4@email.com', 'pass', 'nuevousuario4', 'profile.jpg', 'token4', 1, 'player', 3, 1, CURDATE(),100,30);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1995, 'Ciudad', 'nuevo5@email.com', 'pass', 'nuevousuario5', 'profile.jpg', 'token5', 1, 'player', 2, 2, CURDATE(),100,100);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 2022, 'Ciudad', 'nuevo6@email.com', 'pass', 'nuevousuario6', 'profile.jpg', 'token6', 1, 'player', 1, 1, CURDATE(),20,3);
-    /*
-     Cantidad de partidas jugadas
-     */
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (4, CURDATE(), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (5, CURDATE(), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (4, CURDATE(), 21);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (4, CURDATE(), 2);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (5, CURDATE(), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (4, CURDATE(), 22);
-
-/*
- Cantidad de preguntas
- */
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de Francia?', 'Geografía', CURDATE());
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de Peru', 'Geografía', CURDATE());
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de La pampa?', 'Geografía', CURDATE());
-
--- Insertar ventas de trampitas para el día actual
-INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
-                                                                         (4, 10, 100, NOW()),
-                                                                         (5, 5, 50, NOW()),
-                                                                         (5, 20, 200, NOW());
-/*
- insercion de datos por semana para generar graficos
-
-
- Cantidad de jugadores que tiene la aplicacion
-
- Porcentaje de preguntas respondidas correctamente por usuario
-
-     Distribucion de Usuarios por pais, genero y grupo de edad
-     */
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1900, 'Ciudad', 'nuevo7@email.com', 'pass', 'nuevousuario7', 'profile.jpg', 'token7', 1, 'player', 5, 2, DATE_SUB(CURDATE(), INTERVAL 7 DAY),100,30);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1995, 'Ciudad', 'nuevo8@email.com', 'pass', 'nuevousuario8', 'profile.jpg', 'token8', 1, 'player', 6, 3, DATE_SUB(CURDATE(), INTERVAL 7 DAY),100,100);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 2022, 'Ciudad', 'nuevo9@email.com', 'pass', 'nuevousuario9', 'profile.jpg', 'token9', 1, 'player', 2, 3, DATE_SUB(CURDATE(), INTERVAL 7 DAY),20,3);
-
-
-/*
-  Cantidad de partidas jugadas
-  */
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (7, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (7, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (8, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 21);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (8, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 2);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (8, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (8, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 22);
-
-/*
- Cantidad de preguntas
- */
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de Francia?', 'Geografía', DATE_SUB(CURDATE(), INTERVAL 7 DAY));
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de Peru', 'Geografía', DATE_SUB(CURDATE(), INTERVAL 7 DAY));
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de La pampa?', 'Geografía', DATE_SUB(CURDATE(), INTERVAL 7 DAY));
-
-
--- Insertar ventas de trampitas para el día actual
-INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
-                                                                         (7, 10, 100, DATE_SUB(NOW(), INTERVAL 7 DAY)),
-                                                                         (7, 5, 50, DATE_SUB(NOW(), INTERVAL 7 DAY)),
-                                                                         (8, 20, 200, DATE_SUB(NOW(), INTERVAL 7 DAY));
-
-/*
- insercion de datos por Mes para generar graficos
-
-
-Cantidad de jugadores que tiene la aplicacion
-
- Porcentaje de preguntas respondidas correctamente por usuario
-
-     Distribucion de Usuarios por pais, genero y grupo de edad
-     */
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1900, 'Ciudad', 'nuevo10@email.com', 'pass', 'nuevousuario10', 'profile.jpg', 'token10', 1, 'player', 4, 2, DATE_SUB(CURDATE(), INTERVAL 1 MONTH),100,30);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1995, 'Ciudad', 'nuevo11@email.com', 'pass', 'nuevousuario11', 'profile.jpg', 'token11', 1, 'player', 1, 3, DATE_SUB(CURDATE(), INTERVAL 1 MONTH),100,100);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 2022, 'Ciudad', 'nuevo12@email.com', 'pass', 'nuevousuario12', 'profile.jpg', 'token12', 1, 'player', 1, 3, DATE_SUB(CURDATE(), INTERVAL 1 MONTH),20,3);
-
-
-/*
-  Cantidad de partidas jugadas
-  */
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (10, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (11, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (11, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 21);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (10, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 2);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (11, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (11, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 22);
-
-/*
- Cantidad de preguntas
- */
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de Francia?', 'Geografía', DATE_SUB(CURDATE(), INTERVAL 1 MONTH));
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de Peru', 'Geografía', DATE_SUB(CURDATE(), INTERVAL 1 MONTH));
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de La pampa?', 'Geografía',DATE_SUB(CURDATE(), INTERVAL 1 MONTH));
-
-
--- Insertar ventas de trampitas para el día actual
-INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
-                                                                         (10, 10, 100, DATE_SUB(NOW(), INTERVAL 1 MONTH)),
-                                                                         (11, 5, 50, DATE_SUB(NOW(), INTERVAL 1 MONTH)),
-                                                                         (11, 20, 200, DATE_SUB(NOW(), INTERVAL 1 MONTH));
-
-/*
- insercion de datos por año para generar graficos
- Cantidad de jugadores que tiene la aplicacion
-
- Porcentaje de preguntas respondidas correctamente por usuario
-
-     Distribucion de Usuarios por pais, genero y grupo de edad
-     */
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1900, 'Ciudad', 'nuevo13@email.com', 'pass', 'nuevousuario13', 'profile.jpg', 'token13', 1, 'player', 3, 1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR),100,30);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1995, 'Ciudad', 'nuevo14@email.com', 'pass', 'nuevousuario14', 'profile.jpg', 'token14', 1, 'player', 3, 1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR),100,100);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 2022, 'Ciudad', 'nuevo15@email.com', 'pass', 'nuevousuario15', 'profile.jpg', 'token15', 1, 'player', 3, 1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR),20,3);
-
-
-/*
-  Cantidad de partidas jugadas
-  */
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (14, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (14, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (14, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 21);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (13, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 2);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (13, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 25);
-INSERT INTO partida (idUser, dateGame, score)
-VALUES (13, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 22);
-
-/*
- Cantidad de preguntas
- */
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de Francia?', 'Geografía', DATE_SUB(CURDATE(), INTERVAL 1 YEAR));
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de Peru', 'Geografía', DATE_SUB(CURDATE(), INTERVAL 1 YEAR));
-INSERT INTO pregunta (question, category, dateCreated)
-VALUES ('¿Cuál es la capital de La pampa?', 'Geografía',DATE_SUB(CURDATE(), INTERVAL 1 YEAR));
-
-
--- Insertar ventas de trampitas para el día actual
-INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
-                                                                         (13, 10, 100, DATE_SUB(NOW(), INTERVAL 1 YEAR)),
-                                                                         (14, 5, 50, DATE_SUB(NOW(), INTERVAL 1 YEAR)),
-                                                                         (14, 20, 200, DATE_SUB(NOW(), INTERVAL 1 YEAR));
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole)
+VALUES ('Blizzard Entertainment, Inc.', 1991, 'Prefiero no cargarlo', 'United States', 'Irvine', 'blizzard@email.com', '1234', 'Blizzard', '0097Hypno.png', 1, 4);
