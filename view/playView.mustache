@@ -35,9 +35,10 @@
                     </button>
                 </div>
                 {{#bonus}}
-                    <div class="col d-flex flex-column justify-content-center align-items-center">
-                        <a class="btn btn-success" href="/play/useBonus">Usar Trampitas</a>
-                    </div>
+                    <form method="post" action="/play/useBonus" class="col d-flex flex-column justify-content-center align-items-center">
+                        <input type="hidden" name="verificationToken" value="{{verificationToken}}">
+                        <button name="bonus" id="bonus" value="bonus" class="btn btn-success">Usar Bonus</button>
+                    </form>
                 {{/bonus}}
             </div>
         </div>
@@ -59,7 +60,7 @@
                     <form method="post" action="/lobby/read">
                         <button type="submit" class="btn btn-dark">Volver al inicio</button>
                     </form>
-                    <form method="post" action="/play/newGame">
+                    <form method="post" action="/play/read">
                         <button type="submit" class="btn btn-dark">Volver a jugar</button>
                     </form>
                 </div>
@@ -184,8 +185,6 @@
             stopTimer();
         {{/challenge}}
 
-        {{#timer}}
-            stopTimer();
-        {{/timer}}
+
     });
 </script>

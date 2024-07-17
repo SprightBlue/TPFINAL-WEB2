@@ -14,14 +14,8 @@
             $this->presenter = $presenter;
             $this->logger = $logger;
         }
-        public function newGame() {
-            $this->logger->info("Iniciando nueva partida");
 
-            unset($_SESSION["partida"]);
-            unset($_SESSION["startTime"]);
-            Redirect::to("/play/read");
 
-        }
         public function read() {
             $this->logger->info("PlayController: read");
             $this->verifyUserSession();

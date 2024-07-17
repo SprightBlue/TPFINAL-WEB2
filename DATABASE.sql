@@ -218,11 +218,6 @@ VALUES ('Blizzard Entertainment, Inc.', 1991, 'Prefiero no cargarlo', 'United St
 
 
 
-
-INSERT INTO usuario (fullname, yearOfBirth,city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero)
-VALUES ('Panchito1', 1990, 'Buenos Aires', 'panchito111@email.com', '123', 'pan', 'pancho.png', '35435445dfgdfgdfg123213', 1, 'player', 1, 1);
-
-
 /*
  insercion de datos por dia para generar graficos
 
@@ -234,12 +229,14 @@ VALUES ('Panchito1', 1990, 'Buenos Aires', 'panchito111@email.com', '123', 'pan'
      Distribucion de Usuarios por pais, genero y grupo de edad
      */
 
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1900, 'Ciudad', 'nuevo4@email.com', 'pass', 'nuevousuario4', 'profile.jpg', 'token4', 1, 'player', 3, 1, CURDATE(),100,30);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1995, 'Ciudad', 'nuevo5@email.com', 'pass', 'nuevousuario5', 'profile.jpg', 'token5', 1, 'player', 2, 2, CURDATE(),100,100);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 2022, 'Ciudad', 'nuevo6@email.com', 'pass', 'nuevousuario6', 'profile.jpg', 'token6', 1, 'player', 1, 1, CURDATE(),20,3);
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 1900, 'Masculino', 'Brasil', 'Ciudad', 'nuevo4@email.com', 'pass', 'nuevousuario4', 'profile.jpg', 1, 1, CURDATE(), 100, 30);
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 1995, 'Femenino', 'Chile', 'Ciudad', 'nuevo5@email.com', 'pass', 'nuevousuario5', 'profile.jpg', 1, 1, CURDATE(), 100, 100);
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 2022, 'Masculino', 'Uruguay', 'Ciudad', 'nuevo6@email.com', 'pass', 'nuevousuario6', 'profile.jpg', 1, 1, CURDATE(), 20, 3);
 /*
  Cantidad de partidas jugadas
  */
@@ -267,7 +264,7 @@ INSERT INTO pregunta (question, category, dateCreated)
 VALUES ('¿Cuál es la capital de La pampa?', 'Geografía', CURDATE());
 
 -- Insertar ventas de trampitas para el día actual
-INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
+INSERT INTO compraBonus (idUser,amount, totalPrice, created) VALUES
                                                                          (4, 10, 100, NOW()),
                                                                          (5, 5, 50, NOW()),
                                                                          (5, 20, 200, NOW());
@@ -281,12 +278,15 @@ INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
 
      Distribucion de Usuarios por pais, genero y grupo de edad
      */
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1900, 'Ciudad', 'nuevo7@email.com', 'pass', 'nuevousuario7', 'profile.jpg', 'token7', 1, 'player', 5, 2, DATE_SUB(CURDATE(), INTERVAL 7 DAY),100,30);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1995, 'Ciudad', 'nuevo8@email.com', 'pass', 'nuevousuario8', 'profile.jpg', 'token8', 1, 'player', 6, 3, DATE_SUB(CURDATE(), INTERVAL 7 DAY),100,100);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 2022, 'Ciudad', 'nuevo9@email.com', 'pass', 'nuevousuario9', 'profile.jpg', 'token9', 1, 'player', 2, 3, DATE_SUB(CURDATE(), INTERVAL 7 DAY),20,3);
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 1900, 'Femenino', 'Chile', 'Ciudad', 'nuevo7@email.com', 'pass', 'nuevousuario7', 'profile.jpg', 1, 1, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 100, 30);
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 1995, 'Masculino', 'Uruguay', 'Ciudad', 'nuevo8@email.com', 'pass', 'nuevousuario8', 'profile.jpg', 1, 1, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 100, 100);
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 2022, 'Femenino', 'Argentina', 'Ciudad', 'nuevo9@email.com', 'pass', 'nuevousuario9', 'profile.jpg', 1, 1, DATE_SUB(CURDATE(), INTERVAL 7 DAY), 20, 3);
 
 
 /*
@@ -317,7 +317,7 @@ VALUES ('¿Cuál es la capital de La pampa?', 'Geografía', DATE_SUB(CURDATE(), 
 
 
 -- Insertar ventas de trampitas para el día actual
-INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
+INSERT INTO compraBonus (idUser,amount, totalPrice, created) VALUES
                                                                          (7, 10, 100, DATE_SUB(NOW(), INTERVAL 7 DAY)),
                                                                          (7, 5, 50, DATE_SUB(NOW(), INTERVAL 7 DAY)),
                                                                          (8, 20, 200, DATE_SUB(NOW(), INTERVAL 7 DAY));
@@ -332,12 +332,14 @@ Cantidad de jugadores que tiene la aplicacion
 
      Distribucion de Usuarios por pais, genero y grupo de edad
      */
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1900, 'Ciudad', 'nuevo10@email.com', 'pass', 'nuevousuario10', 'profile.jpg', 'token10', 1, 'player', 4, 2, DATE_SUB(CURDATE(), INTERVAL 1 MONTH),100,30);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1995, 'Ciudad', 'nuevo11@email.com', 'pass', 'nuevousuario11', 'profile.jpg', 'token11', 1, 'player', 1, 3, DATE_SUB(CURDATE(), INTERVAL 1 MONTH),100,100);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 2022, 'Ciudad', 'nuevo12@email.com', 'pass', 'nuevousuario12', 'profile.jpg', 'token12', 1, 'player', 1, 3, DATE_SUB(CURDATE(), INTERVAL 1 MONTH),20,3);
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 1900, 'Masculino', 'Uruguay', 'Ciudad', 'nuevo10@email.com', 'pass', 'nuevousuario10', 'profile.jpg', 1, 1, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 100, 30);
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 1995, 'Femenino', 'Argentina', 'Ciudad', 'nuevo11@email.com', 'pass', 'nuevousuario11', 'profile.jpg', 1, 1, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 100, 100);
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 2022, 'Masculino', 'Brasil', 'Ciudad', 'nuevo12@email.com', 'pass', 'nuevousuario12', 'profile.jpg', 1, 1, DATE_SUB(CURDATE(), INTERVAL 1 MONTH), 20, 3);
 
 
 /*
@@ -368,7 +370,7 @@ VALUES ('¿Cuál es la capital de La pampa?', 'Geografía',DATE_SUB(CURDATE(), I
 
 
 -- Insertar ventas de trampitas para el día actual
-INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
+INSERT INTO compraBonus (idUser,amount, totalPrice, created) VALUES
                                                                          (10, 10, 100, DATE_SUB(NOW(), INTERVAL 1 MONTH)),
                                                                          (11, 5, 50, DATE_SUB(NOW(), INTERVAL 1 MONTH)),
                                                                          (11, 20, 200, DATE_SUB(NOW(), INTERVAL 1 MONTH));
@@ -381,12 +383,14 @@ INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
 
      Distribucion de Usuarios por pais, genero y grupo de edad
      */
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1900, 'Ciudad', 'nuevo13@email.com', 'pass', 'nuevousuario13', 'profile.jpg', 'token13', 1, 'player', 3, 1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR),100,30);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 1995, 'Ciudad', 'nuevo14@email.com', 'pass', 'nuevousuario14', 'profile.jpg', 'token14', 1, 'player', 3, 1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR),100,100);
-INSERT INTO usuario (fullname, yearOfBirth, city, email, pass, username, profilePicture, token, active, userRole, idPais, idGenero, dateCreated,answeredQuestions,correctAnswers)
-VALUES ('Usuario Nuevo', 2022, 'Ciudad', 'nuevo15@email.com', 'pass', 'nuevousuario15', 'profile.jpg', 'token15', 1, 'player', 3, 1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR),20,3);
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 1900, 'Femenino', 'Argentina', 'Ciudad', 'nuevo13@email.com', 'pass', 'nuevousuario13', 'profile.jpg', 1, 1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 100, 30);
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 1995, 'Masculino', 'Brasil', 'Ciudad', 'nuevo14@email.com', 'pass', 'nuevousuario14', 'profile.jpg', 1, 1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 100, 100);
+
+INSERT INTO usuario (fullname, yearOfBirth, gender, country, city, email, pass, username, profilePicture, active, idRole, created, answeredQuestions, correctAnswers)
+VALUES ('Usuario Nuevo', 2022, 'Femenino', 'Chile', 'Ciudad', 'nuevo15@email.com', 'pass', 'nuevousuario15', 'profile.jpg', 1, 1, DATE_SUB(CURDATE(), INTERVAL 1 YEAR), 20, 3);
 
 
 /*
@@ -417,7 +421,7 @@ VALUES ('¿Cuál es la capital de La pampa?', 'Geografía',DATE_SUB(CURDATE(), I
 
 
 -- Insertar ventas de trampitas para el día actual
-INSERT INTO ventaTrampitas (idUsuario, cantidad, precioTotal, fecha) VALUES
-                                                                         (13, 10, 100, DATE_SUB(NOW(), INTERVAL 1 YEAR)),
+INSERT INTO compraBonus (idUser,amount, totalPrice, created) VALUES
+                                                                        (13, 10, 100, DATE_SUB(NOW(), INTERVAL 1 YEAR)),
                                                                          (14, 5, 50, DATE_SUB(NOW(), INTERVAL 1 YEAR)),
                                                                          (14, 20, 200, DATE_SUB(NOW(), INTERVAL 1 YEAR));
