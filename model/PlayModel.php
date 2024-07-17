@@ -25,7 +25,9 @@
             $answers = $this->getAnswers($question["idQuestion"]);
             $user = $this->getUser($idUser);
             $styles = ["Arte"=>"primary", "Ciencia"=>"success", "Deporte"=>"info", "Entretenimiento"=>"warning", "Geografía"=>"danger", "Historia"=>"secondary"];
-            $data = ["question"=>$question, "style"=>$styles[$question["category"]], "answers"=>$answers, "score"=>$score, "bonus"=>$user["bonus"]>0, "user"=>$user];
+            $token = bin2hex(random_bytes(32));
+            $data = ["question"=>$question, "style"=>$styles[$question["category"]], "answers"=>$answers, "score"=>$score, 
+                        "bonus"=>$user["bonus"]>0, "user"=>$user, "verificationToken"=>$token];
             return $data;
         }
 

@@ -13,16 +13,9 @@
         }
 
         public function read() {
-            unset($_SESSION["partida"]);
             $this->verifyUserSession();
             if (isset($_SESSION["partida"]) && !empty($_SESSION["partida"])) {
-                if (isset($_SESSION["page_loaded"])) {
-                    $this->incorrectCase();
-                    return;
-                } else {
-                    $data = $_SESSION["partida"];
-                    $_SESSION["page_loaded"] = true;
-                }
+                $this->incorrectCase();
             } else {
                 /*$sessionThirdParties = isset($_SESSION["modoTerceros"]) ? $_SESSION["modoTerceros"] : null;
                 if ($sessionThirdParties != null) {
@@ -30,6 +23,7 @@
                 } else {*/
                     $data = $this->playModel->getData($_SESSION["usuario"]["id"], 0);
                 //}
+                $_SESSION["verificationToken"] = $data["verificationToken"];
                 $_SESSION["partida"] = $data;
                 $_SESSION["startTime"] = time();
 
@@ -41,11 +35,18 @@
 
         public function verify() {
             $this->verifyUserSession();
+
+            if (!isset($_POST["verificationToken"]) || $_POST["verificationToken"] !== $_SESSION["verificationToken"]) {
+                $this->incorrectCase();
+                return;
+            }
+
+            unset($_SESSION["verificationToken"]);
+
             $isCorrect = isset($_POST["isCorrect"]) ? $_POST["isCorrect"] : null;
             $elapsedTime = isset($_SESSION["startTime"]) ? time() - $_SESSION["startTime"] : null;
             $this->updateAnswerStats($isCorrect, $elapsedTime);
             if ($isCorrect && $elapsedTime > 0) {
-                $_SESSION["partida"]["score"] += 1;
                 $this->correctCase();
             } else {
                 $this->incorrectCase();
@@ -71,10 +72,13 @@
         }
 
         private function correctCase() {
+            $_SESSION["partida"]["score"] += 1;
             $data = $this->playModel->getData($_SESSION["usuario"]["id"], $_SESSION["partida"]["score"]);
             $_SESSION["partida"] = $data;
-            $_SESSION["page_loaded"] = false;
             $data["gameOver"] = false;
+
+            $_SESSION["verificationToken"] = $data["verificationToken"];
+
             $this->presenter->render("view/playView.mustache", $data);
         }
 
@@ -107,8 +111,8 @@
             }
 
             $data["gameOver"] = true;
-            $_SESSION["page_loaded"] = false;
             $_SESSION["startTime"] = null;
+            unset($_SESSION["partida"]);
             $this->presenter->render("view/playView.mustache", $data);
         }
 
@@ -123,9 +127,6 @@
 
         public function lostGame(){
             $this->verifyUserSession();
-            if ($_SESSION["partida"]["score"] > 0){
-                $_SESSION["partida"]["score"] = $_SESSION["partida"]["score"] - 1;
-            }
             $this->incorrectCase();
         }
 

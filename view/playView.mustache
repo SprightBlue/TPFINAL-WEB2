@@ -20,6 +20,7 @@
             <div class="my-4">
                 {{#answers}}
                     <form method="post" action="/play/verify">
+                        <input type="hidden" name="verificationToken" value="{{verificationToken}}">
                         <button name="isCorrect" id="isCorrect" value="{{correct}}" class="btn shadowE btn-light btn-block btn-lg mb-3 w-100">{{answer}}</button>
                     </form>
                 {{/answers}}
@@ -101,13 +102,6 @@
     </div>
 
 </main>
-
-
-<script>
-    if (performance.navigation.type === 1) {
-        window.location.href = "/play/lostGame";
-    }
-</script>
 
 <script>
     var timerId;
