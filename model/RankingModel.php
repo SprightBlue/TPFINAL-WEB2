@@ -37,7 +37,7 @@
             $oneMonthAgo = date('Y-m-d H:i:s', strtotime('-1 month'));
             $stmt = $this->database->query("SELECT u.id AS id, u.username AS username, MAX(p.score) AS maxScore 
                                                 FROM usuario u JOIN partida p ON u.id = p.idUser
-                                                WHERE u.idRole = 1
+                                                WHERE u.idRole = 1 AND p.score > 0
                                                 AND p.dateGame BETWEEN :oneMonthAgo AND :currentDate 
                                                 GROUP BY u.id, u.username
                                                 ORDER BY maxScore DESC
@@ -46,7 +46,7 @@
             return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_ASSOC) : false;   
         }   
 
-        /* 
+        
         public function getSessionThirdParties($idEnterprise, $idUser, $currentTime) {
             $stmt = $this->database->query("SELECT *
                                             FROM sesionTerceros
@@ -71,7 +71,7 @@
             $oneMonthAgo = date('Y-m-d H:i:s', strtotime('-1 month'));
             $stmt = $this->database->query("SELECT MAX(p.score) AS maxScore
                                             FROM partida p
-                                            WHERE p.idUser = :idUser AND p.idEnterprise = :idEnterprise
+                                            WHERE p.idUser = :idUser AND p.idThirdParties = :idEnterprise
                                             AND p.dateGame BETWEEN :oneMonthAgo AND :currentDate");
             $stmt->execute(array(":idUser"=>$idUser, ":idEnterprise"=>$idEnterprise, ":currentDate"=>$currentDate, "oneMonthAgo"=>$oneMonthAgo));
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
@@ -82,7 +82,7 @@
             $oneMonthAgo = date('Y-m-d H:i:s', strtotime('-1 month'));
             $stmt = $this->database->query("SELECT p.score AS score, p.dateGame AS dateGame
                                                 FROM partida p
-                                                WHERE p.idUser = :idUser AND p.idEnterprise = :idEnterprise
+                                                WHERE p.idUser = :idUser AND p.idThirdParties = :idEnterprise
                                                 AND p.dateGame BETWEEN :oneMonthAgo AND :currentDate
                                                 ORDER BY p.dateGame DESC
                                                 LIMIT 10");
@@ -94,8 +94,9 @@
             $currentDate = date('Y-m-d H:i:s');
             $oneMonthAgo = date('Y-m-d H:i:s', strtotime('-1 month'));
             $stmt = $this->database->query("SELECT u.id AS id, u.username AS username, MAX(p.score) AS maxScore 
-                                                FROM usuario u JOIN partida p ON u.id=p.idUser
-                                                WHERE p.idEnterprise = :idEnterprise AND u.idRole = 1
+                                                FROM usuario u JOIN partida p ON u.id = p.idUser
+                                                WHERE p.idThirdParties = :idEnterprise AND u.idRole = 1
+                                                AND p.score > 0
                                                 AND p.dateGame BETWEEN :oneMonthAgo AND :currentDate
                                                 GROUP BY u.id, u.username
                                                 ORDER BY maxScore DESC
@@ -103,6 +104,6 @@
             $stmt->execute(array(":idEnterprise"=>$idEnterprise ,":currentDate"=>$currentDate, ":oneMonthAgo"=>$oneMonthAgo));
             return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_ASSOC) : false;   
         }  
-        */            
+                   
 
     }

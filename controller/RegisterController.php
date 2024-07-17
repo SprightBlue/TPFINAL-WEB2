@@ -45,14 +45,14 @@
 
         public function update() {
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $data = $this->getData($_GET["id"]);
             $this->presenter->render("view/registerView.mustache", $data);
         }
 
         public function set() { 
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             if (isset($_POST["actualizar"])) {
                 if ($_POST["country"] != "" && $_POST["city"] != "") {
                     $errors = [];
@@ -92,7 +92,7 @@
             }  
         }
 
-        /*
+        
         private function verifySessionThirdParties() {
             if (isset($_SESSION["modoTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
@@ -102,6 +102,6 @@
                 }
             } 
         }
-        */
+        
 
     }

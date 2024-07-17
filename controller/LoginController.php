@@ -43,22 +43,21 @@
             }  
         }
 
-        /*
+        
         public function active() {
             $this->verifyUserSession();
-            if ($_GET["idThirdParties"]) {
+            if (isset($_GET["idThirdParties"]) && $this->model->getQuestionsCount($_GET["idThirdParties"]) >= 10 ) {
                 $startDate = date("Y-m-d H:i:s");
-                $endDate = date("Y-m-d H:i:s", strtotime("+1 hour"));    
+                $endDate = date("Y-m-d H:i:s", strtotime("+1 hour"));   
                 if ($this->model->sessionThirdPartiesExists($_GET["idThirdParties"], $_SESSION["usuario"]["id"])) {
                     $this->model->updateSessionThirdParties($_GET["idThirdParties"], $_SESSION["usuario"]["id"], $startDate, $endDate);
                 } else {
                     $this->model->createSessionThirdParties($_GET["idThirdParties"], $_SESSION["usuario"]["id"], $startDate, $endDate);
                 }
                 $_SESSION["modoTerceros"] = $this->model->getSessionThirdParties($_GET["idThirdParties"], $_SESSION["usuario"]["id"], $startDate);
-            } else {
-                Redirect::to("/lobby/read"); 
-            }
+            } 
+            Redirect::to("/lobby/read"); 
         }
-        */
+        
 
     }

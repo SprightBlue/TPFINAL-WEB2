@@ -35,4 +35,14 @@
             }
         }
 
+        public function getSessionThirdParties($idEnterprise, $idUser, $currentTime) {
+            $stmt = $this->database->query("SELECT *
+                                            FROM sesionTerceros
+                                            WHERE idEnterprise = :idEnterprise
+                                            AND idUser = :idUser
+                                            AND :currentTime BETWEEN startDate AND endDate");
+            $stmt->execute(array(":idEnterprise"=>$idEnterprise, ":idUser"=>$idUser, ":currentTime"=>$currentTime));
+            return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
+        }
+
     }

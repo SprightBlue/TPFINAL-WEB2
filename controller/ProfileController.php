@@ -12,14 +12,14 @@
 
         public function read() {
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $data = $this->getData($_SESSION["usuario"]["id"]);
             $this->presenter->render("view/profileView.mustache", $data);
         }
 
         public function get() {
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             if (isset($_GET["idUser"])) {
                 $data = $this->getData($_GET["idUser"]);
                 if ($data["user"]["idRole"] == 1) {
@@ -56,7 +56,7 @@
             }  
         }
 
-        /*
+        
         private function verifySessionThirdParties() {
             if (isset($_SESSION["modoTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
@@ -66,6 +66,6 @@
                 }
             } 
         }
-        */
+        
 
     }

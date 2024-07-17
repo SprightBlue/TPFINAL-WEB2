@@ -21,7 +21,16 @@
             return $user;
         }
         
-        /*
+
+        public function getQuestionsCount($id) {
+            $stmt = $this->database->query("SELECT COUNT(*) as questionsCount
+                                            FROM pregunta p
+                                            WHERE p.idCreator = :id");
+            $stmt->execute(array(":id"=>$id));
+            $preguntas = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $preguntas["questionsCount"];
+        }
+        
         public function createSessionThirdParties($idEnterprise, $idUser, $startDate, $endDate) {
             $stmt = $this->database->query("INSERT INTO sesionTerceros (idEnterprise, idUser, startDate, endDate)
                                             VALUES (:idEnterprise, :idUser, :startDate, :endDate)");
@@ -52,6 +61,6 @@
             $stmt->execute(array(":idEnterprise"=>$idEnterprise, ":idUser"=>$idUser, ":currentTime"=>$currentTime));
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
-        */
+        
 
     }

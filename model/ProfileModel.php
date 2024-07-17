@@ -16,7 +16,7 @@
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
 
-        /* 
+        
         public function getSessionThirdParties($idEnterprise, $idUser, $currentTime) {
             $stmt = $this->database->query("SELECT *
                                             FROM sesionTerceros
@@ -26,6 +26,6 @@
             $stmt->execute(array(":idEnterprise"=>$idEnterprise, ":idUser"=>$idUser, ":currentTime"=>$currentTime));
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
         }
-        */
+        
 
     }

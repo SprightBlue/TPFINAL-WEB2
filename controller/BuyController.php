@@ -12,13 +12,13 @@
 
         public function read() {
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             $this->presenter->render("view/buyView.mustache", ["user" => $_SESSION["usuario"]]);
         }
 
         public function update() {
             $this->verifyUserSession();
-            //$this->verifySessionThirdParties();
+            $this->verifySessionThirdParties();
             if (isset($_POST["comprar"])) {
                 $this->model->buyBonus($_POST["idUser"], $_POST["amount"], $_POST["totalPrice"]);
                 $this->model->updateUserBonus($_POST["idUser"], $_POST["amount"]);
@@ -33,7 +33,7 @@
             }  
         }
 
-        /*
+        
         private function verifySessionThirdParties() {
             if (isset($_SESSION["modoTerceros"])) {
                 $currentTime = date("Y-m-d H:i:s");
@@ -43,6 +43,6 @@
                 }
             } 
         }
-        */
+        
 
     }
