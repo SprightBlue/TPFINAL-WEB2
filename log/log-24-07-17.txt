@@ -264,3 +264,22 @@
 [24-07-17 10:59:22][INFO] Respuesta incorrecta
 [24-07-17 10:59:22][INFO] Fin de partida por desafío
 [24-07-17 10:59:22][INFO] Fin de partida normal
+[24-07-17 11:01:25][INFO] Iniciando nueva partida
+[24-07-17 11:01:25][INFO] PlayController: read
+[24-07-17 11:01:34][INFO] Iniciando nueva partida
+[24-07-17 11:01:34][INFO] PlayController: read
+[24-07-17 11:01:41][INFO] Iniciando nueva partida
+[24-07-17 11:01:41][INFO] PlayController: read
+[24-07-17 11:01:50][INFO] Iniciando nueva partida
+[24-07-17 11:01:50][INFO] PlayController: read
+[24-07-17 11:01:53][INFO] Validando pregunta
+[24-07-17 11:01:53][INFO] Actualizando estadísticas de respuesta
+[24-07-17 11:01:53][INFO] Respuesta correcta
+[24-07-17 11:01:56][INFO] Validando pregunta
+[24-07-17 11:01:56][INFO] Token incorrecto
+[24-07-17 11:01:56][INFO] Respuesta incorrecta
+[24-07-17 11:01:56][INFO] Fin de partida normal
+[24-07-17 11:02:11][INFO] Iniciando nueva partida
+[24-07-17 11:02:11][INFO] PlayController: read
+[24-07-17 11:02:15][INFO] Iniciando nueva partida
+[24-07-17 11:02:15][INFO] PlayController: read

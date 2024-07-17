@@ -1,16 +1,10 @@
 <main class="container my-5">
-    <!-- Música -->
-    <div class="d-flex flex-column justify-content-start align-items-start m-3">
-        <audio id="miMusica" src="/public/audio/Cycling.mp3" preload="auto" autoplay></audio>
-        <button class="btn btn-dark me-auto" id="playPauseBtn" value="Pause">Pause</button>
-        <input class="form-control-range w-auto" type="range" id="volumeSlider"  min="0" max="1" step="0.1" value="1">
-    </div>
 
-    <!-- Preguntas y respuestas -->
+    <!--Q&A-->
     <div class="container my-5 col-sm-6 card rounded bg-dark text-center">
         {{#nameThirdParties}}
-            <h2 class="fw-bold text-center my-3">Modo {{nameThirdParties}}</h2>
-        {{/nameThirdParties}}
+            <h2 class="fw-bold text-center text-white my-3">Modo {{nameThirdParties}}</h2>
+        {{/nameThirdParties}}        
         <div class="card-header my-4 p-3 rounded d-flex align-items-center bg-{{style}}">
             <h3 class="text-light mx-auto">{{#question}}{{category}}{{/question}}</h3>
         </div>
@@ -18,7 +12,7 @@
             <h2 class="border rounded p-5 bg-light animate">{{#question}}{{question}}{{/question}}</h2>
             <div class="my-4">
                 {{#answers}}
-                    <form id="verifyForm"  class="answer-form" method="post" action="/play/verify">
+                    <form method="post" action="/play/verify">
                         <input type="hidden" name="verificationToken" value="{{verificationToken}}">
                         <button name="isCorrect" id="isCorrect" value="{{correct}}" class="btn shadowE btn-light btn-block btn-lg mb-3 w-100">{{answer}}</button>
                     </form>
@@ -34,16 +28,17 @@
                         Reportar pregunta
                     </button>
                 </div>
-                {{#bonus}}
-                    <div class="col d-flex flex-column justify-content-center align-items-center">
-                        <a class="btn btn-success" href="/play/useBonus">Usar Trampitas</a>
-                    </div>
+                {{#bonus}}                    
+                    <form method="post" action="/play/useBonus" class="col d-flex flex-column justify-content-center align-items-center">
+                        <input type="hidden" name="verificationToken" value="{{verificationToken}}">
+                        <button name="bonus" id="bonus" value="bonus" class="btn btn-success">Usar Bonus</button>
+                    </form>
                 {{/bonus}}
-            </div>
+            </div>    
         </div>
     </div>
 
-    <!-- Modal de fin de partida -->
+    <!--modal-->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-bg-warning border border-3 border-dark rounded">
@@ -59,7 +54,7 @@
                     <form method="post" action="/lobby/read">
                         <button type="submit" class="btn btn-dark">Volver al inicio</button>
                     </form>
-                    <form method="post" action="/play/newGame">
+                    <form method="post" action="/play/read">
                         <button type="submit" class="btn btn-dark">Volver a jugar</button>
                     </form>
                 </div>
@@ -67,26 +62,19 @@
         </div>
     </div>
 
-    <!-- Modal de desafío -->
-    <div class="modal fade" id="challengeModal" tabindex="-1" aria-labelledby="challengeModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Fin del desafío</h4>
-                </div>
-                <div class="modal-body">
-                    Puntaje final alcanzado: <b>{{score}}</b>
-                </div>
-                <div class="modal-footer">
-                    <form method="post" action="/lobby/read">
-                        <button type="submit" class="btn btn-dark">Volver al inicio</button>
-                    </form>
+    {{#challenge}}
+        <!-- Modal para desafío -->
+        <div class="modal fade" id="challengeModal" tabindex="-1" aria-labelledby="challengeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {{/challenge}}
 
-    <!-- Modal para reportar pregunta -->
+    <!-- Modal para reportar -->
     <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -109,6 +97,7 @@
 
 </main>
 
+{{^gameOver}}
 <script>
     var timerId;
     var timeLeft = 20;
@@ -119,73 +108,46 @@
         timerId = setInterval(countdown, 1000);
     }
 
-    function stopTimer() {
-        clearInterval(timerId);
-    }
-
     function countdown() {
-        if (timeLeft === 0) {
-            stopTimer();
-
-            document.getElementById('verifyForm').submit();
-        } else {
+        if(timeLeft == 0) {
+            clearTimeout(timerId);
+            window.location.href = "/play/verify?timeOut=true";
+        }else {
             timeLeft--;
             document.getElementById('timer').textContent = timeLeft;
         }
     }
 
+    startTimer();
+</script>
+{{/gameOver}}
+
+{{#gameOver}}
+    <script>
+        clearTimeout(timerId);
+    </script>
+{{/gameOver}}
+
+<script>
     document.addEventListener("DOMContentLoaded", (event) => {
-        // Iniciar el timer al cargar la página
-        startTimer();
-
-        // Manejar formularios de respuesta
-        document.querySelectorAll('.answer-form').forEach(form => {
-            form.addEventListener('submit', function(event) {
-                stopTimer();
-                startTimer();
-            });
-        });
-
-        // Animación de elementos
         document.querySelectorAll(".animate").forEach(element => {
             element.classList.add("active");
         });
-
-        // Configuración de la música
-        var miMusica = document.getElementById("miMusica");
-        var playPauseBtn = document.getElementById("playPauseBtn");
-        var volumeSlider = document.getElementById("volumeSlider");
-
-        miMusica.volume = 0.5;
-        volumeSlider.value = 0.5;
-
-        playPauseBtn.addEventListener("click", (event) => {
-            if (miMusica.paused) {
-                miMusica.play();
-                playPauseBtn.textContent = "Pause";
-            } else {
-                miMusica.pause();
-                playPauseBtn.textContent = "Play";
-            }
-        });
-
-        volumeSlider.addEventListener("input", (event) => {
-            miMusica.volume = volumeSlider.value;
-        });
-
-        // Lógica para mostrar el modal correspondiente
-        {{#modal}}
-            document.getElementById('myModal').classList.add('show');
-            stopTimer();
-        {{/modal}}
-
-        {{#challenge}}
-            document.getElementById('challengeModal').classList.add('show');
-            stopTimer();
-        {{/challenge}}
-
-        {{#timer}}
-            stopTimer();
-        {{/timer}}
     });
 </script>
+
+{{#modal}}
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            document.querySelector("#myModal").classList.add("show");
+        });
+    </script>
+{{/modal}}
+
+{{#challenge}}
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            document.querySelector("#challengeModal").classList.add("show");
+        });
+    </script>
+{{/challenge}}

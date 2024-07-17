@@ -98,7 +98,7 @@
         }
 
         public static function getPlayController() {
-            return new PlayController(self::getPlayModel(), self::getChallengeModel(), self::getPresenter(),self::getLogger());
+            return new PlayController(self::getPlayModel(), self::getChallengeModel(), self::getPresenter());
         }
 
         private static function getPlayModel() {
