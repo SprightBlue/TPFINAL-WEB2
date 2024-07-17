@@ -59,7 +59,7 @@
                     <form method="post" action="/lobby/read">
                         <button type="submit" class="btn btn-dark">Volver al inicio</button>
                     </form>
-                    <form method="post" action="/play/read">
+                    <form method="post" action="/play/newGame">
                         <button type="submit" class="btn btn-dark">Volver a jugar</button>
                     </form>
                 </div>
@@ -111,7 +111,7 @@
 
 <script>
     var timerId;
-    var timeLeft = 7; // Cambiado a 20 segundos
+    var timeLeft = 7;
 
     function startTimer() {
         timeLeft = 7;
@@ -126,7 +126,7 @@
     function countdown() {
         if (timeLeft === 0) {
             stopTimer();
-            // Ejecutar lógica de verify automáticamente
+
             document.getElementById('verifyForm').submit();
         } else {
             timeLeft--;
@@ -183,5 +183,9 @@
             document.getElementById('challengeModal').classList.add('show');
             stopTimer();
         {{/challenge}}
+
+    {{#timer}}
+        stopTimer();
+    {{/timer}}
     });
 </script>
