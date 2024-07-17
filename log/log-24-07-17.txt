@@ -1,0 +1,171 @@
+[24-07-17 05:27:18][INFO] Iniciando el método read()
+[24-07-17 05:27:18][INFO] Verificando sesión del usuario
+[24-07-17 05:27:18][INFO] Ya existe una partida activa, se llama a incorrectCase()
+[24-07-17 05:27:18][INFO] Caso incorrecto, terminando la partida
+
+
+[24-07-17 05:27:21][INFO] Iniciando el método read()
+[24-07-17 05:27:21][INFO] Verificando sesión del usuario
+[24-07-17 05:27:21][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:27:32][INFO] Iniciando el método read()
+[24-07-17 05:27:32][INFO] Verificando sesión del usuario
+[24-07-17 05:27:32][INFO] Ya existe una partida activa, se llama a incorrectCase()
+[24-07-17 05:27:32][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:27:43][INFO] Iniciando el método verify()
+[24-07-17 05:27:43][INFO] Verificando sesión del usuario
+[24-07-17 05:27:43][WARN] El token de verificación no coincide o no está definido
+[24-07-17 05:27:43][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:27:49][INFO] Iniciando el método read()
+[24-07-17 05:27:49][INFO] Verificando sesión del usuario
+[24-07-17 05:27:49][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:27:50][INFO] Iniciando el método verify()
+[24-07-17 05:27:50][INFO] Verificando sesión del usuario
+[24-07-17 05:27:50][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:27:51][INFO] Respuesta correcta, tiempo transcurrido: 1 segundos
+[24-07-17 05:27:51][INFO] Caso correcto, actualizando la partida
+[24-07-17 05:27:53][INFO] Iniciando el método verify()
+[24-07-17 05:27:53][INFO] Verificando sesión del usuario
+[24-07-17 05:27:53][WARN] El token de verificación no coincide o no está definido
+[24-07-17 05:27:53][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:30:21][INFO] Iniciando el método read()
+[24-07-17 05:30:21][INFO] Verificando sesión del usuario
+[24-07-17 05:30:21][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:30:23][INFO] Iniciando el método read()
+[24-07-17 05:30:23][INFO] Verificando sesión del usuario
+[24-07-17 05:30:23][INFO] Ya existe una partida activa, se llama a incorrectCase()
+[24-07-17 05:30:23][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:31:54][INFO] Iniciando el método read()
+[24-07-17 05:31:54][INFO] Verificando sesión del usuario
+[24-07-17 05:31:54][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:31:59][INFO] Iniciando el método verify()
+[24-07-17 05:31:59][INFO] Verificando sesión del usuario
+[24-07-17 05:31:59][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:31:59][INFO] Respuesta correcta, tiempo transcurrido: 5 segundos
+[24-07-17 05:31:59][INFO] Caso correcto, actualizando la partida
+[24-07-17 05:32:02][INFO] Iniciando el método verify()
+[24-07-17 05:32:02][INFO] Verificando sesión del usuario
+[24-07-17 05:32:02][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:32:02][INFO] Respuesta incorrecta o tiempo transcurrido inválido
+[24-07-17 05:32:02][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:42:15][INFO] Iniciando el método read()
+[24-07-17 05:42:15][INFO] Verificando sesión del usuario
+[24-07-17 05:42:15][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:42:20][INFO] Iniciando el método verify()
+[24-07-17 05:42:20][INFO] Verificando sesión del usuario
+[24-07-17 05:42:20][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:42:20][INFO] Respuesta correcta, tiempo transcurrido: 5 segundos
+[24-07-17 05:42:20][INFO] Caso correcto, actualizando la partida
+[24-07-17 05:42:23][INFO] Iniciando el método verify()
+[24-07-17 05:42:23][INFO] Verificando sesión del usuario
+[24-07-17 05:42:23][WARN] El token de verificación no coincide o no está definido
+[24-07-17 05:42:23][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:42:29][INFO] Iniciando el método verify()
+[24-07-17 05:42:29][INFO] Verificando sesión del usuario
+[24-07-17 05:42:29][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:42:29][INFO] Respuesta incorrecta o tiempo transcurrido inválido
+[24-07-17 05:42:29][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:46:32][INFO] Iniciando el método read()
+[24-07-17 05:46:32][INFO] Verificando sesión del usuario
+[24-07-17 05:46:32][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:46:35][INFO] Iniciando el método read()
+[24-07-17 05:46:35][INFO] Verificando sesión del usuario
+[24-07-17 05:46:35][INFO] Ya existe una partida activa, se llama a incorrectCase()
+[24-07-17 05:46:35][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:51:18][INFO] Iniciando el método read()
+[24-07-17 05:51:18][INFO] Verificando sesión del usuario
+[24-07-17 05:51:18][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:51:20][INFO] Iniciando el método verify()
+[24-07-17 05:51:20][INFO] Verificando sesión del usuario
+[24-07-17 05:51:20][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:51:20][INFO] Respuesta correcta, tiempo transcurrido: 2 segundos
+[24-07-17 05:51:20][INFO] Caso correcto, actualizando la partida
+[24-07-17 05:51:24][INFO] Iniciando el método verify()
+[24-07-17 05:51:24][INFO] Verificando sesión del usuario
+[24-07-17 05:51:24][WARN] El token de verificación no coincide o no está definido
+[24-07-17 05:51:24][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:51:26][INFO] Iniciando el método read()
+[24-07-17 05:51:26][INFO] Verificando sesión del usuario
+[24-07-17 05:51:26][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:51:34][INFO] Iniciando el método verify()
+[24-07-17 05:51:34][INFO] Verificando sesión del usuario
+[24-07-17 05:51:34][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:51:34][INFO] Respuesta incorrecta o tiempo transcurrido inválido
+[24-07-17 05:51:34][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:51:37][INFO] Iniciando el método read()
+[24-07-17 05:51:37][INFO] Verificando sesión del usuario
+[24-07-17 05:51:37][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:51:39][INFO] Iniciando el método verify()
+[24-07-17 05:51:39][INFO] Verificando sesión del usuario
+[24-07-17 05:51:39][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:51:39][INFO] Respuesta correcta, tiempo transcurrido: 2 segundos
+[24-07-17 05:51:39][INFO] Caso correcto, actualizando la partida
+[24-07-17 05:52:38][INFO] Iniciando el método read()
+[24-07-17 05:52:38][INFO] Verificando sesión del usuario
+[24-07-17 05:52:38][INFO] Ya existe una partida activa, se llama a incorrectCase()
+[24-07-17 05:52:38][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:52:44][INFO] Iniciando el método read()
+[24-07-17 05:52:44][INFO] Verificando sesión del usuario
+[24-07-17 05:52:44][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:52:56][INFO] Iniciando el método read()
+[24-07-17 05:52:56][INFO] Verificando sesión del usuario
+[24-07-17 05:52:56][INFO] Ya existe una partida activa, se llama a incorrectCase()
+[24-07-17 05:52:56][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:54:10][INFO] Iniciando el método read()
+[24-07-17 05:54:10][INFO] Verificando sesión del usuario
+[24-07-17 05:54:10][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:54:31][INFO] Iniciando el método verify()
+[24-07-17 05:54:31][INFO] Verificando sesión del usuario
+[24-07-17 05:54:31][WARN] El token de verificación no coincide o no está definido
+[24-07-17 05:54:31][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:54:34][INFO] Iniciando el método read()
+[24-07-17 05:54:34][INFO] Verificando sesión del usuario
+[24-07-17 05:54:34][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:54:36][INFO] Iniciando el método verify()
+[24-07-17 05:54:36][INFO] Verificando sesión del usuario
+[24-07-17 05:54:36][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:54:36][INFO] Respuesta incorrecta o tiempo transcurrido inválido
+[24-07-17 05:54:36][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:54:37][INFO] Iniciando el método read()
+[24-07-17 05:54:37][INFO] Verificando sesión del usuario
+[24-07-17 05:54:37][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:54:39][INFO] Iniciando el método verify()
+[24-07-17 05:54:39][INFO] Verificando sesión del usuario
+[24-07-17 05:54:39][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:54:39][INFO] Respuesta correcta, tiempo transcurrido: 2 segundos
+[24-07-17 05:54:39][INFO] Caso correcto, actualizando la partida
+[24-07-17 05:54:40][INFO] Iniciando el método verify()
+[24-07-17 05:54:40][INFO] Verificando sesión del usuario
+[24-07-17 05:54:40][WARN] El token de verificación no coincide o no está definido
+[24-07-17 05:54:40][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:54:42][INFO] Iniciando el método read()
+[24-07-17 05:54:42][INFO] Verificando sesión del usuario
+[24-07-17 05:54:42][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:54:44][INFO] Iniciando el método verify()
+[24-07-17 05:54:44][INFO] Verificando sesión del usuario
+[24-07-17 05:54:44][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:54:45][INFO] Respuesta correcta, tiempo transcurrido: 1 segundos
+[24-07-17 05:54:45][INFO] Caso correcto, actualizando la partida
+[24-07-17 05:54:48][INFO] Iniciando el método verify()
+[24-07-17 05:54:48][INFO] Verificando sesión del usuario
+[24-07-17 05:54:48][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:54:49][INFO] Respuesta incorrecta o tiempo transcurrido inválido
+[24-07-17 05:54:49][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:55:09][INFO] Iniciando el método read()
+[24-07-17 05:55:09][INFO] Verificando sesión del usuario
+[24-07-17 05:55:09][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:55:13][INFO] Iniciando el método verify()
+[24-07-17 05:55:13][INFO] Verificando sesión del usuario
+[24-07-17 05:55:13][INFO] Actualizando estadísticas de la respuesta
+[24-07-17 05:55:13][INFO] Respuesta correcta, tiempo transcurrido: 4 segundos
+[24-07-17 05:55:13][INFO] Caso correcto, actualizando la partida
+[24-07-17 05:55:16][INFO] Iniciando el método verify()
+[24-07-17 05:55:16][INFO] Verificando sesión del usuario
+[24-07-17 05:55:16][WARN] El token de verificación no coincide o no está definido
+[24-07-17 05:55:16][INFO] Caso incorrecto, terminando la partida
+[24-07-17 05:56:17][INFO] Iniciando el método read()
+[24-07-17 05:56:17][INFO] Verificando sesión del usuario
+[24-07-17 05:56:17][INFO] No hay partida activa, obteniendo datos
+[24-07-17 05:56:19][INFO] Iniciando el método read()
+[24-07-17 05:56:19][INFO] Verificando sesión del usuario
+[24-07-17 05:56:19][INFO] Ya existe una partida activa, se llama a incorrectCase()
+[24-07-17 05:56:19][INFO] Caso incorrecto, terminando la partida

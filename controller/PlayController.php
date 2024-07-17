@@ -37,6 +37,7 @@
             $this->verifyUserSession();
 
             if (!isset($_POST["verificationToken"]) || $_POST["verificationToken"] !== $_SESSION["verificationToken"]) {
+
                 $this->incorrectCase();
                 return;
             }
@@ -84,7 +85,7 @@
 
         private function incorrectCase() {
             $data = $_SESSION["partida"];
-       
+
             if (isset($_SESSION['challenge_id'])) {
                 if ($this->challengeModel->isChallenger($_SESSION['challenge_id'], $_SESSION["usuario"]["id"])) {
                     $this->challengeModel->updateChallengerScore($_SESSION['challenge_id'], $data["score"]);
@@ -107,10 +108,11 @@
             }
 
             if (!$data["challenge"]) {
-                $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la próxima" : $data["score"];    
-            }
+                $data["modal"] = ($data["score"] === 0) ? "0 puntos mejor suerte la próxima" : $data["score"];
+            }else {
+             $data["gameOver"] = true;
+    }
 
-            $data["gameOver"] = true;
             $_SESSION["startTime"] = null;
             unset($_SESSION["partida"]);
             $this->presenter->render("view/playView.mustache", $data);
