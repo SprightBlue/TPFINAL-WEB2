@@ -121,7 +121,7 @@
             return $stmt->fetchColumn();
         }
 
-        
+
         public function getSessionThirdParties($idEnterprise, $idUser, $currentTime) {
             $stmt = $this->database->query("SELECT *
                                             FROM sesionTerceros

@@ -246,7 +246,6 @@
                 $stmt->execute(array_merge($answeredQuestions, [$difficulty, $idThirdParties]));
             }
             return ($stmt->rowCount() > 0) ? $stmt->fetch(PDO::FETCH_ASSOC) : false;
-        }        
-    
+        }
 
     }

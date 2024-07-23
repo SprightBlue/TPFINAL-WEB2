@@ -18,7 +18,9 @@
 
         public function read() {
             $this->logger->info("PlayController: read");
-            $this->verifyUserSession();
+            $this->verifyPlayerSession();
+
+
             if (isset($_SESSION["partida"]) && !empty($_SESSION["partida"])) {
                 $this->logger->info("Partida en curso");
                 $this->incorrectCase();
@@ -34,13 +36,17 @@
                 $_SESSION["partida"] = $data;
                 $_SESSION["startTime"] = time();
 
+                if (isset($_SESSION['challenge_id'])) {
+                    $data['challenge_id'] = $_SESSION['challenge_id'];
+                }
             }
             $this->presenter->render("view/playView.mustache", $data);
         }
 
 
         public function verify() {
-            $this->verifyUserSession();
+            $this->verifyPlayerSession();
+            $this->existingGameSession();
             $this->logger->info("Validando pregunta");
 
             if (!isset($_POST["verificationToken"]) || $_POST["verificationToken"] !== $_SESSION["verificationToken"]) {
@@ -63,7 +69,8 @@
 
         public function useBonus() {
             $this->logger->info("Usando bonificación");
-            $this->verifyUserSession();
+            $this->verifyPlayerSession();
+
 
             if (!isset($_POST["verificationToken"]) || $_POST["verificationToken"] !== $_SESSION["verificationToken"]) {
                 $this->incorrectCase();
@@ -155,9 +162,16 @@
             $this->playModel->insertReport($idUser, $idQuestion, $reason);
         }
 
-        private function verifyUserSession() {
-            if (!isset($_SESSION["usuario"])) {
+        private function verifyPlayerSession() {
+            if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"]["idRole"] != 1) {
                 Redirect::to("/login/read");
+            }
+        }
+
+        private function existingGameSession()
+        {
+            if (!isset($_SESSION["partida"])) {
+                Redirect::to("/lobby/read");
             }
         }
 
