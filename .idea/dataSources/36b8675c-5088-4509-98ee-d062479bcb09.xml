@@ -1064,7 +1064,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="311" parent="1" name="qampa">
-      <LastIntrospectionLocalTimestamp>2024-07-17.14:07:07</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-07-24.18:05:52</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="312" parent="1" name="mysql.infoschema">
@@ -1330,12 +1330,12 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </column>
     <column id="370" parent="319" name="correctAnswers">
       <DasType>int|0s</DasType>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>50</DefaultExpression>
       <Position>5</Position>
     </column>
     <column id="371" parent="319" name="totalAnswers">
       <DasType>int|0s</DasType>
-      <DefaultExpression>0</DefaultExpression>
+      <DefaultExpression>100</DefaultExpression>
       <Position>6</Position>
     </column>
     <column id="372" parent="319" name="difficulty">

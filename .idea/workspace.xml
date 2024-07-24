@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87edfaae-a29d-4a37-b5a3-1302ae29fa96" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/ChallengeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/ChallengeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36b8675c-5088-4509-98ee-d062479bcb09.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/PlayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/PlayController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/log-24-07-17.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/log-24-07-18.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/ChallengeModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/ChallengeModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/PlayModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/PlayModel.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +151,7 @@
       <workItem from="1720835168958" duration="44652000" />
       <workItem from="1721750843485" duration="4313000" />
       <workItem from="1721771657102" duration="6382000" />
+      <workItem from="1721845289964" duration="300000" />
     </task>
     <servers />
   </component>

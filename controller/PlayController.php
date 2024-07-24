@@ -154,7 +154,7 @@
 
         public function reportQuestion() {
             $this->logger->info("Reportando pregunta");
-            $this->verifyUserSession();
+            $this->existingGameSession();
             $this->incorrectCase();
             $idUser = $_SESSION["usuario"]["id"];
             $idQuestion = $_POST["idQuestion"];
